@@ -1,0 +1,35 @@
+{
+  "name": "tasker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node app.js",
+    "start:dev": "nodemon -w app.js -x node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinKenealy/Tasker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justinKenealy/Tasker/issues"
+  },
+  "homepage": "https://github.com/justinKenealy/Tasker#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "connect-pg-simple": "^8.0.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "pg": "^8.10.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "prettier": "2.8.7"
+  }
+}

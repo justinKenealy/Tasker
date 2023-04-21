@@ -22,7 +22,7 @@ CREATE TABLE projects (
   category TEXT, 
   name VARCHAR(255) NOT NULL,
   task_type TEXT
-  
+
 );
 
 CREATE TABLE tasks (
@@ -68,7 +68,3 @@ CREATE TABLE notes (
   description TEXT,
   creation_date DATE
 );
-
-
-
-

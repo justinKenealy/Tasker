@@ -1,3 +1,9 @@
+TRUNCATE TABLE users;
+TRUNCATE TABLE projects;
+TRUNCATE TABLE tasks;
+TRUNCATE TABLE comments;
+TRUNCATE TABLE notes;
+
 INSERT INTO users (name, email, password_hash)
 VALUES ('Bon', 'bonn@gmail.com', 'password1'),
        ('Justin', 'justin@gmail.com', 'password2'),
@@ -24,9 +30,9 @@ INSERT INTO comments (user_id, task_id, title, description, creation_date)
 VALUES (3, 1, 'Initial thoughts', 'This is a great start!', '2023-04-22'),
        (1, 1, 'Agree', 'I think so too!', '2023-04-23'),
        (2, 1, 'Feedback', 'I think we need to make some changes', '2023-04-25'),
-       (7, 1, 'Suggestions', 'What changes do you suggest?', '2023-04-26');
+       (4, 1, 'Suggestions', 'What changes do you suggest?', '2023-04-26');
 
 INSERT INTO notes (user_id, title, description, creation_date)
 VALUES (3, 'Meeting notes', 'Notes from our meeting on 4/25', '2023-04-25'),
-       (7, 'Ideas for app', 'Brainstorming ideas for new features', '2023-04-27'),
+       (4, 'Ideas for app', 'Brainstorming ideas for new features', '2023-04-27'),
        (2, 'Project review', 'Important topics to review for the project', '2023-04-30');

@@ -1,3 +1,9 @@
+TRUNCATE TABLE users;
+TRUNCATE TABLE projects;
+TRUNCATE TABLE tasks;
+TRUNCATE TABLE comments;
+TRUNCATE TABLE notes;
+
 INSERT INTO users (name, email, password_hash)
 VALUES ('Bon', 'bonn@gmail.com', 'password1'),
        ('Justin', 'justin@gmail.com', 'password2'),

@@ -4,9 +4,12 @@ const express = require('express')
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 
+
+const notesRouter = require("./controllers/notes");
 const projectsRouter = require("./controllers/projects");
 const usersRouter = require("./controllers/users");
 const sessionRouter = require("./controllers/sessions")
+
 
 // above two lines will be for the routers to each of our controllers .js files
 
@@ -34,7 +37,7 @@ app.use(
 )
 
 // code to app.use routers and any middleware
-app.use('/api', usersRouter, sessionRouter, projectsRouter)
+app.use('/api', usersRouter, sessionRouter, projectsRouter, notesRouter)
 app.use(errorHandlingMiddleware)
 
 

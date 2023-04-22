@@ -7,8 +7,9 @@ const pgSession = require('connect-pg-simple')(session)
 
 const notesRouter = require("./controllers/notes");
 const projectsRouter = require("./controllers/projects");
+const tasksRouter = require("./controllers/tasks");
 const usersRouter = require("./controllers/users");
-const sessionRouter = require("./controllers/sessions")
+const sessionRouter = require("./controllers/sessions");
 
 
 // above two lines will be for the routers to each of our controllers .js files
@@ -17,7 +18,6 @@ const sessionRouter = require("./controllers/sessions")
 const errorHandlingMiddleware = require("./middlewares/errorHandling");
 
 const db = require('./models')
-
 
 const app = express()
 const port = process.env.HTTP_PORT || 3000
@@ -37,9 +37,8 @@ app.use(
 )
 
 // code to app.use routers and any middleware
-app.use('/api', usersRouter, sessionRouter, projectsRouter, notesRouter)
+app.use('/api', usersRouter, sessionRouter, projectsRouter, notesRouter, tasksRouter)
 app.use(errorHandlingMiddleware)
-
 
 app.listen(port, () => {
     console.log('Server started on port: ' + port)

@@ -4,7 +4,9 @@ const express = require('express')
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 
-// const taskerRouter = require("./controllers/tasker");
+const notesRouter = require("./controllers/notes");
+
+// const taskerRouter = require("./controllers/tasks");
 // const usersRouter = require("./controllers/users");
 // above two lines will be for the routers to each of our controllers .js files
 
@@ -27,6 +29,7 @@ app.use(
     })
 )
 
+app.use('/api', notesRouter)
 // code to app.use routers and any middleware
 
 app.listen(port, () => {

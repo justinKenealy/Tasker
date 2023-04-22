@@ -18,7 +18,7 @@ CREATE TABLE projects (
         FOREIGN KEY(user_id)
         REFERENCES users(id)
         ON DELETE CASCADE,
-  collab TEXT ARRAY,
+  collab INT[],
   category TEXT, 
   name VARCHAR(255) NOT NULL,
   task_type TEXT

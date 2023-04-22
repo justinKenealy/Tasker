@@ -4,8 +4,7 @@ const express = require('express')
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 
-
-// const taskerRouter = require("./controllers/tasker");
+const projectsRouter = require("./controllers/projects");
 const usersRouter = require("./controllers/users");
 const sessionRouter = require("./controllers/sessions")
 
@@ -35,7 +34,7 @@ app.use(
 )
 
 // code to app.use routers and any middleware
-app.use('/api', usersRouter, sessionRouter)
+app.use('/api', usersRouter, sessionRouter, projectsRouter)
 app.use(errorHandlingMiddleware)
 
 

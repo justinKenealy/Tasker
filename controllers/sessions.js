@@ -43,12 +43,8 @@ router.post('/session', async (req,res,next) => {
 })
 
 router.get('/session',(req,res,next)=>{
+    
     const { user } = req.session
-    if(!user){
-       return res.status(401).json({
-        message: 'Not Logged in'
-       })
-    }
     return res.status(200).json({user})
 })
 

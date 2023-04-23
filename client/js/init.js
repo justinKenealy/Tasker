@@ -3,9 +3,8 @@ import renderLeftPane from "./components/renderLeftPane.js";
 
 axios.get('/api/session')
 .then(({data}) => {
-    console.log(data)
     if('user' in data){
-        renderHeader(data.user.name)
+        renderHeader(data.user)
         renderLeftPane(data.user.id)
     }else{
         window.location = '/entry.html'

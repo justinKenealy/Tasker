@@ -1,4 +1,4 @@
-const renderHeader = (userName) => {
+const renderHeader = (user) => {
     const header = document.getElementById('header-nav')
 
     header.innerHTML = `
@@ -23,10 +23,10 @@ const renderHeader = (userName) => {
             </div>
             <div class="nav-item dropdown px-5">
                 <a class="nav-link dropdown-toggle name-display" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ${userName}
+                    ${user.name}
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item userDetail" href="#">View Details</a></li>
+                    <li><a class="dropdown-item user-detail" href="#">View Details</a></li>
                     <li><a class="dropdown-item logout-btn" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -40,10 +40,46 @@ const renderHeader = (userName) => {
             .then((res) => (window.location = '/entry.html'))
     })
 
-    // const userDetail = document.querySelector('.change-pass')
-    // userDetail.addEventListener('click', () => {
+    const userDetail = document.querySelector('.user-detail')
+    userDetail.addEventListener('click', () => {
+        const display = document.createElement("div");
+        display.className = "display";
+        document.body.prepend(display);
+
+        const cancelIcon = document.createElement('i')
+        cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
+
+        const name = document.createElement("p");
+        name.className = 'display-text';
+        name.textContent = `${user.name}`;
+
+        const email = document.createElement("p");
+        email.textContent = user.email;
+        email.className = 'display-text';
         
-    // })
+        const btnHolder = document.createElement('div')
+        btnHolder.className = 'btn-holder'
+        const editButton = document.createElement('button')
+        editButton.className = 'btn-style'
+        editButton.textContent = 'Edit'
+        const deleteButton = document.createElement('button')
+        deleteButton.textContent = 'Delete'
+        deleteButton.className = 'btn-style'
+  
+  
+        btnHolder.appendChild(editButton)
+        btnHolder.appendChild(deleteButton)
+  
+        display.appendChild(cancelIcon)
+        display.appendChild(name);
+        display.appendChild(email)
+        display.appendChild(btnHolder)
+  
+        editButton.addEventListener('click', ()=>renderEditChallengeForm(challenge.name, challenge.description, challenge.address, challenge.id))
+        deleteButton.addEventListener('click', ()=> deleteChallenge(challenge.id))
+  
+        cancelIcon.addEventListener("click", () => display.remove())
+    })
 }
 
 export default renderHeader

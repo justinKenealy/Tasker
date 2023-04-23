@@ -11,6 +11,12 @@ const getTaskById = (id) => {
         .then(result => result.rows)
 }
 
+const getTaskByProjectId = (id) => {
+    return db.query(`select * from tasks where project_id = ${id}`)
+        // rows is an array of object with all tasks info
+        .then(result => result.rows)
+}
+
 const createTask = (project_id, description, creation_date, due_date, due_time, priority_level, status) => {
     const sql = `INSERT INTO tasks (project_id, description, creation_date, due_date, due_time, priority_level, status) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`
     const values = [project_id, description, creation_date, due_date, due_time, priority_level, status]
@@ -67,5 +73,6 @@ module.exports = {
     getTaskById,
     deleteTaskById,
     createTask,
-    editTaskById
+    editTaskById,
+    getTaskByProjectId
 }

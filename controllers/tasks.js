@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { getAllTasks, getTaskById, createTask, deleteTaskById, editTaskById } = require('../models/task')
+const { getAllTasks, getTaskById, createTask, deleteTaskById, editTaskById, getTaskByProjectId } = require('../models/task')
 
 const router = express.Router()
 
@@ -14,6 +14,18 @@ router.get('/tasks/:id', (req, res, next) => {
     const id = Number(req.params.id)
     return getTaskById(id)
         .then(task => res.json(task))
+        .catch((err) => {
+            res.status(500).json({ message: err.message })
+        })
+})
+
+router.get('/tasks/project/:id', (req, res, next) => {
+    const id = Number(req.params.id)
+    return getTaskByProjectId(id)
+        .then((data) => {
+            console.log(data)
+            res.json(data)
+        })
         .catch((err) => {
             res.status(500).json({ message: err.message })
         })

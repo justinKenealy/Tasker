@@ -12,4 +12,16 @@ const getUserByEmail = (email) => {
     .then(res => res.rows[0])
 }
 
-module.exports = {createUser, getUserByEmail}
+const getUserById = (id) => {
+    const sql = 'SELECT id,name,email, password_hash FROM users WHERE id=$1 LIMIT 1'
+    return db.query(sql,[id])
+    .then(res => res.rows[0])
+}
+
+const updateUserPassById = (id, password_hash)=>{
+    const sql = 'UPDATE users SET password_hash=$1 WHERE id=$2'
+    return db.query(sql,[password_hash, id])
+    .then(res => res.rowCount)
+}
+
+module.exports = {createUser, getUserByEmail, getUserById, updateUserPassById}

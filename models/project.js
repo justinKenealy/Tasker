@@ -2,7 +2,7 @@ const db = require("./index")
 
 const getProjectsByUser = (user_id) => {
     return db.query(`
-        SELECT id, user_id, category, name, task_type 
+        SELECT id, user_id, category, name, task_type, collab 
         FROM projects 
         WHERE user_id = ${user_id} OR ${user_id} = ANY(collab)
         `)

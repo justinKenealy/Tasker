@@ -10,16 +10,6 @@ body{
     width: 4rem;
 }
 
-
-#left-pane {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    background-color: #eb455f;
-    border-radius: 8px;
-    width: 20%;
-}
-
 .display{
     background-color: rgba(23, 35, 36, 0.783);
     position: fixed;
@@ -31,7 +21,6 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* text-align: center; */
     color: white;
     top: 50%;
     left: 50%;
@@ -45,9 +34,20 @@ body{
     text-align: center;
 }
 
+
 .cancel-icon{
     position: absolute;
     top: 2rem;
     right: 2rem;
     cursor: pointer;
+
+
+#left-pane {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    background-color: #eb455f;
+    border-radius: 8px;
+    width: 30%;
+
 }

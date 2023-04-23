@@ -12,6 +12,9 @@ const renderLeftPane = async (user_id) => {
         for (let project of data){
             const newLi = document.createElement('li')
             newLi.innerText = project.name
+            if (project.task_type === 'group'){
+                newLi.classList.add('groupProject')
+            }
             if (project.category === 'work'){
                 workProjectsListUl.appendChild(newLi)
             } else if (project.category === 'personal'){
@@ -19,9 +22,11 @@ const renderLeftPane = async (user_id) => {
             } else {
                 studyProjectsListUl.appendChild(newLi)
             }
+            newLi.addEventListener('click', async function() {
+                const tasks = await axios.get('/api/tasks/project/' + project.id) 
+                console.log(tasks.data)
+            })
         }
-        console.log(data)
-
         })
 
 

@@ -70,5 +70,19 @@ router.post("/users", async (req, res, next) => {
       next(err);
     }
   });
+
+
+  router.put("/users/:id", async (req, res, next) => {
+    const id = Number(req.params.id)
+    const { password1, password2 } = req.body;
+    //get password1 from db
+    //check pass 2 for conditions
+
+  
+    customError.status = 400;
+    return next(customError);
+  })
+
+
   module.exports = router;
   

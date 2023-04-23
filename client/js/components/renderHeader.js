@@ -51,34 +51,83 @@ const renderHeader = (user) => {
 
         const name = document.createElement("p");
         name.className = 'display-text';
-        name.textContent = `${user.name}`;
+        name.textContent = `NAME:  ${user.name}`;
 
         const email = document.createElement("p");
-        email.textContent = user.email;
+        email.textContent = `EMAIL:  ${user.email}`;
         email.className = 'display-text';
-        
-        const btnHolder = document.createElement('div')
-        btnHolder.className = 'btn-holder'
+
+        const changeBtn = document.createElement('button')
+        changeBtn.classList = 'btn btn-outline-light m-3'
+        changeBtn.textContent = 'Change Password?'
+
+
+        const form = document.createElement('form')
+        form.id = 'change-pass-form'
+        form.style.display="none"
+        const lineHolder1 = document.createElement('div')
+        lineHolder1.classList="mb-3"
+        const lineHolder2 = document.createElement('div')
+        lineHolder2.classList="mb-3"
+        const labelOld = document.createElement('label')
+        labelOld.textContent = 'Old Password: '
+        labelOld.classList = "form-label"
+        const inputOld = document.createElement('input')
+        inputOld.classList = "form-control"
+        inputOld.required = true
+        inputOld.type = 'password'
+        inputOld.name = 'password1'
+        const labelNew = document.createElement('label')
+        labelNew.textContent = 'New Password: '
+        labelNew.classList = "form-label"
+        const inputNew = document.createElement('input')
+        inputNew.classList = "form-control"
+        inputNew.required = true
+        inputNew.type = 'password'
+        inputNew.name = 'password2'
+   
         const editButton = document.createElement('button')
-        editButton.className = 'btn-style'
+        editButton.classList = 'btn btn-info m-3'
+        editButton.type='submit'
         editButton.textContent = 'Edit'
-        const deleteButton = document.createElement('button')
-        deleteButton.textContent = 'Delete'
-        deleteButton.className = 'btn-style'
+
+
+        lineHolder1.append(labelOld)
+        lineHolder1.append(inputOld)
+        lineHolder2.append(labelNew)
+        lineHolder2.append(inputNew)
+        form.append(lineHolder1)
+        form.append(lineHolder2)
+        form.append(editButton)
+
   
-  
-        btnHolder.appendChild(editButton)
-        btnHolder.appendChild(deleteButton)
+
   
         display.appendChild(cancelIcon)
         display.appendChild(name);
         display.appendChild(email)
-        display.appendChild(btnHolder)
+        display.appendChild(changeBtn)
+        display.appendChild(form)
+        
   
-        editButton.addEventListener('click', ()=>renderEditChallengeForm(challenge.name, challenge.description, challenge.address, challenge.id))
-        deleteButton.addEventListener('click', ()=> deleteChallenge(challenge.id))
+        // editButton.addEventListener('click', ()=>renderEditUser(challenge.name, challenge.description, challenge.address, challenge.id))
+        // deleteButton.addEventListener('click', ()=> deleteChallenge(challenge.id))
   
         cancelIcon.addEventListener("click", () => display.remove())
+        changeBtn.addEventListener('click', ()=>{
+            if(form.style.display==="none"){
+                form.style.display="block"
+            }else{
+                form.style.display="none"
+            }
+        })
+
+        form.addEventListener('submit', (event)=>{
+            event.preventDefault()
+
+            const data = Object.fromEntries(new FormData(event.target))
+            
+        })
     })
 }
 

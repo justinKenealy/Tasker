@@ -26,21 +26,18 @@ body{
     left: 50%;
     border-radius: 20px;
     transform: translate(-50%, -50%);
-    font-size: 1.2rem;
-
 }
-
-.display-text{
-    text-align: center;
-}
-
 
 .cancel-icon{
     position: absolute;
     top: 2rem;
     right: 2rem;
     cursor: pointer;
+}
 
+#change-pass-form{
+    transition: all 300ms ease-in-out;
+}
 
 #left-pane {
     display: grid;
@@ -51,3 +48,4 @@ body{
     width: 30%;
 
 }
+

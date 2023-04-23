@@ -7,16 +7,18 @@ body{
 }
 
 #logo-img{
-    width: 100px;
+    width: 4rem;
 }
 
 #header-nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background-color: #bad7e9;
-    border-radius: 8px;
+    /* background-color: #bad7e9; */
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+    /* border-radius: 8px; */
 }
 
+
+/* 
 #header-nav ul{
     text-align: center;
     padding-left: 0;
@@ -26,9 +28,9 @@ body{
     justify-content: space-around;
     align-items: center;
     grid-column: 1 span 2;
-}
+} */
 
-#header-nav li{
+/* #header-nav li{
     border-radius: 3px;
     padding: 3px;
 }
@@ -37,7 +39,7 @@ body{
     color:rgb(255, 255, 255);
     background-color: #4655aa;
     cursor: pointer;
-}
+} */
 
 #left-pane {
     display: grid;

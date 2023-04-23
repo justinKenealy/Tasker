@@ -7,13 +7,34 @@
         <title>Tasker</title>
         <link rel="stylesheet" href="css/styles.css">
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+        <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script type="module" defer src="/js/init.js"></script>
     </head>
     <body>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script type="module" defer src="/js/init.js"></script>
         <div id="body-content">
             <header id="header-nav"></header>
-            <div id="left-pane"></div>
+            <div id="left-pane">
+                <div id='personalProjectsList'>
+                    <p class="categoryHeading">Personal</p>
+                    <ul id="personalProjectsListUl">
+                        
+                    </ul>
+                </div>  
+            
+                <div id='workProjectsList'>
+                    <p class="categoryHeading">Work</p>
+                    <ul id="workProjectsListUl">
+                      
+                    </ul>
+                </div>  
+            
+                <div id='studyProjectsList'>
+                    <p class="categoryHeading">Study</p>
+                    <ul id="studyProjectsListUl">
+                       
+                    </ul>
+                </div>  
+            </div>
             <div id="main-content"></div>
         </div>
     </body>

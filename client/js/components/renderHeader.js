@@ -1,3 +1,5 @@
+import renderUserProfile from "./renderUserProfile.js"
+
 const renderHeader = (user) => {
     const header = document.getElementById('header-nav')
     const display = document.querySelector('.display')
@@ -44,108 +46,7 @@ const renderHeader = (user) => {
     })
 
     const userDetail = document.querySelector('.user-detail')
-    userDetail.addEventListener('click', () => {
-        const oldDisplay = document.querySelector('.display')
-        if (oldDisplay) {
-            oldDisplay.remove()
-        }
-        const display = document.createElement('div')
-        display.className = 'display'
-        document.body.prepend(display)
-
-        const error = document.createElement('section')
-        error.id = 'errors'
-
-        const cancelIcon = document.createElement('i')
-        cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
-
-        const name = document.createElement('p')
-        name.className = 'display-text'
-        name.textContent = `NAME:  ${user.name}`
-
-        const email = document.createElement('p')
-        email.textContent = `EMAIL:  ${user.email}`
-        email.className = 'display-text'
-
-        const changeBtn = document.createElement('button')
-        changeBtn.classList = 'btn btn-outline-light m-3'
-        changeBtn.textContent = 'Change Password?'
-
-        const form = document.createElement('form')
-        form.id = 'change-pass-form'
-        form.style.display = 'none'
-        const lineHolder1 = document.createElement('div')
-        lineHolder1.classList = 'mb-3'
-        const lineHolder2 = document.createElement('div')
-        lineHolder2.classList = 'mb-3'
-        const labelOld = document.createElement('label')
-        labelOld.textContent = 'Old Password: '
-        labelOld.classList = 'form-label'
-        const inputOld = document.createElement('input')
-        inputOld.classList = 'form-control'
-        inputOld.required = true
-        inputOld.type = 'password'
-        inputOld.name = 'passwordOld'
-        const labelNew = document.createElement('label')
-        labelNew.textContent = 'New Password: '
-        labelNew.classList = 'form-label'
-        const inputNew = document.createElement('input')
-        inputNew.classList = 'form-control'
-        inputNew.required = true
-        inputNew.type = 'password'
-        inputNew.name = 'passwordNew'
-
-        const editButton = document.createElement('button')
-        editButton.classList = 'btn btn-info m-3'
-        editButton.type = 'submit'
-        editButton.textContent = 'Edit'
-
-        lineHolder1.append(labelOld)
-        lineHolder1.append(inputOld)
-        lineHolder2.append(labelNew)
-        lineHolder2.append(inputNew)
-        form.append(lineHolder1)
-        form.append(lineHolder2)
-        form.append(editButton)
-
-        display.append(error)
-        display.appendChild(cancelIcon)
-        display.appendChild(name)
-        display.appendChild(email)
-        display.appendChild(changeBtn)
-        display.appendChild(form)
-
-        // editButton.addEventListener('click', ()=>renderEditUser(challenge.name, challenge.description, challenge.address, challenge.id))
-        // deleteButton.addEventListener('click', ()=> deleteChallenge(challenge.id))
-
-        cancelIcon.addEventListener('click', () => display.remove())
-        changeBtn.addEventListener('click', () => {
-            if (form.style.display === 'none') {
-                form.style.display = 'block'
-            } else {
-                form.style.display = 'none'
-            }
-        })
-
-        form.addEventListener('submit', (event) => {
-            event.preventDefault()
-            const data = Object.fromEntries(new FormData(event.target))
-            return axios
-                .put(`/api/users/${user.id}`, data)
-                .then((res) => (window.location = '/'))
-                .catch((err) => {
-                    error.innerHTML = err.response.data.message
-                    console.error(err)
-                })
-        })
-    })
+    userDetail.addEventListener('click', () => renderUserProfile)
 }
 
 export default renderHeader
-
-/* <p class="name-display"><button class="logout-btn">Logout</button></p>
-<ul>
-    <li role="button" class="nav-item" id="sortListByToday">Today</li>
-    <li role="button" class="nav-item" id="sortListByUpcoming">Upcoming</li>
-    <li role="button" class="nav-item" id="renderNotesPage">Notes</li>
-</ul> */

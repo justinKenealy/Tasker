@@ -4,11 +4,11 @@ TRUNCATE TABLE tasks;
 TRUNCATE TABLE comments;
 TRUNCATE TABLE notes;
 
-INSERT INTO users (name, email, password_hash)
-VALUES ('Bon', 'bonn@gmail.com', 'password1'),
-       ('Justin', 'justin@gmail.com', 'password2'),
-       ('Munsat', 'munsat@gmail.com', 'password3'),
-       ('Tania', 'tania@gmail.com', 'password4');
+INSERT INTO users (user_name, full_name, email, password_hash)
+VALUES ('Bon','Porada Thonglong', 'bonn@gmail.com', 'password1'),
+       ('Justin', 'Justin Kenealy', 'justin@gmail.com', 'password2'),
+       ('Munsat', 'Munsat Rukaya', 'munsat@gmail.com', 'password3'),
+       ('Tania', 'Tania Hosseini', 'tania@gmail.com', 'password4');
 
 INSERT INTO projects (user_id, collab, category, name, task_type)
 VALUES (1, ARRAY[1, 2, 3, 4], 'work', 'Build SPA App', 'group'),

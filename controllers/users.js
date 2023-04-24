@@ -144,7 +144,7 @@ router.put('/users/:id', async (req, res, next) => {
             const { friends_email } = req.body
             const userRow = await updateFriendsListById(id, friends_email)
             if (userRow === 0) {
-              console.log('sorry')
+                console.log('sorry')
                 return res.status(404).json({
                     message: 'Sorry, This friend already exists.',
                 })
@@ -171,18 +171,24 @@ router.get('/users/:email', async (req, res, next) => {
     }
 })
 
-
-router.put('/users/:user_name/:id', async(req,res,next)=>{
-  try {
-    const user_name = req.params.user_name
-    const id = Number(req.params.id)
-    await deleteFriendByUsernameFromUser(id, user_name)
-    return res.status(200).json({ 
-      message:'Deleted successfully.'
-     })
-} catch (err) {
-    next(err)
-}
+router.put('/users/:id/:friend_email', async (req, res, next) => {
+    try {
+        const friendsEmail = req.params.friend_email
+        const id = Number(req.params.id)
+        console.log(friendsEmail)
+        const userRow = await deleteFriendByUsernameFromUser(id, friendsEmail)
+        if (userRow === 0) {
+            return res.sendStatus(404)
+        }
+        const user = await getUserById(id)
+        delete user.password_hash
+        req.session.user = user
+        return res.status(200).json({
+            message: 'Deleted successfully.',
+        })
+    } catch (err) {
+        next(err)
+    }
 })
 
 module.exports = router

@@ -30,9 +30,10 @@ const updateFriendsListById = (id, friends_email)=>{
     .then(res => res.rowCount)
 }
 
-const deleteFriendByUsernameFromUser = (id, user_name) =>{
-    const sql = 'UPDATE users SET friends_array = ARRAY_REMOVE(friends_array, $2) WHERE id=$1'
-    return db.query(sql,[id, user_name])
+const deleteFriendByUsernameFromUser = (id, friends_email) =>{
+    const sql = 'UPDATE users SET friends_array = ARRAY_REMOVE(friends_array, $1) WHERE id=$2'
+    // const sql = 'SELECT ARRAY_REMOVE((SELECT friends_array FROM users WHERE id=$1), $2)'
+    return db.query(sql,[friends_email, id])
     .then(res => res.rowCount)
 }
 

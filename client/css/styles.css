@@ -98,6 +98,11 @@ body{
     margin: auto;
 }
 
+.tasks {
+    border: 1px solid black;
+    
+}
+
 
 .task-details p {
     font-size: 1.2rem;

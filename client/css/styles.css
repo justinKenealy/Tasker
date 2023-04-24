@@ -126,3 +126,49 @@ body{
     background-color: white;
     cursor: pointer;
 }
+
+/* Notes render */
+.note {
+    position: relative;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.add-button {
+    position: absolute;
+    margin: 10px;
+    bottom: -50px;
+    left: -10px;
+    border: gray;
+    border-radius: 5px;
+}
+
+.delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    margin: 5px;
+    font-size: 1rem;
+    line-height: 1;
+    color: #333;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+
+.edit {
+    position: absolute;
+    top: 0;
+    right: 70px;
+    padding: 5px;
+    margin: 5px;
+    font-size: 1rem;
+    line-height: 1;
+    color: #333;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }

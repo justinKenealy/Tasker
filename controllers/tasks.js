@@ -32,9 +32,9 @@ router.get('/tasks/project/:id', (req, res, next) => {
 })
 
 router.post('/tasks', (req, res, next) => {
-    const { project_id, description, creation_date, due_date, due_time, priority_level, status } = req.body
+    const { project_id, name, description, creation_date, due_date, due_time, priority_level, status } = req.body
 
-    return createTask(project_id, description, creation_date, due_date, due_time, priority_level, status)
+    return createTask(project_id, name, description, creation_date, due_date, due_time, priority_level, status)
         .then((task) => {
             res.status(201).json({
                 id: task.id,
@@ -67,14 +67,14 @@ router.delete('/tasks/:id', (req, res, next) => {
 
 router.put('/tasks/:id', (req, res, next) => {
     const id = Number(req.params.id)
-    const {description, due_date, due_time, priority_level, status} = req.body
+    const {name, description, due_date, due_time, priority_level, status} = req.body
 
-    if (!description && !due_date && !due_time && !priority_level && !status) {
+    if (!name && !description && !due_date && !due_time && !priority_level && !status) {
         const error = new Error('No value updated for task details.')
         error.status = 400
         throw error
     }
-    return editTaskById(description, due_date, due_time, priority_level, status, id)
+    return editTaskById(name, description, due_date, due_time, priority_level, status, id)
         .then((taskDetails) => {
             res.sendStatus(taskDetails.rowCount === 0 ? 404 : 200)
         })

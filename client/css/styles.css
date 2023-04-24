@@ -10,8 +10,9 @@ body{
     width: 4rem;
 }
 
+/*pop up display for userdetails*/
 .display{
-    background-color: rgba(23, 35, 36, 0.783);
+    background-color: rgba(55, 100, 130, 0.783);
     position: fixed;
     padding:1rem;
     width: 25rem;
@@ -26,14 +27,7 @@ body{
     left: 50%;
     border-radius: 20px;
     transform: translate(-50%, -50%);
-    font-size: 1.2rem;
-
 }
-
-.display-text{
-    text-align: center;
-}
-
 
 .cancel-icon{
     position: absolute;
@@ -41,6 +35,7 @@ body{
     right: 2rem;
     cursor: pointer;
 }
+
 
 #left-pane {
     display: grid;
@@ -78,6 +73,31 @@ body{
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
+
+
+/*error message*/
+#errors{
+   color:#ffffff;
+   text-align: center;
+   background-color: #eb455f;
+   margin-bottom: 1rem;
+}
+
+
+/*authentication render*/
+#login, #signup{
+    max-width: 40%;
+    margin: auto;
+}
+
+#signup{
+    display: none;
+}
+
+.btn-group{
+    margin: auto;
+
+
 
 .task-details p {
     font-size: 1.2rem;

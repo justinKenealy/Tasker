@@ -50,6 +50,7 @@ router.get('/session',(req,res,next)=>{
 
 
 router.delete('/session', async (req,res,next) => {
+    
     req.session.destroy(()=>{
         return res.status(200).json({
             message:'Logged out'

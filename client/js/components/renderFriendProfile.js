@@ -13,7 +13,7 @@ const renderFriendProfile = (user) => {
                 ul.classList = 'list-group '
                 const crossBox = document.createElement('i')
                 crossBox.classList = `crossbox fa-solid fa-xmark`
-                crossBox.dataset.email = userEmail
+                crossBox.dataset.name = userName
                 crossBox.style.display = 'none'
                 const li = document.createElement('li')
                 li.classList = 'friend-list'
@@ -36,7 +36,6 @@ const renderFriendProfile = (user) => {
     cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
 
     const buttonHolder = document.createElement('div')
-    buttonHolder.classList = 'mt-3'
 
     const addBtn = document.createElement('button')
     addBtn.classList = 'btn btn-outline-light m-2'
@@ -98,11 +97,6 @@ const renderFriendProfile = (user) => {
         } else {
             form.style.display = 'none'
         }
-
-        const allCrossboxes = document.querySelectorAll('.crossbox')
-        allCrossboxes.forEach((each) => {
-                each.style.display = 'none'
-            })
     })
 
     form.addEventListener('submit', (event) => {
@@ -135,9 +129,8 @@ const renderFriendProfile = (user) => {
             }
 
             each.addEventListener('click', () => {
-                console.log()
                 return axios
-                    .put(`/api/users/${user.id}/${each.dataset.email}`)
+                    .put(`/api/users/${user.id}/${each.dataset.name}`)
                     .then((res) => {
                         axios
                             .get('/api/session')

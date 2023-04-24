@@ -4,12 +4,20 @@ TRUNCATE TABLE tasks;
 TRUNCATE TABLE comments;
 TRUNCATE TABLE notes;
 
-INSERT INTO users (user_name, first_name, last_name, email, password_hash)
-VALUES ('cookie_mons', 'Cookie', 'Monster', 'cookie@gmail.com', '$2b$10$Dv8wFSRH1hp5TNtE2smZGeLtDH8E32qgbHC75Rz8jbUP/RN0uuF3m'),
-       ('Bon','Porada', 'Thonglong', 'bonn@gmail.com', 'password1'),
-       ('Justin', 'Justin', 'Kenealy', 'justin@gmail.com', 'password2'),
-       ('Munsat', 'Munsat', 'Rukaya', 'munsat@gmail.com', 'password3'),
-       ('Tania', 'Tania', 'Hosseini', 'tania@gmail.com', 'password4');
+
+ALTER SEQUENCE users_id_seq RESTART WITH 1;
+ALTER SEQUENCE projects_id_seq RESTART WITH 1;
+ALTER SEQUENCE tasks_id_seq RESTART WITH 1;
+ALTER SEQUENCE comments_id_seq RESTART WITH 1;
+ALTER SEQUENCE notes_id_seq RESTART WITH 1;
+
+
+INSERT INTO users (user_name, first_name, last_name, email, password_hash, friends_array)
+VALUES ('cookie_mons', 'Cookie', 'Monster', 'cookie@gmail.com', '$2b$10$Dv8wFSRH1hp5TNtE2smZGeLtDH8E32qgbHC75Rz8jbUP/RN0uuF3m', ARRAY['abc@gmail.com', 'bonn@gmail.com']),
+       ('Bon','Porada', 'Thonglong', 'bonn@gmail.com', 'password1', NULL),
+       ('Justin', 'Justin', 'Kenealy', 'justin@gmail.com', 'password2', NULL),
+       ('Munsat', 'Munsat', 'Rukaya', 'munsat@gmail.com', 'password3', NULL),
+       ('Tania', 'Tania', 'Hosseini', 'tania@gmail.com', 'password4', NULL);
 
 INSERT INTO projects (user_id, collab, category, name, task_type)
 VALUES (1, ARRAY[1, 2, 3, 4], 'work', 'Build SPA App', 'group'),

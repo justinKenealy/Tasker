@@ -7,13 +7,13 @@ const createUser = (user_name, first_name, last_name, email, password_hash) =>{
 }
 
 const getUserByEmail = (email) => {
-    const sql = 'SELECT id, user_name, first_name, last_name, email, password_hash FROM users WHERE email=$1 LIMIT 1'
+    const sql = 'SELECT * FROM users WHERE email=$1 LIMIT 1'
     return db.query(sql,[email])
     .then(res => res.rows[0])
 }
 
 const getUserById = (id) => {
-    const sql = 'SELECT id, user_name, first_name, last_name, email, password_hash FROM users WHERE id=$1 LIMIT 1'
+    const sql = 'SELECT * FROM users WHERE id=$1 LIMIT 1'
     return db.query(sql,[id])
     .then(res => res.rows[0])
 }
@@ -24,4 +24,16 @@ const updateUserPassById = (id, password_hash)=>{
     .then(res => res.rowCount)
 }
 
-module.exports = {createUser, getUserByEmail, getUserById, updateUserPassById}
+const updateFriendsListById = (id, friends_email)=>{
+    const sql = 'UPDATE users SET friends_array = ARRAY_APPEND(friends_array, $1) WHERE (id=$2) AND NOT ($3 = ANY(friends_array))'
+    return db.query(sql,[friends_email, id, friends_email])
+    .then(res => res.rowCount)
+}
+
+const deleteFriendByUsernameFromUser = (id, user_name) =>{
+    const sql = 'UPDATE users SET friends_array = ARRAY_REMOVE(friends_array, $2) WHERE id=$1'
+    return db.query(sql,[id, user_name])
+    .then(res => res.rowCount)
+}
+
+module.exports = {createUser, getUserByEmail, getUserById, updateUserPassById, updateFriendsListById, deleteFriendByUsernameFromUser}

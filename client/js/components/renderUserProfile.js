@@ -14,16 +14,13 @@ const renderUserProfile = (user)=>{
     cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
 
     const username = document.createElement('p')
-    username.className = 'display-text'
     username.textContent = `USER NAME:  ${user.user_name}`
 
     const fullname = document.createElement('p')
-    fullname.className = 'display-text'
     fullname.textContent = `FULL NAME:  ${user.first_name} ${user.last_name}`
 
     const email = document.createElement('p')
     email.textContent = `EMAIL:  ${user.email}`
-    email.className = 'display-text'
 
     const changeBtn = document.createElement('button')
     changeBtn.classList = 'btn btn-outline-light mt-3 mb-3'

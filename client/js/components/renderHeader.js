@@ -1,3 +1,4 @@
+import renderFriendProfile from "./renderFriendProfile.js"
 import renderUserProfile from "./renderUserProfile.js"
 
 const renderHeader = (user) => {
@@ -32,6 +33,7 @@ const renderHeader = (user) => {
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item user-detail" href="#">View Details</a></li>
+                    <li><a class="dropdown-item friend" href="#">Friends</a></li>
                     <li><a class="dropdown-item logout-btn" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -48,6 +50,11 @@ const renderHeader = (user) => {
     const userDetail = document.querySelector('.user-detail')
     userDetail.addEventListener('click', ()=>{
         renderUserProfile(user)
+    })
+
+    const friendDetail = document.querySelector('.friend')
+    friendDetail.addEventListener('click', ()=>{
+        renderFriendProfile(user)
     })
 }
 

@@ -5,7 +5,8 @@ TRUNCATE TABLE comments;
 TRUNCATE TABLE notes;
 
 INSERT INTO users (user_name, first_name, last_name, email, password_hash)
-VALUES ('Bon','Porada', 'Thonglong', 'bonn@gmail.com', 'password1'),
+VALUES ('cookie_mons', 'Cookie', 'Monster', 'cookie@gmail.com', '$2b$10$Dv8wFSRH1hp5TNtE2smZGeLtDH8E32qgbHC75Rz8jbUP/RN0uuF3m'),
+       ('Bon','Porada', 'Thonglong', 'bonn@gmail.com', 'password1'),
        ('Justin', 'Justin', 'Kenealy', 'justin@gmail.com', 'password2'),
        ('Munsat', 'Munsat', 'Rukaya', 'munsat@gmail.com', 'password3'),
        ('Tania', 'Tania', 'Hosseini', 'tania@gmail.com', 'password4');

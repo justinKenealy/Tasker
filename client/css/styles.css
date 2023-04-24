@@ -50,7 +50,21 @@ body{
 }
 
 #errors{
-   color:#eb455f;
+   color:#ffffff;
    text-align: center;
+   background-color: #eb455f;
+   margin-bottom: 1rem;
 }
 
+#login, #signup{
+    max-width: 50%;
+    margin: auto;
+}
+
+#signup{
+    display: none;
+}
+
+.btn-group{
+    margin: auto;
+}

@@ -9,7 +9,7 @@ const renderHeader = (user) => {
     header.innerHTML = `
     <nav class="navbar navbar-expand-lg" style="background-color: #bad7e9">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img id="logo-img" src="./images/tskr-high-resolution-logo-color-on-transparent-background.png" alt="logo"></a>
+            <a class="navbar-brand" href="#"><img id="logo-img" src="./images/tskr-high-resolution-logo-black-on-transparent-background.png" alt="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,7 +28,7 @@ const renderHeader = (user) => {
             </div>
             <div class="nav-item dropdown px-5">
                 <a class="nav-link dropdown-toggle name-display" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ${user.name}
+                    ${user.user_name}
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item user-detail" href="#">View Details</a></li>
@@ -46,7 +46,9 @@ const renderHeader = (user) => {
     })
 
     const userDetail = document.querySelector('.user-detail')
-    userDetail.addEventListener('click', () => renderUserProfile)
+    userDetail.addEventListener('click', ()=>{
+        renderUserProfile(user)
+    })
 }
 
 export default renderHeader

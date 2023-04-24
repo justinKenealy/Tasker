@@ -13,9 +13,13 @@ const renderUserProfile = (user)=>{
     const cancelIcon = document.createElement('i')
     cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
 
-    const name = document.createElement('p')
-    name.className = 'display-text'
-    name.textContent = `NAME:  ${user.name}`
+    const username = document.createElement('p')
+    username.className = 'display-text'
+    username.textContent = `USER NAME:  ${user.user_name}`
+
+    const fullname = document.createElement('p')
+    fullname.className = 'display-text'
+    fullname.textContent = `FULL NAME:  ${user.full_name}`
 
     const email = document.createElement('p')
     email.textContent = `EMAIL:  ${user.email}`
@@ -67,7 +71,8 @@ const renderUserProfile = (user)=>{
 
     display.append(error)
     display.appendChild(cancelIcon)
-    display.appendChild(name)
+    display.appendChild(username)
+    display.appendChild(fullname)
     display.appendChild(email)
     display.appendChild(changeBtn)
     display.appendChild(form)

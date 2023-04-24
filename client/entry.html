@@ -14,58 +14,74 @@
     <title>Tasker</title>
 </head>
 <body>
-    <section class="form">
-        <ul class="tab-group">
-            <li>
-                <a class="login-btn active" href="#">Login </a>
-            </li>
-            <li>
-                <a class="signup-btn" href="#">Sign up </a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg" style="background-color: #bad7e9">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img id="logo-img" src="./images/tskr-high-resolution-logo-black-on-transparent-background.png" alt="logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>        
+    <section class="form-section">
+        <div class="position-relative p-5 mt-5">
+            <div class="btn-group btn-group-lg position-absolute top-0 start-50 translate-middle-x" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-danger login-btn" for="btnradio1">Login</label>
+              
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-danger signup-btn" for="btnradio2">Signup</label>
+              </div>
+    
+        </div>
+        
 
     <section id="errors"></section>
 
     <div class="tab-content">
         <div id="signup">
-            <form id='create-user-form' data-action="signup" tabindex="-1"> 
+            <form id='create-user-form' data-action="signup" tabindex="-1" class="row g-2"> 
                 <h2>Sign Up for Free</h2>
-                <p>
-                    <label for='username'>User Name</label>
-                    <input name='username' type='text' required></input>
-                <p>
-                <p>
-                    <label for='fullname'>Full Name</label>
-                    <input name='fullname' type='text' required></input>
-                <p>
-                <p>
-                <label for='email'>Email</label>
-                <input name='email' type='text' required></input>
-                <p>
-                <p>
-                <label for='password1'>Enter Password</label>
-                <input name='password1' type='password' required></input>
-                <p>
-                <p>
-                <label for='password2'>Enter Password Again</label>
-                <input name='password2' type='password' required></input>
-                <p>
-                <button type='submit'>Sign up</button>
+                <div class="col-md-6">
+                    <label for='username' class="form-label">User Name</label>
+                    <input name='username' type='text' class="form-control" required></input>
+                </div>
+                <div class="col-md-6">
+                    <label for='fullname' class="form-label">Full Name</label>
+                    <input name='fullname' type='text' class="form-control" required></input>
+                </div>
+                <div class="col-12">
+                <label for='email' class="form-label">Email</label>
+                <input name='email' type='text' class="form-control" required></input>
+                </div>
+                <div class="col-md-6">
+                <label for='password1' class="form-label">Enter Password</label>
+                <input name='password1' type='password' class="form-control" required></input>
+                </div>
+                <div class="col-md-6">
+                <label for='password2' class="form-label">Enter Password Again</label>
+                <input name='password2' type='password' class="form-control" required></input>
+                </div>
+                <div class="col-12">
+                    <button type='submit' class="btn btn-danger">Sign up</button>
+                </div>
+                
             </form>
         </div>
 
         <div id="login">
-            <form id='login-user-form' data-action="login" tabindex="-1"> 
+            <form id='login-user-form' data-action="login" tabindex="-1" class="row g-2"> 
                 <h2>Welcome Back!</h2>
-                <p>
-                <label for='email'>Email</label>
-                <input name='email' type='text' required></input>
-                <p>
-                <p>
-                <label for='password'>Enter Password</label>
-                <input name='password' type='password' required></input>
-                <p>
-                <button type='submit'>Log in</button>
+                <div class="col-12">
+                <label for='email' class="form-label">Email</label>
+                <input name='email' type='text' class="form-control" required></input>
+                </div>
+                <div class="col-12">
+                <label for='password' class="form-label">Enter Password</label>
+                <input name='password' type='password' class="form-control" required></input>
+                </div>
+                <div class="col-12">
+                    <button type='submit' class="btn btn-danger">Log in</button>
+                </div>
                 <p>No account? Signup  <a href="#" class="signup-btn">here</a></p>
             </form>
         </div>

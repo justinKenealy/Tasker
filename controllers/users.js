@@ -19,13 +19,11 @@ const comparePassword = (password, password_hash) => {
 
 router.post('/users', async (req, res, next) => {
     try {
-        const { username, fullname, email, password1, password2 } = Object.entries(
-            req.body
-        ).reduce((obj, [key, value]) => {
-            obj[key] = value.trim()
-            return obj
-        }, {})
-        console.log(username, fullname, email, password1, password2)
+        const { username, fullname, email, password1, password2 } =
+            Object.entries(req.body).reduce((obj, [key, value]) => {
+                obj[key] = value.trim()
+                return obj
+            }, {})
 
         if (!username || !fullname || !email || !password1 || !password2) {
             const customError = new Error(
@@ -64,20 +62,24 @@ router.post('/users', async (req, res, next) => {
 
         const passwordHash = generateHash(password1)
 
-        const user = await createUser(username, fullname, email, passwordHash)
-        if (!user) {
+        const userRes = await createUser(username, fullname, email, passwordHash)
+        if (!userRes) {
             const customError = new Error(
                 'The email address or username is already used by an existing user. Try Loggin in.'
             )
             customError.status = 409
             return next(customError)
         }
-        return res.status(201).json({
-            id: user.id,
-            username, 
-            fullname,
+        const user = {
+            id: userRes.id,
+            user_name:username,
+            full_name:fullname,
             email
-        })
+        }
+        req.session.user = user
+        console.log('matched!')
+        return res.status(200).json({user})
+
     } catch (err) {
         next(err)
     }

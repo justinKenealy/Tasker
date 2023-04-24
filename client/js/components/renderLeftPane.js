@@ -30,4 +30,72 @@ const renderLeftPane = async (user_id) => {
         })
 }
 
+const addPersonalProjectBtn = document.getElementById('addPersonalProjectBtn')
+const addWorkProjectBtn = document.getElementById('addWorkProjectBtn')
+const addStudyProjectBtn = document.getElementById('addStudyProjectBtn')
+
+const renderNewProjectForm = (typeofProject) => {
+    console.log('create new ' + typeofProject + ' project')
+    
+    const display = document.createElement("div");
+    display.className = "display";
+    document.body.prepend(display);
+
+    const cancelIcon = document.createElement('i')
+    cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
+
+    const newProjectForm = document.createElement("div");
+    newProjectForm.innerHTML = `
+    <form id="create-project-form">
+        <p>
+            <label for="name">Project Name</label></br>
+            <input type="text" name="name"></input>
+        </p>
+        <p>
+            <label for="projectType">Type</label><br>
+            <input type="radio" id="projectTypeIndividual" name="projectType" value="individual">
+            <label for="individual">Individual</label><br>
+            <input type="radio" id="projectTypeGroup" name="projectType" value="group">
+            <label for="group">Group</label><br>
+        </p>
+        <p>
+            <label for="collaborators">Collaborators</label>
+            <select name="collaboratos">
+                <option>Person A</option>
+                <option>Person B</option>
+                <option>Person C</option>
+            </select>
+        </p>
+        <input type="hidden" name="category" value="${typeofProject}"></input>
+        <input type="hidden" name="userID" value="  USERID VARIABLE HERE  "></input>
+    </form>
+    `;
+
+    const btnHolder = document.createElement('div')
+    btnHolder.className = 'btn-holder'
+    
+    const createButton = document.createElement('button')
+    createButton.textContent = 'Create'
+    createButton.className = 'btn-style'
+
+    btnHolder.appendChild(createButton)
+    display.appendChild(cancelIcon)
+    display.appendChild(newProjectForm)
+    display.appendChild(btnHolder)
+
+    cancelIcon.addEventListener("click", () => display.remove())
+}
+
+addPersonalProjectBtn.addEventListener('click', function(){
+    renderNewProjectForm('Personal')
+})
+
+addWorkProjectBtn.addEventListener('click', function(){
+    renderNewProjectForm('Work')
+})
+
+addStudyProjectBtn.addEventListener('click', function(){
+    renderNewProjectForm('Study')
+})
+
 export default renderLeftPane

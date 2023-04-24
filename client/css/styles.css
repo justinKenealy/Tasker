@@ -10,6 +10,7 @@ body{
     width: 4rem;
 }
 
+/*pop up display for userdetails*/
 .display{
     background-color: rgba(55, 100, 130, 0.783);
     position: fixed;
@@ -35,9 +36,6 @@ body{
     cursor: pointer;
 }
 
-#change-pass-form{
-    transition: all 300ms ease-in-out;
-}
 
 #left-pane {
     display: grid;
@@ -46,9 +44,38 @@ body{
     background-color: #eb455f;
     border-radius: 8px;
     width: 30%;
-
+    float: left;
 }
 
+#main-content {
+    float: right;
+    width: 70%;
+}
+
+.tasks li {
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    list-style-type: none;
+}
+
+.task-details {
+    background-color: white;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.task-details h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+
+/*error message*/
 #errors{
    color:#ffffff;
    text-align: center;
@@ -56,6 +83,8 @@ body{
    margin-bottom: 1rem;
 }
 
+
+/*authentication render*/
 #login, #signup{
     max-width: 40%;
     margin: auto;
@@ -67,4 +96,28 @@ body{
 
 .btn-group{
     margin: auto;
+
+
+
+.task-details p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.close-task-details {
+    background-color: #eb455f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+.addProjectBtn {
+    border: 1px solid black;
+    padding: 1px 5px;
+    background-color: white;
+    cursor: pointer;
 }

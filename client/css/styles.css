@@ -57,7 +57,7 @@ body{
 }
 
 #login, #signup{
-    max-width: 50%;
+    max-width: 40%;
     margin: auto;
 }
 

@@ -28,7 +28,6 @@ router.post('/session', async (req,res,next) => {
             if(comparePassword(password, user.password_hash)){
                 delete user.password_hash
                 req.session.user = user
-                console.log(user)
                 console.log('matched!')
                 return res.status(200).json({
                     message: 'Logged in successfully.'

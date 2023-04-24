@@ -19,7 +19,7 @@ const renderUserProfile = (user)=>{
 
     const fullname = document.createElement('p')
     fullname.className = 'display-text'
-    fullname.textContent = `FULL NAME:  ${user.full_name}`
+    fullname.textContent = `FULL NAME:  ${user.first_name} ${user.last_name}`
 
     const email = document.createElement('p')
     email.textContent = `EMAIL:  ${user.email}`

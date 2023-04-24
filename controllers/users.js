@@ -19,13 +19,13 @@ const comparePassword = (password, password_hash) => {
 
 router.post('/users', async (req, res, next) => {
     try {
-        const { username, fullname, email, password1, password2 } =
+        const { username, firstname, lastname,  email, password1, password2 } =
             Object.entries(req.body).reduce((obj, [key, value]) => {
                 obj[key] = value.trim()
                 return obj
             }, {})
 
-        if (!username || !fullname || !email || !password1 || !password2) {
+        if (!username || !firstname ||!lastname || !email || !password1 || !password2) {
             const customError = new Error(
                 'The name, email or password is missing.'
             )
@@ -62,7 +62,7 @@ router.post('/users', async (req, res, next) => {
 
         const passwordHash = generateHash(password1)
 
-        const userRes = await createUser(username, fullname, email, passwordHash)
+        const userRes = await createUser(username, firstname, lastname, email, passwordHash)
         if (!userRes) {
             const customError = new Error(
                 'The email address or username is already used by an existing user. Try Loggin in.'
@@ -73,7 +73,8 @@ router.post('/users', async (req, res, next) => {
         const user = {
             id: userRes.id,
             user_name:username,
-            full_name:fullname,
+            first_name:firstname,
+            last_name:lastname,
             email
         }
         req.session.user = user

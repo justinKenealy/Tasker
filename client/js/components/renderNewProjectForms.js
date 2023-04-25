@@ -58,11 +58,10 @@ const handleFormSubmit = async (event, user) => {
     event.preventDefault()
     document.querySelector('.display').remove()
     const formData = new FormData(event.target);
-
     const friends = formData.getAll('collaborators')
-    const collabIDs = await axios.post('/api/users/multiple', friends)
-    // console.log(collabIDs)
-    
+    const result = await axios.post('/api/users/multiple', friends)
+    const collabIDs = result.data.IDs
+
     const body = {
         user_id: Number(formData.get('userId')),
         collab: collabIDs,

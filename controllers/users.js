@@ -196,8 +196,11 @@ router.put('/users/:id/:friend_email', async (req, res, next) => {
 router.post('/users/multiple', async (req, res, next) => {
     try {
         const users = await getMultipleUsersByEmail(req.body)
-        console.log(users)
-        return res.status(200).json({ users })
+        const IDs = []
+        for (let user of users){
+            IDs.push(user.id)
+        }
+        return res.status(200).json({ IDs })
     } catch (err) {
         next(err)
     }

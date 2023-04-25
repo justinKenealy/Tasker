@@ -1,4 +1,6 @@
 import renderUserProfile from "./renderUserProfile.js"
+import renderNotes from "./renderNotes.js"
+
 
 const renderHeader = (user) => {
     const header = document.getElementById('header-nav')
@@ -38,6 +40,12 @@ const renderHeader = (user) => {
         </div>
       </nav>    
     `
+    const notes = document.getElementById('renderNotesPage')
+    notes.addEventListener('click', () => {
+        const user_id = user.id
+        return renderNotes(user_id)
+    })
+
     const logoutBtn = document.querySelector('.logout-btn')
     logoutBtn.addEventListener('click', () => {
         axios

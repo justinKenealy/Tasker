@@ -15,6 +15,7 @@ const sessionRouter = require("./controllers/sessions");
 // above two lines will be for the routers to each of our controllers .js files
 
 //imports middleware
+const httpLoggerMiddleware = require("./middlewares/httpLogger");
 const errorHandlingMiddleware = require("./middlewares/errorHandling");
 
 const db = require('./models')
@@ -37,6 +38,7 @@ app.use(
 )
 
 // code to app.use routers and any middleware
+app.use(httpLoggerMiddleware)
 app.use('/api', usersRouter, sessionRouter, projectsRouter, notesRouter, tasksRouter)
 app.use(errorHandlingMiddleware)
 

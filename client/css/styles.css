@@ -128,6 +128,22 @@ body{
 }
 
 
+/* List group */
+
+.friend-list{
+    list-style-type: none;
+    text-align: left;
+}
+
+.friend-div{
+    text-align: left;
+}
+
+.crossbox{
+    color: #eb455f;
+    cursor: pointer;
+
+
 #collaboratorsFormField {
     display: none;
 }

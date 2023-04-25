@@ -127,6 +127,11 @@ body{
     cursor: pointer;
 }
 
+
+#collaboratorsFormField {
+    display: none;
+}
+
 /* Notes render */
 .note {
     position: relative;
@@ -172,3 +177,4 @@ body{
     border: none;
     border-radius: 5px;
   }
+

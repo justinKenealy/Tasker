@@ -145,9 +145,8 @@ router.put('/users/:id', async (req, res, next) => {
             const { friends_email } = req.body
             const userRow = await updateFriendsListById(id, friends_email)
             if (userRow === 0) {
-                console.log('sorry')
                 return res.status(404).json({
-                    message: 'Sorry, This friend already exists.',
+                    message: 'Sorry, cannot add this email as friend',
                 })
             }
             const user = await getUserById(id)

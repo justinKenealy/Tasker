@@ -35,8 +35,14 @@ const updateUserPassById = (id, password_hash)=>{
 }
 
 const updateFriendsListById = (id, friends_email)=>{
-    const sql = 'UPDATE users SET friends_array = ARRAY_APPEND(friends_array, $1) WHERE (id=$2) AND NOT ($3 = ANY(friends_array))'
-    return db.query(sql,[friends_email, id, friends_email])
+    const sql = `UPDATE users
+    SET friends_array = ARRAY_APPEND(friends_array, $1)
+    WHERE (id=$2)
+    AND NOT ($3 = ANY(coalesce(friends_array, array[]::text[])))
+    AND NOT (email = $4 )
+    AND EXISTS(SELECT id FROM users WHERE email = $5);
+    `
+    return db.query(sql,[friends_email, id, friends_email, friends_email, friends_email])
     .then(res => res.rowCount)
 }
 

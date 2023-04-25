@@ -18,9 +18,14 @@ const deleteProject = (id) => {
     return db.query('DELETE from projects WHERE id=$1', [id])
 }
 
-const updateProject = (collab, category, name, task_type, id) => {
-    const sql = `UPDATE projects SET collab = $1, category = $2, name = $3, task_type = $4 WHERE id = $5;`
-    return db.query(sql, [collab, category, name, task_type, id])
+// const updateProject = (collab, category, name, task_type, id) => {
+//     const sql = `UPDATE projects SET collab = $1, category = $2, name = $3, task_type = $4 WHERE id = $5;`
+//     return db.query(sql, [collab, category, name, task_type, id])
+// }
+
+const updateProject = (name, id) => {
+    const sql = `UPDATE projects SET name = $1 WHERE id = $2;`
+    return db.query(sql, [name, id])
 }
 
 module.exports = {

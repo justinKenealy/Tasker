@@ -8,6 +8,7 @@ const {
     updateFriendsListById,
     getUserByEmail,
     deleteFriendByUsernameFromUser,
+    getMultipleUsersByEmail,
 } = require('../models/user')
 
 const router = express.Router()
@@ -186,6 +187,20 @@ router.put('/users/:id/:friend_email', async (req, res, next) => {
         return res.status(200).json({
             message: 'Deleted successfully.',
         })
+    } catch (err) {
+        next(err)
+    }
+})
+
+// get multiple users by email
+router.post('/users/multiple', async (req, res, next) => {
+    try {
+        const users = await getMultipleUsersByEmail(req.body)
+        const IDs = []
+        for (let user of users){
+            IDs.push(user.id)
+        }
+        return res.status(200).json({ IDs })
     } catch (err) {
         next(err)
     }

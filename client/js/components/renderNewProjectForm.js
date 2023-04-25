@@ -1,6 +1,10 @@
 import renderLeftPane from "./renderLeftPane.js";
 
 const renderNewProjectForm = (projectCategory, user) => {    
+    const oldDisplay = document.querySelector('.display')
+    if (oldDisplay) {
+        oldDisplay.remove()
+    }
     const display = document.createElement("div");
     display.className = "display";
     document.body.prepend(display);

@@ -21,70 +21,71 @@ const renderNotes = (user_id) => {
                 })
                 mainContent.appendChild(noNote)
                 noNote.appendChild(addButton)
-                } 
-                else {
+            } else {
                 notes.forEach((note, i) => {
-                const noteDiv = document.createElement('div')
-                noteDiv.classList.add('note')
-                noteDiv.id = note.id
+                    const noteDiv = document.createElement('div')
+                    noteDiv.classList.add('note')
+                    noteDiv.id = note.id
 
-                const creationDate = document.createElement('p')
-                const date = new Date(note.creation_date).toLocaleDateString()
-                creationDate.textContent = date
-                creationDate.classList.add('creationDate')
-                noteDiv.appendChild(creationDate)
+                    const creationDate = document.createElement('p')
+                    const date = new Date(
+                        note.creation_date
+                    ).toLocaleDateString()
+                    creationDate.textContent = date
+                    creationDate.classList.add('creationDate')
+                    noteDiv.appendChild(creationDate)
 
-                const title = document.createElement('p')
-                title.textContent = note.title
-                title.classList.add('note_title')
-                noteDiv.appendChild(title)
+                    const title = document.createElement('p')
+                    title.textContent = note.title
+                    title.classList.add('note_title')
+                    noteDiv.appendChild(title)
 
-                const description = document.createElement('div')
-                description.classList.add('description')
-                description.style.display = 'none'
-                description.textContent = note.description
+                    const description = document.createElement('div')
+                    description.classList.add('description')
+                    description.style.display = 'none'
+                    description.textContent = note.description
 
-                //add event listener to show more details
-                noteDiv.addEventListener('click', () => {
-                    if (description.style.display === 'none') {
-                        description.style.display = 'block'
-                    } else {
-                        description.style.display = 'none'
+                    //add event listener to show more details
+                    noteDiv.addEventListener('click', () => {
+                        if (description.style.display === 'none') {
+                            description.style.display = 'block'
+                        } else {
+                            description.style.display = 'none'
+                        }
+                    })
+
+                    noteDiv.appendChild(description)
+                    mainContent.appendChild(noteDiv)
+
+                    //add 'Delete' button for deleting a note
+                    const deleteNoteBtn = document.createElement('i')
+                    deleteNoteBtn.className = 'fa-solid fa-trash'
+                    deleteNoteBtn.addEventListener('click', () => {
+                        deleteNote(user_id, note.id, noteDiv)
+                    })
+                    noteDiv.appendChild(deleteNoteBtn)
+
+                    //add 'Edit' button for editing a note
+                    const editNoteBtn = document.createElement('i')
+                    editNoteBtn.className = 'fa-solid fa-pen-to-square'
+                    editNoteBtn.addEventListener('click', () => {
+                        showEditNoteFormPopup(user_id, note)
+                    })
+
+                    noteDiv.appendChild(editNoteBtn)
+
+                    //add '+ Add new note' button for adding new note
+                    if (i === notes.length - 1) {
+                        const addButton = document.createElement('button')
+                        addButton.classList.add('add-button')
+                        addButton.textContent = '+ Add new note'
+                        addButton.addEventListener('click', () => {
+                            showCreateNoteFormPopup(user_id)
+                        })
+                        noteDiv.appendChild(addButton)
                     }
                 })
-
-                noteDiv.appendChild(description)
-                mainContent.appendChild(noteDiv)
-
-                //add 'Delete' button for deleting a note
-                const deleteNoteBtn = document.createElement('i')
-                deleteNoteBtn.className = 'fa-solid fa-trash'
-                deleteNoteBtn.addEventListener('click', () => {
-                    deleteNote(user_id, note.id, noteDiv)
-                })
-                noteDiv.appendChild(deleteNoteBtn)
-
-                //add 'Edit' button for editing a note
-                const editNoteBtn = document.createElement('i')
-                editNoteBtn.className = 'fa-solid fa-pen-to-square'
-                editNoteBtn.addEventListener('click', () => {
-                    showEditNoteFormPopup(user_id, note)
-                })
-
-                noteDiv.appendChild(editNoteBtn)
-
-                //add '+ Add new note' button for adding new note
-                if (i === notes.length - 1) {
-                    const addButton = document.createElement('button')
-                    addButton.classList.add('add-button')
-                    addButton.textContent = '+ Add new note'
-                    addButton.addEventListener('click', () => {
-                       showCreateNoteFormPopup(user_id)
-                    })
-                    noteDiv.appendChild(addButton)
-                }
-            })
-        }
+            }
         })
         .catch((error) => console.error(error))
 }

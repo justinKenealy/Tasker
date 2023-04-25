@@ -51,6 +51,7 @@ CREATE TABLE comments (
         FOREIGN KEY(user_id)
         REFERENCES users(id)
         ON DELETE CASCADE,
+  user_name TEXT,
   task_id INT,
         CONSTRAINT fk_comments_tasks
         FOREIGN KEY(task_id)

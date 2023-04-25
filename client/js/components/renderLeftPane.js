@@ -1,5 +1,6 @@
 import renderTasks from "./renderTasks.js"
-import { renderNewProjectForm, handleFormSubmit } from "./renderNewProjectForms.js"
+import { renderNewProjectForm } from "./renderNewProjectForm.js"
+import { renderEditDeleteProjectForm } from "./renderEditDeleteProjectForm.js"
 
 const renderLeftPane = async (user) => {
     const personalProjectsListUl = document.getElementById('personalProjectsListUl')
@@ -15,7 +16,11 @@ const renderLeftPane = async (user) => {
         const { data } = response
             for (let project of data){
                 const newLi = document.createElement('li')
-                newLi.innerHTML = project.name
+                const editButton = document.createElement('button')
+                editButton.innerHTML = 'Edit'
+                newLi.innerText = project.name
+                newLi.appendChild(editButton)
+
                 if (project.task_type === 'group'){
                     newLi.classList.add('groupProject')
                     // newLi.innerHTML += ` - &#1011${project.collab.length + 1}`
@@ -30,6 +35,10 @@ const renderLeftPane = async (user) => {
                 newLi.addEventListener('click', async function() {
                     const tasks = await axios.get('/api/tasks/project/' + project.id) 
                     renderTasks(tasks.data, project.name)
+                })
+                editButton.addEventListener('click', function(){
+                    console.log(project.id)
+                    renderEditDeleteProjectForm(project.id, project.name, user)
                 })
             }
         })

@@ -36,7 +36,6 @@ body{
     cursor: pointer;
 }
 
-
 #left-pane {
     display: grid;
     grid-template-columns: 1fr;
@@ -74,7 +73,6 @@ body{
     margin-bottom: 20px;
 }
 
-
 /*error message*/
 #errors{
    color:#ffffff;
@@ -82,7 +80,6 @@ body{
    background-color: #eb455f;
    margin-bottom: 1rem;
 }
-
 
 /*authentication render*/
 #login, #signup{
@@ -102,7 +99,6 @@ body{
     border: 1px solid black;
     
 }
-
 
 .task-details p {
     font-size: 1.2rem;
@@ -127,9 +123,7 @@ body{
     cursor: pointer;
 }
 
-
 /* List group */
-
 .friend-list{
     list-style-type: none;
     text-align: left;
@@ -142,19 +136,52 @@ body{
 .crossbox{
     color: #eb455f;
     cursor: pointer;
-
+}
 
 #collaboratorsFormField {
     display: none;
 }
 
 /* Notes render */
-.note {
+.note, .no_note {
     position: relative;
     border: 1px solid black;
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
+    border: solid 1px #dee1cb;
+    background-color: #fbfded;
+}
+
+.note_title {
+    cursor: pointer;
+    color: #fbfded;
+    border: solid 1px #F9D949;
+    padding: 10px;
+    margin-left: -17px;
+    width: fit-content;
+    background-color:#F9D949;
+}
+
+.description, .creationDate {
+    font-size: smaller;
+    color: #2B3467;
+}
+
+.fa-trash {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.fa-pen-to-square {
+    position: absolute;
+    top: 0;
+    left: 90px;
+    margin: 10px;
+    cursor: pointer;
 }
 
 .add-button {
@@ -164,33 +191,6 @@ body{
     left: -10px;
     border: gray;
     border-radius: 5px;
+    cursor: pointer;
 }
-
-.delete {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 5px;
-    margin: 5px;
-    font-size: 1rem;
-    line-height: 1;
-    color: #333;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-  }
-
-.edit {
-    position: absolute;
-    top: 0;
-    right: 70px;
-    padding: 5px;
-    margin: 5px;
-    font-size: 1rem;
-    line-height: 1;
-    color: #333;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-  }
 

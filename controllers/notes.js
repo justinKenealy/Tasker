@@ -11,7 +11,10 @@ router.get('/notes', (req, res, next) => {
 router.get("/notes/:id", (req, res, next) => {
     id = Number(req.params.id);
     return getNotesByUserId(id)
-    .then((notes) => res.json(notes))
+    .then((notes) => {
+    const sortedNotes = notes.sort((a, b) => b.creation_date - a.creation_date)
+    res.json(sortedNotes)
+    })
     .catch((err) => next(err))
   });
 

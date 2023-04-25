@@ -6,7 +6,24 @@ const renderNotes = (user_id) => {
         .get(`/api/notes/${user_id}`)
         .then((response) => {
             const notes = response.data
-            notes.forEach((note, i) => {
+
+            if (notes.length === 0) {
+                const noNote = document.createElement('p')
+                noNote.classList.add('no_note')
+                noNote.textContent = 'No note found.'
+
+                //add '+ Add new note' button for adding new note
+                const addButton = document.createElement('button')
+                addButton.classList.add('add-button')
+                addButton.textContent = '+ Add new note'
+                addButton.addEventListener('click', () => {
+                    showCreateNoteFormPopup(user_id)
+                })
+                mainContent.appendChild(noNote)
+                noNote.appendChild(addButton)
+                } 
+                else {
+                notes.forEach((note, i) => {
                 const noteDiv = document.createElement('div')
                 noteDiv.classList.add('note')
                 noteDiv.id = note.id
@@ -14,11 +31,13 @@ const renderNotes = (user_id) => {
                 const creationDate = document.createElement('p')
                 const date = new Date(note.creation_date).toLocaleDateString()
                 creationDate.textContent = date
+                creationDate.classList.add('creationDate')
                 noteDiv.appendChild(creationDate)
 
-                const titleSpan = document.createElement('span')
-                titleSpan.textContent = note.title
-                noteDiv.appendChild(titleSpan)
+                const title = document.createElement('p')
+                title.textContent = note.title
+                title.classList.add('note_title')
+                noteDiv.appendChild(title)
 
                 const description = document.createElement('div')
                 description.classList.add('description')
@@ -38,18 +57,16 @@ const renderNotes = (user_id) => {
                 mainContent.appendChild(noteDiv)
 
                 //add 'Delete' button for deleting a note
-                const deleteNoteBtn = document.createElement('button')
-                deleteNoteBtn.classList.add('delete')
-                deleteNoteBtn.innerHTML = 'Delete'
+                const deleteNoteBtn = document.createElement('i')
+                deleteNoteBtn.className = 'fa-solid fa-trash'
                 deleteNoteBtn.addEventListener('click', () => {
                     deleteNote(user_id, note.id, noteDiv)
                 })
                 noteDiv.appendChild(deleteNoteBtn)
 
                 //add 'Edit' button for editing a note
-                const editNoteBtn = document.createElement('button')
-                editNoteBtn.classList.add('edit')
-                editNoteBtn.innerText = 'Edit'
+                const editNoteBtn = document.createElement('i')
+                editNoteBtn.className = 'fa-solid fa-pen-to-square'
                 editNoteBtn.addEventListener('click', () => {
                     showEditNoteFormPopup(user_id, note)
                 })
@@ -62,11 +79,12 @@ const renderNotes = (user_id) => {
                     addButton.classList.add('add-button')
                     addButton.textContent = '+ Add new note'
                     addButton.addEventListener('click', () => {
-                        showCreateNoteFormPopup(user_id)
+                       showCreateNoteFormPopup(user_id)
                     })
                     noteDiv.appendChild(addButton)
                 }
             })
+        }
         })
         .catch((error) => console.error(error))
 }
@@ -96,7 +114,7 @@ const showCreateNoteFormPopup = (user_id) => {
           <input type="hidden" name="creation_date" value="${creation_date}"></input>
           <input type="hidden" name="user_id" value="${user_id}"></input>
   
-          <button type="submit">Create Note</button>
+          <button type="submit" id="createNoteBtn">Create Note</button>
         </div>
       </form>
     `
@@ -107,6 +125,9 @@ const showCreateNoteFormPopup = (user_id) => {
     cancelIcon.addEventListener('click', () => {
         display.remove()
     })
+
+    const createNoteBtn = document.getElementById('createNoteBtn')
+    createNoteBtn.classList = 'btn btn-outline-light mt-3 mb-3'
 
     const form = newNoteForm.querySelector('#create-note-form')
     form.addEventListener('submit', (event) => {
@@ -155,7 +176,7 @@ const showEditNoteFormPopup = (user_id, note) => {
           <input type="hidden" name="creation_date" value="${note.creation_date}"></input>
           <input type="hidden" name="user_id" value="${user_id}"></input>
   
-          <button type="submit">Update Note</button>
+          <button type="submit" id="editNoteBtn">Update Note</button>
         </div>
       </form>
     `
@@ -166,6 +187,9 @@ const showEditNoteFormPopup = (user_id, note) => {
     cancelIcon.addEventListener('click', () => {
         display.remove()
     })
+
+    const editNoteBtn = document.getElementById('editNoteBtn')
+    editNoteBtn.classList = 'btn btn-outline-light mt-3 mb-3'
 
     const form = editNoteForm.querySelector('#edit-note-form')
     form.addEventListener('submit', (event) => {

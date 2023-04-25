@@ -1,7 +1,7 @@
 import renderFriendProfile from "./renderFriendProfile.js"
 import renderUserProfile from "./renderUserProfile.js"
 import renderNotes from "./renderNotes.js"
-
+import { renderTasksDueToday } from "./renderTasks.js"
 
 const renderHeader = (user) => {
     const header = document.getElementById('header-nav')
@@ -48,6 +48,11 @@ const renderHeader = (user) => {
         return renderNotes(user_id)
     })
 
+    const todaysLink = document.getElementById('sortListByToday')
+    todaysLink.addEventListener('click', () => {
+        renderTasksDueToday()
+    })
+
     const logoutBtn = document.querySelector('.logout-btn')
     logoutBtn.addEventListener('click', () => {
         axios
@@ -64,6 +69,7 @@ const renderHeader = (user) => {
     friendDetail.addEventListener('click', ()=>{
         renderFriendProfile(user)
     })
+
 }
 
 export default renderHeader

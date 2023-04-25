@@ -25,7 +25,6 @@ const createTask = (project_id, name, description, creation_date, due_date, due_
         .then(result => result.rows[0])
 }
 
-
 const deleteTaskById = (id) => {
     return db.query('DELETE from tasks WHERE id = $1', [id])
 }

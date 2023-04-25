@@ -15,14 +15,14 @@ const getUserByEmail = (email) => {
 const getMultipleUsersByEmail = (emailsArray) => {
     console.log(emailsArray[0])
     console.log(emailsArray[1])
-    usersArrayAsQuery = `WHERE email = ${emailsArray[0]}`
-    for (let i=1; i<(emailsArray-1); i++){
-        usersArrayAsQuery+=` OR email = ${emailsArray[i]}`
+    usersArrayAsQuery = `WHERE email = '${emailsArray[0]}'`
+    for (let i=1; i<(emailsArray.length); i++){
+        usersArrayAsQuery+=` OR email = '${emailsArray[i]}'`
     }
-    const sql = `SELECT id FROM users WHERE email = 'justin@gmail.com'`// + usersArrayAsQuery
+    const sql = `SELECT id FROM users ${usersArrayAsQuery};`
     console.log(sql)
     return db.query(sql)
-    .then(res => res.rows[0])
+    .then(res => res.rows)
 }
 
 const getUserById = (id) => {

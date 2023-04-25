@@ -28,7 +28,7 @@ const renderLeftPane = async (user) => {
                 }
                 newLi.addEventListener('click', async function() {
                     const tasks = await axios.get('/api/tasks/project/' + project.id) 
-                    renderTasks(tasks.data)
+                    renderTasks(tasks.data, project.name)
                 })
             }
         })

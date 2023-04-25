@@ -127,6 +127,7 @@ body{
     cursor: pointer;
 }
 
+
 /* List group */
 
 .friend-list{
@@ -141,6 +142,10 @@ body{
 .crossbox{
     color: #eb455f;
     cursor: pointer;
+
+
+#collaboratorsFormField {
+    display: none;
 }
 
 /* Notes render */

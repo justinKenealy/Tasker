@@ -1,11 +1,15 @@
 import renderTasks from "./renderTasks.js"
 
-const renderLeftPane = async (user_id) => {
+const renderLeftPane = async (user) => {
     const personalProjectsListUl = document.getElementById('personalProjectsListUl')
     const workProjectsListUl = document.getElementById('workProjectsListUl')
     const studyProjectsListUl = document.getElementById('studyProjectsListUl')
+    
+    personalProjectsListUl.innerHTML=''
+    workProjectsListUl.innerHTML=''
+    studyProjectsListUl.innerHTML=''
 
-    axios.get(`/api/projects/${user_id}`)
+    axios.get(`/api/projects/${user.id}`)
         .then((response) => {
         const { data } = response
             for (let project of data){
@@ -28,15 +32,25 @@ const renderLeftPane = async (user_id) => {
                 })
             }
         })
+        
+        const addPersonalProjectBtn = document.getElementById('addPersonalProjectBtn')
+        const addWorkProjectBtn = document.getElementById('addWorkProjectBtn')
+        const addStudyProjectBtn = document.getElementById('addStudyProjectBtn')
+
+        addPersonalProjectBtn.addEventListener('click', function(){
+            renderNewProjectForm('personal', user)
+        })
+        
+        addWorkProjectBtn.addEventListener('click', function(){
+            renderNewProjectForm('work', user)
+        })
+        
+        addStudyProjectBtn.addEventListener('click', function(){
+            renderNewProjectForm('study', user)
+        })
 }
 
-const addPersonalProjectBtn = document.getElementById('addPersonalProjectBtn')
-const addWorkProjectBtn = document.getElementById('addWorkProjectBtn')
-const addStudyProjectBtn = document.getElementById('addStudyProjectBtn')
-
-const renderNewProjectForm = (typeofProject) => {
-    console.log('create new ' + typeofProject + ' project')
-    
+const renderNewProjectForm = (projectCategory, user) => {    
     const display = document.createElement("div");
     display.className = "display";
     document.body.prepend(display);
@@ -53,49 +67,60 @@ const renderNewProjectForm = (typeofProject) => {
         </p>
         <p>
             <label for="projectType">Type</label><br>
-            <input type="radio" id="projectTypeIndividual" name="projectType" value="individual">
+            <input type="radio" id="projectTypeIndividual" name="projectType" value="single">
             <label for="individual">Individual</label><br>
             <input type="radio" id="projectTypeGroup" name="projectType" value="group">
             <label for="group">Group</label><br>
         </p>
-        <p>
+        <p id="collaboratorsFormField">
             <label for="collaborators">Collaborators</label>
-            <select name="collaboratos">
+            <select multiple name="collaborators">
                 <option>Person A</option>
                 <option>Person B</option>
                 <option>Person C</option>
             </select>
         </p>
-        <input type="hidden" name="category" value="${typeofProject}"></input>
-        <input type="hidden" name="userID" value="  USERID VARIABLE HERE  "></input>
+        <input type="hidden" name="userId" value=${user.id}></input>
+        <input type="hidden" name="category" value=${projectCategory}></input>
+        <button class="btn-style" type="submit">Create</button>
     </form>
     `;
 
-    const btnHolder = document.createElement('div')
-    btnHolder.className = 'btn-holder'
-    
-    const createButton = document.createElement('button')
-    createButton.textContent = 'Create'
-    createButton.className = 'btn-style'
-
-    btnHolder.appendChild(createButton)
     display.appendChild(cancelIcon)
     display.appendChild(newProjectForm)
-    display.appendChild(btnHolder)
 
     cancelIcon.addEventListener("click", () => display.remove())
+    document.getElementById("create-project-form").addEventListener("submit", function(event){
+        handleFormSubmit(event, user)})
+    document.getElementById("projectTypeGroup").addEventListener('click', function(){
+        document.getElementById('collaboratorsFormField').style.display = 'block'
+    })
+    document.getElementById("projectTypeIndividual").addEventListener('click', function(){
+        document.getElementById('collaboratorsFormField').style.display = 'none'
+    })
 }
 
-addPersonalProjectBtn.addEventListener('click', function(){
-    renderNewProjectForm('Personal')
-})
+const handleFormSubmit = (event, user) => {
+    event.preventDefault()
+    document.querySelector('.display').remove()
+    const formData = new FormData(event.target);
+    
+    const body = {
+        user_id: Number(formData.get('userId')),
+        collab: formData.get('collaborators'),
+        category: formData.get('category'),
+        name: formData.get('name'),
+        task_type: formData.get('projectType')
+    };
 
-addWorkProjectBtn.addEventListener('click', function(){
-    renderNewProjectForm('Work')
-})
-
-addStudyProjectBtn.addEventListener('click', function(){
-    renderNewProjectForm('Study')
-})
+    return axios.post('/api/projects', body)
+    .then(res => {
+        renderLeftPane(user);
+    })
+    .catch(err => {
+        console.error(err)
+    })
+}
 
 export default renderLeftPane
+

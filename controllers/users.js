@@ -15,9 +15,16 @@ const {
 const router = express.Router()
 const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY
 const generateHash = (password) => {
+    if (!password){
+        throw new Error()
+    }
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
 }
+
 const comparePassword = (password, password_hash) => {
+    if (typeof password !== 'string' || !password){
+        throw new Error()
+    }
     const result = bcrypt.compareSync(password, password_hash)
     return result
 }
@@ -215,4 +222,4 @@ router.post('/users/multiple', async (req, res, next) => {
     }
 })
 
-module.exports = router
+module.exports = { router, generateHash, comparePassword }

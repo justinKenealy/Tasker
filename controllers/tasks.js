@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { getAllTasks, getTaskById, createTask, deleteTaskById, editTaskById, getTaskByProjectId, getTasksByDueDate, getUpcomingTasks } = require('../models/task')
+const { getAllTasks, getTaskById, createTask, deleteTaskById, editTaskById, getTaskByProjectId} = require('../models/task')
 
 const router = express.Router()
 
@@ -31,29 +31,19 @@ router.get('/tasks/project/:id', (req, res, next) => {
         })
 })
 
-router.get('/tasks/due/:date', (req, res, next) => {
-    const dueDate = req.params.date
+// router.get('/tasks/due/:date', (req, res, next) => {
+//     const dueDate = req.params.date
     
-    return getTasksByDueDate(dueDate)
-        .then((tasks) => {
-            console.log(tasks)
-            res.json(tasks)
-        })
-        .catch((err) => {
-            res.status(500).json({ message: err.message })
-        })
-})
+//     return getTasksByDueDate(dueDate)
+//         .then((tasks) => {
+//             console.log(tasks)
+//             res.json(tasks)
+//         })
+//         .catch((err) => {
+//             res.status(500).json({ message: err.message })
+//         })
+// })
 
-router.get('/tasks/upcoming', (req, res, next) => {
-    return getUpcomingTasks()
-        .then((tasks) => {
-            console.log(tasks)
-            res.json(tasks)
-        })
-        .catch((err) => {
-            res.status(500).json({ message: err.message })
-        })
-})
 
 router.post('/tasks', (req, res, next) => {
     const { project_id, name, description, creation_date, due_date, due_time, priority_level, status } = req.body

@@ -17,15 +17,11 @@ const getTaskByProjectId = (id) => {
         .then(result => result.rows)
 }
 
-const getTasksByDueDate = (date) => {
-    return db.query('select projects.name as project_name, tasks.* from tasks inner join projects on tasks.project_id = projects.id where tasks.due_date = $1', [date])
-        .then(result => result.rows)
-}
+// const getTasksByDueDate = (date) => {
+//     return db.query('select projects.name as project_name, tasks.* from tasks inner join projects on tasks.project_id = projects.id where tasks.due_date = $1', [date])
+//         .then(result => result.rows)
+// }
 
-const getUpcomingTasks = () => {
-    return db.query('select * from tasks where due_date > current_date order by due_date asc;')
-        .then(result => result.rows)
-}
 
 const createTask = (project_id, name, description, creation_date, due_date, due_time, priority_level, status) => {
     const sql = `INSERT INTO tasks (project_id, name, description, creation_date, due_date, due_time, priority_level, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`
@@ -88,7 +84,6 @@ module.exports = {
     deleteTaskById,
     createTask,
     editTaskById,
-    getTaskByProjectId,
-    getTasksByDueDate,
-    getUpcomingTasks
+    getTaskByProjectId
+    // getTasksByDueDate
 }

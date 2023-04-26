@@ -1,7 +1,7 @@
 import renderFriendProfile from "./renderFriendProfile.js"
 import renderUserProfile from "./renderUserProfile.js"
 import renderNotes from "./renderNotes.js"
-import { renderTasksDueToday } from "./renderTasks.js"
+import getTasksDueTodayOrUpcoming from "./getTasksDueTodayOrUpcoming.js"
 
 const renderHeader = (user) => {
     const header = document.getElementById('header-nav')
@@ -50,13 +50,13 @@ const renderHeader = (user) => {
 
     const todaysLink = document.getElementById('sortListByToday')
     todaysLink.addEventListener('click', () => {
-        renderTasksDueToday()
+        getTasksDueTodayOrUpcoming(user.id, true)
     })
 
-    // const upcomingLink = document.getElementById('sortListByUpcoming')
-    // upcomingLink.addEventListener('click', () => {
-
-    // })
+    const upcomingLink = document.getElementById('sortListByUpcoming')
+    upcomingLink.addEventListener('click', () => {
+        getTasksDueTodayOrUpcoming(user.id, false)
+    })
 
     const logoutBtn = document.querySelector('.logout-btn')
     logoutBtn.addEventListener('click', () => {

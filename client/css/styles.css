@@ -42,13 +42,14 @@ body{
     grid-template-rows: 1fr 1fr 1fr;
     background-color: #eb455f;
     border-radius: 8px;
-    width: 30%;
+    width: 25%;
+    min-width: 260px;
     float: left;
 }
 
 #main-content {
     float: right;
-    width: 70%;
+    width: 75%;
 }
 
 .tasks li {
@@ -116,10 +117,7 @@ body{
     margin-top: 20px;
 }
 
-.addProjectBtn {
-    border: 1px solid black;
-    padding: 1px 5px;
-    background-color: white;
+.add-project-btn {
     cursor: pointer;
 }
 
@@ -194,3 +192,27 @@ body{
     cursor: pointer;
 }
 
+.category-heading{
+    font-weight: 900;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.project-name:hover{
+    cursor: pointer;
+    color: white;
+}
+
+.project-name{
+    font-size: 15px;
+}
+
+.project-edit-button{
+    cursor: pointer;
+    margin-right: 0px;
+}
+
+.project-list-item{
+    display: grid;
+    grid-template-columns: 6fr 1fr 1fr;
+}

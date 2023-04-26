@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/justinKenealy/Tasker#readme",
   "dependencies": {
+    "axios": "^1.3.6",
     "bcrypt": "^5.1.0",
     "connect-pg-simple": "^8.0.0",
     "dotenv": "^16.0.3",

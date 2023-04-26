@@ -8,9 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="https://www.google.com/recaptcha/api.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="./js/handleAuth.js"></script>
+
     <title>Tasker</title>
 </head>
 <body>
@@ -66,6 +68,12 @@
                 <input name='password2' type='password' class="form-control" required></input>
                 </div>
                 <div class="col-12">
+                    <!-- <form action="?" method="POST"> -->
+                        <br>
+                        <div class="g-recaptcha" data-sitekey="6LdhorolAAAAAJoIN3C0VnEqcd88-bHZy5whE93S"></div>
+                        <br/>
+                        <!-- <input type="submit" class="btn btn-danger" value="Signup"> -->
+                      <!-- </form> -->
                     <button type='submit' class="btn btn-danger">Sign up</button>
                 </div>
                 
@@ -84,7 +92,13 @@
                 <input name='password' type='password' class="form-control" required></input>
                 </div>
                 <div class="col-12">
-                    <button type='submit' class="btn btn-danger">Log in</button>
+                    <!-- <form action="?" method="POST"> -->
+                        <br/>
+                        <div class="g-recaptcha" data-sitekey="6LdhorolAAAAAJoIN3C0VnEqcd88-bHZy5whE93S"></div>
+                        <br/>
+                        <!-- <input type="submit" class="btn btn-danger" value="Login"> -->
+                      <!-- </form> -->
+                      <button type='submit' class="btn btn-danger">Log in</button>
                 </div>
                 <p>No account? Signup  <a href="#" class="signup-btn">here</a></p>
             </form>
@@ -92,5 +106,6 @@
         
     </div>
 </section>
+
 </body>
 </html>

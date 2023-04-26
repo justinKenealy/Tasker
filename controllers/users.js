@@ -1,4 +1,5 @@
 //Contains all API route definations for users
+const axios = require('axios')
 const express = require('express')
 const bcrypt = require('bcrypt')
 const {
@@ -12,7 +13,7 @@ const {
 } = require('../models/user')
 
 const router = express.Router()
-
+const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY
 const generateHash = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
 }
@@ -23,7 +24,11 @@ const comparePassword = (password, password_hash) => {
 
 router.post('/users', async (req, res, next) => {
     try {
-        const { username, firstname, lastname, email, password1, password2 } =
+        //Verify captcha
+        const captchaResponse = req.body['g-recaptcha-response']
+        const captchaVerification = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey}&response=${captchaResponse}`)
+        if (captchaVerification.data.success === true){
+            const { username, firstname, lastname, email, password1, password2 } =
             Object.entries(req.body).reduce((obj, [key, value]) => {
                 obj[key] = value.trim()
                 return obj
@@ -97,6 +102,11 @@ router.post('/users', async (req, res, next) => {
 
         req.session.user = user
         return res.status(200).json({ user })
+        }else{
+            const customError = new Error('Please complete the recaptcha challenge to proceed.')
+            customError.status = 409
+            return next(customError)
+        }
     } catch (err) {
         next(err)
     }
@@ -145,9 +155,8 @@ router.put('/users/:id', async (req, res, next) => {
             const { friends_email } = req.body
             const userRow = await updateFriendsListById(id, friends_email)
             if (userRow === 0) {
-                console.log('sorry')
                 return res.status(404).json({
-                    message: 'Sorry, This friend already exists.',
+                    message: 'Sorry, cannot add this email as friend',
                 })
             }
             const user = await getUserById(id)

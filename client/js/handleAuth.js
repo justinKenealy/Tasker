@@ -4,6 +4,7 @@ const signUpForm = document.getElementById('signup')
 const signupBtn = document.querySelectorAll('.signup-btn')
 const loginBtn = document.querySelector('.login-btn')
 
+
 loginBtn.addEventListener('click', ()=>{
     if (loginForm.style.display === 'none'){
         loginForm.style.display ='block'
@@ -26,7 +27,6 @@ const handleUserFormSubmit = (event) => {
     const action = form.dataset.action
 
     const data = Object.fromEntries(new FormData(form))
-
     const path = action==='login'?'session':'users'
     return axios.post(`/api/${path}`, data)
     .then(res=> {

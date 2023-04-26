@@ -23,7 +23,7 @@ const getTasksByDueDate = (date) => {
 }
 
 const getUpcomingTasks = () => {
-    return db.query('select * from tasks where due_date > current_date order by due_date asc;')
+    return db.query('select * from tasks;')
         .then(result => result.rows)
 }
 

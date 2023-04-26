@@ -16,7 +16,7 @@ router.get('/tasks/:id', (req, res, next) => {
         .then(task => res.json(task))
         .catch((err) => {
             res.status(500).json({ message: err.message })
-        })
+        })   
 })
 
 router.get('/tasks/project/:id', (req, res, next) => {
@@ -44,15 +44,9 @@ router.get('/tasks/due/:date', (req, res, next) => {
         })
 })
 
-router.get('/tasks/upcoming', (req, res, next) => {
+router.get('/tasks/upcoming', (req, res) => {
     return getUpcomingTasks()
-        .then((tasks) => {
-            console.log(tasks)
-            res.json(tasks)
-        })
-        .catch((err) => {
-            res.status(500).json({ message: err.message })
-        })
+        .then((tasks) => res.json(tasks)) 
 })
 
 router.post('/tasks', (req, res, next) => {

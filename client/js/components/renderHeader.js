@@ -53,6 +53,11 @@ const renderHeader = (user) => {
         renderTasksDueToday()
     })
 
+    // const upcomingLink = document.getElementById('sortListByUpcoming')
+    // upcomingLink.addEventListener('click', () => {
+
+    // })
+
     const logoutBtn = document.querySelector('.logout-btn')
     logoutBtn.addEventListener('click', () => {
         axios

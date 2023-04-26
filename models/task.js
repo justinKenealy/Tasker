@@ -22,6 +22,11 @@ const getTasksByDueDate = (date) => {
         .then(result => result.rows)
 }
 
+const getUpcomingTasks = () => {
+    return db.query('select * from tasks where due_date > current_date order by due_date asc;')
+        .then(result => result.rows)
+}
+
 const createTask = (project_id, name, description, creation_date, due_date, due_time, priority_level, status) => {
     const sql = `INSERT INTO tasks (project_id, name, description, creation_date, due_date, due_time, priority_level, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`
     const values = [project_id, name, description, creation_date, due_date, due_time, priority_level, status]
@@ -84,5 +89,6 @@ module.exports = {
     createTask,
     editTaskById,
     getTaskByProjectId,
-    getTasksByDueDate
+    getTasksByDueDate,
+    getUpcomingTasks
 }

@@ -148,6 +148,12 @@ body{
 
 #collaboratorsFormField {
     display: none;
+    
+}
+
+#listOfCollaborators{
+    max-height: 80px;
+    overflow: auto;
 }
 
 /* Notes render */

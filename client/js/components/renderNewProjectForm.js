@@ -26,9 +26,11 @@ const renderNewProjectForm = (projectCategory, user) => {
             <input type="radio" id="projectTypeGroup" name="projectType" value="group">
             <label for="group">Group</label><br>
         </p>
-        <p id="collaboratorsFormField" style="display:none;">
+        <div id="collaboratorsFormField" style="display:none;">
             <label for="collaborators">Collaborators</label>
-        </p>
+            <div id="listOfCollaborators">
+            </div>
+        </div>
         <input type="hidden" name="userId" value=${user.id}></input>
         <input type="hidden" name="category" value=${projectCategory}></input>
         <button class="btn-style" type="submit">Create</button>
@@ -37,14 +39,15 @@ const renderNewProjectForm = (projectCategory, user) => {
     display.appendChild(cancelIcon)
     display.appendChild(newProjectForm)
     const collaboratorsFormField = document.getElementById('collaboratorsFormField')
-
+    const listOfCollaborators = document.getElementById('listOfCollaborators')
+    collaboratorsFormField.appendChild(listOfCollaborators)
     for (let friend of user.friends_array){
         const newFriendCheckBox = document.createElement('div')
         newFriendCheckBox.innerHTML = `
         <input type="checkbox" id=${friend} name="collaborators" value=${friend}>
         <label for=${friend}>${friend}</label>
         `
-        collaboratorsFormField.appendChild(newFriendCheckBox)
+        listOfCollaborators.appendChild(newFriendCheckBox)
     }
 
     cancelIcon.addEventListener("click", () => display.remove())

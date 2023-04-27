@@ -1,4 +1,6 @@
-const renderTasks = (tasksArray, projectTitle) => {
+import renderNewTaskForm from "./renderNewTask.js"
+const renderTasks = (tasksArray, projectTitle, projectID) => {
+    console.log(tasksArray)
     const contentDiv = document.getElementById('main-content')
     contentDiv.innerHTML = ''
     // this div contains list of tasks
@@ -9,7 +11,17 @@ const renderTasks = (tasksArray, projectTitle) => {
     title.classList.add("project-title")
     title.innerText = projectTitle
     tasksArrayDiv.appendChild(title)
-    
+
+    if (projectID){
+        const addTasks = document.createElement('i')
+        addTasks.className = 'add-tasks-button'
+        addTasks.classList.add('fa-solid', 'fa-plus-square')
+        title.appendChild(addTasks)
+        addTasks.addEventListener('click', () => {
+            renderNewTaskForm(tasksArray, projectTitle, projectID)
+        })
+        
+    }
     const taskList = document.createElement('ul')
     for (let task of tasksArray) {
         const taskListItem = document.createElement('li')
@@ -23,7 +35,7 @@ const renderTasks = (tasksArray, projectTitle) => {
         const taskDueDate = document.createElement('p')
         taskDueDate.innerText = new Date(task.due_date).toLocaleDateString()
         taskDiv.appendChild(taskDueDate)
-        
+
         if (task.projectName) {
             const projectName = document.createElement('h6')
             projectName.innerText = task.projectName
@@ -32,7 +44,7 @@ const renderTasks = (tasksArray, projectTitle) => {
         }
         // listens for clicks on a task to render the task details
         taskDiv.addEventListener('click', () => {
-            renderTaskDetails(task, tasksArray, projectTitle)
+            renderTaskDetails(task, tasksArray, projectTitle, projectID)
         })
         taskListItem.appendChild(taskDiv)
         taskList.appendChild(taskListItem)
@@ -41,7 +53,7 @@ const renderTasks = (tasksArray, projectTitle) => {
     contentDiv.appendChild(tasksArrayDiv)
 }
 
-const renderTaskDetails = (task, tasksArray, projectTitle) => {
+const renderTaskDetails = (task, tasksArray, projectTitle, projectID) => {
     const contentDiv = document.getElementById('main-content')
     contentDiv.innerHTML = ''
     // this div contains details for a task
@@ -50,12 +62,12 @@ const renderTaskDetails = (task, tasksArray, projectTitle) => {
     // formats the dates
     const dueDate = new Date(task.due_date).toLocaleDateString()
     const creationDate = new Date(task.creation_date).toLocaleDateString()
-    const dueTime = new Date(`1970-01-01T${task.due_time}Z`).toLocaleTimeString('en-US', {
+    const dueTime = new Date(`1970-01-01T${task.due_time}:00Z`).toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
         hour12: true
     })
-    
+
     taskDetailsDiv.innerHTML = `
     <h2>${task.name}</h2>
     <h4><strong>Description:</strong></h4>
@@ -69,7 +81,7 @@ const renderTaskDetails = (task, tasksArray, projectTitle) => {
     contentDiv.appendChild(taskDetailsDiv)
     const closeButton = taskDetailsDiv.querySelector('.close-task-details')
     closeButton.addEventListener('click', () => {
-        renderTasks(tasksArray, projectTitle)
+        renderTasks(tasksArray, projectTitle, projectID)
     })
 }
 

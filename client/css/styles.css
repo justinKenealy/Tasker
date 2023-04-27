@@ -74,6 +74,11 @@ body{
     margin-bottom: 20px;
 }
 
+.add-tasks-button{
+    color: black;
+    margin-left: 4px;
+    cursor: pointer;
+}
 /*error message*/
 #errors{
    color:#ffffff;

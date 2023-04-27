@@ -16,7 +16,7 @@ router.get('/tasks/:id', (req, res, next) => {
         .then(task => res.json(task))
         .catch((err) => {
             res.status(500).json({ message: err.message })
-        })
+        })   
 })
 
 router.get('/tasks/project/:id', (req, res, next) => {

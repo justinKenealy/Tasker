@@ -8,9 +8,9 @@ const pgSession = require('connect-pg-simple')(session)
 const notesRouter = require("./controllers/notes");
 const projectsRouter = require("./controllers/projects");
 const tasksRouter = require("./controllers/tasks");
-const usersRouter = require("./controllers/users");
+const { router } = require("./controllers/users");
+const usersRouter = router
 const sessionRouter = require("./controllers/sessions");
-
 
 // above two lines will be for the routers to each of our controllers .js files
 

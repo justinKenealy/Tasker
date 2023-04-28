@@ -1,4 +1,4 @@
-import renderTaskDetails from './renderTaskDetails.js';
+import {renderTaskDetails} from './renderTasks.js';
 
 const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, projectID, tasksArray) => {
   const commentParent = document.createElement('div');
@@ -35,7 +35,7 @@ const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, 
       const deleteCommentBtn = document.createElement('i')
       deleteCommentBtn.className = 'fa-solid fa-trash'
       deleteCommentBtn.addEventListener('click', () => {
-          deleteComment(user, commentDiv, task, tasksArray, projectTitle, projectID)
+          deleteComment(user, commentsData, task, tasksArray, projectTitle, projectID, commentDiv)
       })
       commentDiv.appendChild(deleteCommentBtn)
 
@@ -89,7 +89,8 @@ const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, 
   taskDetailsDiv.appendChild(newCommentForm); 
 };
 
-const deleteComment = (user, commentDiv, task, tasksArray, projectTitle, projectID) => {
+const deleteComment = (user, commentsData, task, tasksArray, projectTitle, projectID, commentDiv) => {
+  const id = commentsData[0].id
   axios
       .delete(`/api/comments/${id}`)
       .then((res) => {
@@ -99,6 +100,6 @@ const deleteComment = (user, commentDiv, task, tasksArray, projectTitle, project
       .catch((err) => {
           console.error(err)
       })
-}
-
-export default renderComments;
+    }
+    
+export default renderComments

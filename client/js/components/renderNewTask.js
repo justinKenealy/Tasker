@@ -80,13 +80,14 @@ const handleSubmitForm = (event, tasksArray, projectTitle, projectID) => {
         due_date: formData.get('due-date'),
         due_time: formData.get('due-time'),
         priority_level: formData.get('priority-level'),
-        status: formData.get('status')
+        status: Number(formData.get('status'))
     }
 
     return axios.post('/api/tasks', data)
         .then(res => {
             const createdTask = JSON.parse(res.config.data)
             tasksArray.push(createdTask)
+            console.log(tasksArray)
             renderTasks(tasksArray, projectTitle, projectID)
         })
         .catch(err => {

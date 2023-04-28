@@ -1,4 +1,4 @@
-import renderTaskDetails from './renderTaskDetails.js';
+import {renderTaskDetails} from './renderTasks.js';
 
 const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, projectID, tasksArray) => {
   const commentParent = document.createElement('div');
@@ -101,4 +101,6 @@ const deleteComment = (user, commentsData, task, tasksArray, projectTitle, proje
           console.error(err)
       })
     }
+    
 export default renderComments
+

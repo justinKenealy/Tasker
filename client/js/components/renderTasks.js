@@ -191,5 +191,7 @@ const renderTaskDetails = async(task, tasksArray, projectTitle, projectID, user)
     //////////////////////////////////////
 }
 
-export default renderTasks
 
+
+export default renderTasks
+export { renderTasks, renderTaskDetails }

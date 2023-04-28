@@ -19,8 +19,8 @@ const renderEditDeleteProjectForm = (project_id, project_name, user) => {
             <label for="name">Project Name</label></br>
             <input type="text" name="name" value='${project_name}'></input>
         </p>
-        <button class="btn-style" type="submit">Save</button>
-        <button class="btn-style" id="deleteProject">Delete Project</button>
+        <button class="btn btn-outline-light mt-3 mb-3" type="submit">Save</button>
+        <button class="btn btn-danger mt-3 mb-3" id="deleteProject">Delete Project</button>
     </form>
     `;
     display.appendChild(cancelIcon)

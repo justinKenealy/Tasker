@@ -33,7 +33,7 @@ const renderNewProjectForm = (projectCategory, user) => {
         </div>
         <input type="hidden" name="userId" value=${user.id}></input>
         <input type="hidden" name="category" value=${projectCategory}></input>
-        <button class="btn-style" type="submit">Create</button>
+        <button class="btn btn-danger mt-3 mb-3" type="submit">Create</button>
     </form>
     `;
     display.appendChild(cancelIcon)

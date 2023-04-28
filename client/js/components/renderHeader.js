@@ -4,31 +4,17 @@ import renderNotes from "./renderNotes.js"
 import getTasksDueTodayOrUpcoming from "./getTasksDueTodayOrUpcoming.js"
 
 const renderHeader = (user) => {
-    const header = document.getElementById('header-nav')
+    const header1 = document.getElementById('header-nav')
+    const header2 = document.getElementById('lower-nav')
+
     const display = document.querySelector('.display')
     if (display) {
         display.remove()
     }
-    header.innerHTML = `
-    <nav class="navbar navbar-expand-lg" style="background-color: #bad7e9">
+    header1.innerHTML = `
+    <nav class="navbar nav-1" style="background-color: #fbfded; border-bottom: solid 1px #F9D949">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img id="logo-img" src="./images/tskr-high-resolution-logo-black-on-transparent-background.png" alt="logo"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse nav-underline justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item px-5">
-                        <a class="nav-link active" aria-current="page" href="#" id="sortListByToday">Today</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link" href="#" id="sortListByUpcoming">Upcoming</a>
-                    </li>
-                    <li class="nav-item px-5">
-                        <a class="nav-link" href="#" id="renderNotesPage">Notes</a>
-                    </li>
-                </ul>
-            </div>
             <div class="nav-item dropdown px-5">
                 <a class="nav-link dropdown-toggle name-display" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     ${user.user_name}
@@ -40,7 +26,30 @@ const renderHeader = (user) => {
                 </ul>
             </div>
         </div>
-      </nav>    
+    </nav>  `
+    header2.innerHTML=`
+    <nav class="navbar navbar-expand-sm nav-2" style="background-color: #2B3467">
+        <div class="container-fluid">
+        <a href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>        
+            <div class="collapse navbar-collapse nav-underline justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item px-5">
+                        <a class="nav-link" aria-current="page" href="#" id="sortListByToday">Today</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link" href="#" id="sortListByUpcoming">Upcoming</a>
+                    </li>
+                    <li class="nav-item px-5">
+                        <a class="nav-link" href="#" id="renderNotesPage">Notes</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>    
     `
     const notes = document.getElementById('renderNotesPage')
     notes.addEventListener('click', () => {

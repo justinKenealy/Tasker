@@ -35,13 +35,13 @@ VALUES (1, 'Set up development environment', 'This task involves setting up the 
        (3, 'Review course material', 'write some notes', '2023-04-24', '2023-04-25', '16:00:00', 1, 1),
        (3, 'Complete all the Labs', 'tick off labs that have been completed', '2023-04-28', '2023-04-30', '18:00:00', 2, 0);
 
-INSERT INTO comments (user_id, task_id, title, description, creation_date)
-VALUES (3, 1, 'Initial thoughts', 'This is a great start!', '2023-04-22'),
-       (1, 1, 'Agree', 'I think so too!', '2023-04-23'),
-       (2, 1, 'Feedback', 'I think we need to make some changes', '2023-04-25'),
-       (4, 1, 'Suggestions', 'What changes do you suggest?', '2023-04-26');
+INSERT INTO comments (user_id, user_name, task_id, description, creation_date) 
+VALUES (1, 'cookie_mons', 1, 'This task was completed perfectly.', '2022-04-25'),
+       (1, 'cookie_mons', 1, 'I appreciate your help on this task.', '2022-04-26'),
+       (1, 'cookie_mons', 1, 'Can you please provide more details about this task?', '2022-04-26');
+
 
 INSERT INTO notes (user_id, title, description, creation_date)
-VALUES (3, 'Meeting notes', 'Notes from our meeting on 4/25', '2023-04-25'),
-       (4, 'Ideas for app', 'Brainstorming ideas for new features', '2023-04-27'),
-       (2, 'Project review', 'Important topics to review for the project', '2023-04-30');
+VALUES (1, 'Meeting notes', 'Notes from our meeting on 4/25', '2023-04-25'),
+       (1, 'Ideas for app', 'Brainstorming ideas for new features', '2023-04-27'),
+       (1, 'Project review', 'Important topics to review for the project', '2023-04-30');

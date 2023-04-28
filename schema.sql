@@ -45,20 +45,20 @@ CREATE TABLE tasks (
 );
 
 CREATE TABLE comments (
-  id SERIAL PRIMARY KEY,
-  user_id INT,
-        CONSTRAINT fk_comments_users
-        FOREIGN KEY(user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE,
-  task_id INT,
-        CONSTRAINT fk_comments_tasks
-        FOREIGN KEY(task_id)
-        REFERENCES tasks(id)
-        ON DELETE CASCADE,
-  title TEXT,
-  description TEXT,
-  creation_date DATE
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+          CONSTRAINT fk_comments_users
+          FOREIGN KEY(user_id)
+          REFERENCES users(id)
+          ON DELETE CASCADE,
+    user_name TEXT,
+    task_id INT,
+          CONSTRAINT fk_comments_tasks
+          FOREIGN KEY(task_id)
+          REFERENCES tasks(id)
+          ON DELETE CASCADE,
+    description TEXT,
+    creation_date DATE
 );
 
 CREATE TABLE notes (

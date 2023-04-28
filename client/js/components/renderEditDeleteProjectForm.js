@@ -49,8 +49,8 @@ const renderEditDeleteProjectForm = async (project, user, tasksArray) => {
         <p id="collaborators-in-edit-project-form" style="display: none">
             <label for="collab">Project Collaborators</label><br>
         </p>
-        <button class="btn-style" type="submit">Save</button>
-        <button class="btn-style" id="deleteProject">Delete Project</button>
+        <button class="btn btn-outline-light mt-3 mb-3" type="submit">Save</button>
+        <button class="btn btn-danger mt-3 mb-3" id="deleteProject">Delete Project</button>
     </form>
     `;
     display.appendChild(cancelIcon)

@@ -1,6 +1,8 @@
 import renderNewTaskForm from "./renderNewTask.js"
 import renderDeleteTask from "./renderDeleteTask.js"
-const renderTasks = (tasksArray, projectTitle, projectID) => {
+import renderComments from './renderComments.js';
+
+const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     console.log(tasksArray)
     const contentDiv = document.getElementById('main-content')
     contentDiv.innerHTML = ''
@@ -20,7 +22,7 @@ const renderTasks = (tasksArray, projectTitle, projectID) => {
         addTasks.classList.add('fa-solid', 'fa-plus-square')
         title.appendChild(addTasks)
         addTasks.addEventListener('click', () => {
-            renderNewTaskForm(tasksArray, projectTitle, projectID)
+            renderNewTaskForm(tasksArray, projectTitle, projectID, user)
         })
     }
 
@@ -118,7 +120,7 @@ const renderTasks = (tasksArray, projectTitle, projectID) => {
         }
 
         taskHeading.addEventListener('click', () => {
-            renderTaskDetails(task, tasksArray, projectTitle, projectID)
+            renderTaskDetails(task, tasksArray, projectTitle, projectID, user)
         })
         taskListItem.appendChild(taskDiv)
         
@@ -141,7 +143,7 @@ const renderTasks = (tasksArray, projectTitle, projectID) => {
     }
 }
 
-const renderTaskDetails = (task, tasksArray, projectTitle, projectID) => {
+const renderTaskDetails = async(task, tasksArray, projectTitle, projectID, user) => {
     const contentDiv = document.getElementById('main-content')
     contentDiv.innerHTML = ''
     // this div contains details for a task
@@ -167,10 +169,25 @@ const renderTaskDetails = (task, tasksArray, projectTitle, projectID) => {
     <button class="close-task-details">close</button>
     `
     contentDiv.appendChild(taskDetailsDiv)
+
     const closeButton = taskDetailsDiv.querySelector('.close-task-details')
     closeButton.addEventListener('click', () => {
         renderTasks(tasksArray, projectTitle, projectID)
     })
+
+    //////////////////////////////////////
+    // Render comments inside taskDetailsDiv
+    try {
+        const response = await axios.get(`/api/comments/${task.id}`);
+        const commentsData = response.data.map((comment) => ({
+            ...comment,
+            user_name: user.user_name || 'Unknown',
+        }));
+        renderComments(commentsData, taskDetailsDiv, task, user, projectTitle, projectID, tasksArray);
+    } catch (err) {
+        console.error(err);
+    }
+    //////////////////////////////////////
 }
 
 export default renderTasks

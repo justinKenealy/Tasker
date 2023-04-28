@@ -1,4 +1,8 @@
 const renderNotes = (user_id) => {
+    const display = document.querySelector('.display')
+    if (display) {
+        display.remove()
+    }
     const mainContent = document.getElementById('main-content')
     mainContent.innerHTML = ''
 

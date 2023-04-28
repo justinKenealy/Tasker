@@ -110,6 +110,16 @@ body{
     margin-bottom: 20px;
 }
 
+.add-tasks-button{
+    color: black;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+/* .delete-task-button{
+    color: black;
+    cursor: pointer;
+} */
 /*error message*/
 #errors{
    color:#ffffff;
@@ -132,11 +142,22 @@ body{
     margin: auto;
 }
 
+/* tasks */
 .tasks {
-    border: 1px solid black;
+    border: 1px solid #F9D949;
+    background-color:#fbfded;
     
 }
 
+.project-title{
+    text-align: center;
+}
+
+.task-details{
+    border: 1px solid #F9D949;
+    background-color:#fbfded;
+
+}
 .task-details p {
     font-size: 1.2rem;
     margin-bottom: 10px;
@@ -151,6 +172,32 @@ body{
     cursor: pointer;
     font-size: 1.2rem;
     margin-top: 20px;
+}
+
+.task-div {
+    position: relative;
+}
+  
+.task-status {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.task-name{
+    cursor: pointer;
+    
+    border: solid 1px #F9D949;
+    padding: 10px;
+    margin-left: -17px;
+    width: fit-content;
+    background-color:#F9D949;
+    font-size: 15px;
+}
+
+.task-name:hover{
+    cursor: pointer;
+    color: white;
 }
 
 .add-project-btn {
@@ -174,6 +221,16 @@ body{
 
 #collaboratorsFormField {
     display: none;
+    
+}
+
+#listOfCollaborators{
+    max-height: 80px;
+    overflow: auto;
+    border: 2px solid white;
+    margin: 5px;
+    padding: 8px;
+    border-radius: 5px;
 }
 
 /* Notes render */
@@ -265,7 +322,6 @@ body{
     display: grid;
     grid-template-columns: 6fr 1fr 1fr;
     margin-bottom: 1rem;
-
 }
 
 .fa-square-plus:hover{

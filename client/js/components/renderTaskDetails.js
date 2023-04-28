@@ -4,6 +4,7 @@ const renderTaskDetails = async (task, tasksArray, projectTitle, projectID, user
     console.log(task)
     const contentDiv = document.getElementById('main-content')
     contentDiv.innerHTML = ''
+
     // this div contains details for a task
     const taskDetailsDiv = document.createElement('div')
     taskDetailsDiv.classList.add('task-details')
@@ -24,7 +25,7 @@ const renderTaskDetails = async (task, tasksArray, projectTitle, projectID, user
     <p>Priority level: ${task.priority_level}</p>
     <p>Status: ${task.status}</p>
     <p>Created on ${creationDate}</p>
-    <button class="close-task-details">close</button>
+    <div class="close-task-details"><button class="close-task-details-btn">close</button></div>
     `
     contentDiv.appendChild(taskDetailsDiv)
     
@@ -43,7 +44,7 @@ const renderTaskDetails = async (task, tasksArray, projectTitle, projectID, user
     //////////////////////////////////////
 
 
-    const closeButton = taskDetailsDiv.querySelector('.close-task-details')
+    const closeButton = taskDetailsDiv.querySelector('.close-task-details-btn')
     closeButton.addEventListener('click', () => {
         renderTasks(task, tasksArray, projectTitle, projectID, user)
     })

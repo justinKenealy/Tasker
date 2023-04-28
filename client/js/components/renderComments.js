@@ -4,6 +4,7 @@ const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, 
   const commentParent = document.createElement('div');
   const commentHeader = document.createElement('h3');
   commentHeader.innerText = 'Comments';
+  commentParent.classList.add('comment-header')
   commentParent.appendChild(commentHeader);
   console.log(task.id)
 

@@ -159,6 +159,10 @@ body{
 #listOfCollaborators{
     max-height: 80px;
     overflow: auto;
+    border: 2px solid white;
+    margin: 5px;
+    padding: 8px;
+    border-radius: 5px;
 }
 
 /* Notes render */

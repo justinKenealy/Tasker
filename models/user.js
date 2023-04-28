@@ -22,6 +22,16 @@ const getMultipleUsersByEmail = (emailsArray) => {
     .then(res => res.rows)
 }
 
+const getMultipleUsersByID = (IDsArray) => {
+    usersArrayAsQuery = `WHERE id = ${IDsArray[0]}`
+    for (let i=1; i<(IDsArray.length); i++){
+        usersArrayAsQuery+=` OR id = ${IDsArray[i]}`
+    }
+    const sql = `SELECT email FROM users ${usersArrayAsQuery};`
+    return db.query(sql)
+    .then(res => res.rows)
+}
+
 const getUserById = (id) => {
     const sql = 'SELECT * FROM users WHERE id=$1 LIMIT 1'
     return db.query(sql,[id])
@@ -53,4 +63,4 @@ const deleteFriendByUsernameFromUser = (id, friends_email) =>{
     .then(res => res.rowCount)
 }
 
-module.exports = {createUser, getUserByEmail, getMultipleUsersByEmail, getUserById, updateUserPassById, updateFriendsListById, deleteFriendByUsernameFromUser}
+module.exports = {createUser, getUserByEmail, getMultipleUsersByEmail, getUserById, updateUserPassById, updateFriendsListById, deleteFriendByUsernameFromUser, getMultipleUsersByID}

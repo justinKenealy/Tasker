@@ -23,9 +23,9 @@ const deleteProject = (id) => {
 //     return db.query(sql, [collab, category, name, task_type, id])
 // }
 
-const updateProject = (name, id) => {
-    const sql = `UPDATE projects SET name = $1 WHERE id = $2;`
-    return db.query(sql, [name, id])
+const updateProject = (name, category, id) => {
+    const sql = `UPDATE projects SET name = $1, category = $2 WHERE id = $3;`
+    return db.query(sql, [name, category, id])
 }
 
 module.exports = {

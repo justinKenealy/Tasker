@@ -10,6 +10,7 @@ const {
     getUserByEmail,
     deleteFriendByUsernameFromUser,
     getMultipleUsersByEmail,
+    getMultipleUsersByID,
 } = require('../models/user')
 
 const router = express.Router()
@@ -217,6 +218,20 @@ router.post('/users/multiple', async (req, res, next) => {
             IDs.push(user.id)
         }
         return res.status(200).json({ IDs })
+    } catch (err) {
+        next(err)
+    }
+})
+
+//get multiple user emails by id
+router.post('/users/multipleid/', async (req, res, next) => {
+    try {
+        const users = await getMultipleUsersByID(req.body)
+        const emails = []
+        for (let user of users){
+            emails.push(user.email)
+        }
+        return res.status(200).json({ emails })
     } catch (err) {
         next(err)
     }

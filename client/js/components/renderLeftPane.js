@@ -47,9 +47,9 @@ const renderLeftPane = async (user) => {
                     const tasks = await axios.get('/api/tasks/project/' + project.id) 
                     renderTasks(tasks.data, project.name, project.id)
                 })
-                editButton.addEventListener('click', function(){
-                    console.log(project.id)
-                    renderEditDeleteProjectForm(project.id, project.name, user)
+                editButton.addEventListener('click', async function(){
+                    const tasks = await axios.get('/api/tasks/project/' + project.id) 
+                    renderEditDeleteProjectForm(project, user, tasks.data)
                 })
             }
         })

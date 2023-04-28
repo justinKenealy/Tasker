@@ -65,8 +65,8 @@ router.put('/projects/:id', (req, res) => {
 	const id = Number(req.params.id);
 	// const { collab, category, name, task_type } = req.body;
     // return updateProject(collab, category, name, task_type, id)
-    const { name } = req.body;
-    return updateProject(name, id)
+    const { name, category } = req.body;
+    return updateProject(name, category, id)
     	.then((result) => res.sendStatus(result.rowCount === 0 ? 404 : 200))
 });
 

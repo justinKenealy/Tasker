@@ -12,6 +12,7 @@ const renderTasks = (tasksArray, projectTitle, projectID) => {
     title.classList.add("project-title")
     title.innerText = projectTitle
     tasksArrayDiv.appendChild(title)
+    contentDiv.appendChild(tasksArrayDiv)
 
     if (projectID) {
         const addTasks = document.createElement('i')
@@ -21,6 +22,41 @@ const renderTasks = (tasksArray, projectTitle, projectID) => {
         addTasks.addEventListener('click', () => {
             renderNewTaskForm(tasksArray, projectTitle, projectID)
         })
+    }
+
+    if (projectID){
+        contentDiv.classList = 'kanban'
+        const toDoDiv = document.createElement('div')
+        const inProgressDiv = document.createElement('div')
+        const completedTaskDiv = document.createElement('div')
+        toDoDiv.id = 'to-do-div'
+        inProgressDiv.id = 'in-progress-div'
+        completedTaskDiv.id = 'completed-task-div'
+
+        const toDoDivUl = document.createElement('ul')
+        const inProgressDivUl = document.createElement('ul')
+        const completedTaskDivUl = document.createElement('ul')
+        toDoDivUl.id = 'to-do-div-ul'
+        inProgressDivUl.id = 'in-progress-div-ul'
+        completedTaskDivUl.id = 'completed-tasks-div-ul'
+
+        const toDoDivH1 = document.createElement('h1')
+        const inProgressDivH1 = document.createElement('h1')
+        const completedTaskDivH1 = document.createElement('h1')
+        toDoDivH1.innerText = 'To Do'
+        inProgressDivH1.innerText = 'In Progress'
+        completedTaskDivH1.innerText = 'Complete'
+
+        contentDiv.appendChild(toDoDiv)
+        contentDiv.appendChild(inProgressDiv)
+        contentDiv.appendChild(completedTaskDiv)
+
+        toDoDiv.appendChild(toDoDivH1)
+        inProgressDiv.appendChild(inProgressDivH1)
+        completedTaskDiv.appendChild(completedTaskDivH1)
+        toDoDiv.appendChild(toDoDivUl)
+        inProgressDiv.appendChild(inProgressDivUl)
+        completedTaskDiv.appendChild(completedTaskDivUl)
     }
 
     const taskList = document.createElement('ul')
@@ -85,10 +121,24 @@ const renderTasks = (tasksArray, projectTitle, projectID) => {
             renderTaskDetails(task, tasksArray, projectTitle, projectID)
         })
         taskListItem.appendChild(taskDiv)
-        taskList.appendChild(taskListItem)
+        
+        if (projectID){
+                if (task.status === 0){
+                    const toDoDivUl = document.getElementById('to-do-div-ul')
+                    toDoDivUl.appendChild(taskListItem)
+                } else if (task.status === 1){
+                    const inProgressDivUl = document.getElementById('in-progress-div-ul')
+                    inProgressDivUl.appendChild(taskListItem)
+                } else {
+                    const completedTaskDivUl = document.getElementById('completed-tasks-div-ul')
+                    completedTaskDivUl.appendChild(taskListItem)
+                }
+        } else {
+        taskList.appendChild(taskListItem)}
     }
-    tasksArrayDiv.appendChild(taskList)
-    contentDiv.appendChild(tasksArrayDiv)
+    if (!projectID)
+        {tasksArrayDiv.appendChild(taskList)
+    }
 }
 
 const renderTaskDetails = (task, tasksArray, projectTitle, projectID) => {

@@ -274,3 +274,30 @@ body{
     grid-template-columns: 6fr 1fr 1fr;
 }
 
+.kanban {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: fit-content(150px) 1fr;
+}
+
+.kanban .tasks {
+    grid-column: 1 / 4;
+}
+
+.kanban h1 {
+    font-size: 22px;
+}
+
+#to-do-div, #in-progress-div, #completed-task-div {
+    border: 3px solid grey;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+#to-do-div-ul li, #in-progress-div-ul li, #completed-tasks-div-ul li {
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 3px;
+    margin: 5px;
+    list-style: none;
+}

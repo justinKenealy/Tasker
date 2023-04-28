@@ -1,3 +1,5 @@
+import renderLeftPane from "./renderLeftPane.js"
+
 const renderFriendProfile = (user) => {
     const oldDisplay = document.querySelector('.display')
     if (oldDisplay) {
@@ -37,6 +39,7 @@ const renderFriendProfile = (user) => {
 
     const buttonHolder = document.createElement('div')
     buttonHolder.classList = 'mt-3'
+
 
     const addBtn = document.createElement('button')
     addBtn.classList = 'btn btn-outline-light m-2'
@@ -98,7 +101,6 @@ const renderFriendProfile = (user) => {
         } else {
             form.style.display = 'none'
         }
-
         const allCrossboxes = document.querySelectorAll('.crossbox')
         allCrossboxes.forEach((each) => {
                 each.style.display = 'none'
@@ -115,6 +117,7 @@ const renderFriendProfile = (user) => {
                     .get('/api/session')
                     .then(({ data }) => {
                         renderFriendProfile(data.user)
+                        renderLeftPane(data.user)
                     })
                     .catch((err) => console.error(err))
             })
@@ -135,13 +138,13 @@ const renderFriendProfile = (user) => {
             }
 
             each.addEventListener('click', () => {
-                console.log()
                 return axios
                     .put(`/api/users/${user.id}/${each.dataset.email}`)
                     .then((res) => {
                         axios
                             .get('/api/session')
                             .then(({ data }) => {
+                                renderLeftPane(data.user)
                                 renderFriendProfile(data.user)
                             })
                             .catch((err) => console.error(err))

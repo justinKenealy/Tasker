@@ -1,6 +1,9 @@
 import renderTasks from "./renderTasks.js"
 const getTasksDueTodayOrUpcoming = async (user_id, showDueToday) => {
-    
+    const oldDisplay = document.querySelector('.display')
+    if (oldDisplay) {
+        oldDisplay.remove()
+    }
     // showDueToday determines which tasks array to retrieve when rendering today or upcoming tasks
     const todayDate = new Date()
     const timeZoneOffset = todayDate.getTimezoneOffset() * 60000

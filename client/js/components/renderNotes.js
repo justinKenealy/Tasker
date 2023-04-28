@@ -5,6 +5,7 @@ const renderNotes = (user_id) => {
     }
     const mainContent = document.getElementById('main-content')
     mainContent.innerHTML = ''
+    mainContent.className = 'kanban-notes'
 
     axios
         .get(`/api/notes/${user_id}`)
@@ -26,6 +27,8 @@ const renderNotes = (user_id) => {
                 mainContent.appendChild(noNote)
                 noNote.appendChild(addButton)
             } else {
+                
+
                 notes.forEach((note, i) => {
                     const noteDiv = document.createElement('div')
                     noteDiv.classList.add('note')
@@ -86,7 +89,7 @@ const renderNotes = (user_id) => {
                         addButton.addEventListener('click', () => {
                             showCreateNoteFormPopup(user_id)
                         })
-                        noteDiv.appendChild(addButton)
+                        mainContent.prepend(addButton)
                     }
                 })
             }

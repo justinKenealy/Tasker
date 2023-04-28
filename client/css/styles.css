@@ -242,6 +242,7 @@ body{
     border-radius: 5px;
     border: solid 1px #F9D949;
     background-color: #fbfded;
+    height: auto;
 }
 
 .note_title {
@@ -280,13 +281,14 @@ body{
 }
 
 .add-button {
-    position: absolute;
     margin: 10px;
-    bottom: -50px;
-    left: -10px;
     border: gray;
     border-radius: 5px;
     cursor: pointer;
+    height: 30px !important;
+    width: 250px;
+    margin: 10px auto;
+    grid-column: 1 / 4;
 }
 
 .category-heading{
@@ -346,6 +348,14 @@ body{
     grid-template-rows: fit-content(150px) 1fr;
 }
 
+.kanban-notes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 40px;
+    max-height: 99%;
+    overflow: auto;
+}
+
 .kanban .tasks {
     grid-column: 1 / 4;
 }
@@ -360,14 +370,19 @@ body{
     margin: 5px;
 }
 
+#to-do-div-ul, #in-progress-div-ul, #completed-task-div-ul {
+    overflow: auto;
+    max-height: 90%;
+}
+
 #to-do-div-ul li, #in-progress-div-ul li, #completed-tasks-div-ul li {
     padding: 5px;
     border: 1px solid grey;
     border-radius: 3px;
     margin: 5px;
     list-style: none;
+}
 
 .creationDate-comment, .author-comment {
     font-size: smaller !important;
-
 }

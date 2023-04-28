@@ -125,10 +125,10 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         taskListItem.appendChild(taskDiv)
         
         if (projectID){
-                if (task.status === 0){
+                if (task.status === 1){
                     const toDoDivUl = document.getElementById('to-do-div-ul')
                     toDoDivUl.appendChild(taskListItem)
-                } else if (task.status === 1){
+                } else if (task.status === 2){
                     const inProgressDivUl = document.getElementById('in-progress-div-ul')
                     inProgressDivUl.appendChild(taskListItem)
                 } else {
@@ -138,8 +138,9 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         } else {
         taskList.appendChild(taskListItem)}
     }
-    if (!projectID)
-        {tasksArrayDiv.appendChild(taskList)
+    if (!projectID){
+        tasksArrayDiv.appendChild(taskList)
+        contentDiv.className = ''
     }
 }
 

@@ -5,6 +5,7 @@ const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 
 
+const commentsRouter = require("./controllers/comments");
 const notesRouter = require("./controllers/notes");
 const projectsRouter = require("./controllers/projects");
 const tasksRouter = require("./controllers/tasks");
@@ -39,7 +40,7 @@ app.use(
 
 // code to app.use routers and any middleware
 app.use(httpLoggerMiddleware)
-app.use('/api', usersRouter, sessionRouter, projectsRouter, notesRouter, tasksRouter)
+app.use('/api', usersRouter, sessionRouter, projectsRouter, notesRouter, tasksRouter, commentsRouter)
 app.use(errorHandlingMiddleware)
 
 app.listen(port, () => {

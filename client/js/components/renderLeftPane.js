@@ -45,7 +45,7 @@ const renderLeftPane = async (user) => {
                 newDiv.appendChild(editButton)
                 projectName.addEventListener('click', async function() {
                     const tasks = await axios.get('/api/tasks/project/' + project.id) 
-                    renderTasks(tasks.data, project.name, project.id)
+                    renderTasks(tasks.data, project.name, project.id, user)
                 })
                 editButton.addEventListener('click', async function(){
                     const tasks = await axios.get('/api/tasks/project/' + project.id) 

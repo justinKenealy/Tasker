@@ -1,5 +1,6 @@
 import renderTasks from "./renderTasks.js"
-const getTasksDueTodayOrUpcoming = async (user_id, showDueToday) => {
+const getTasksDueTodayOrUpcoming = async (user_id, showDueToday, user) => {
+    console.log('hello abcd')
     const oldDisplay = document.querySelector('.display')
     if (oldDisplay) {
         oldDisplay.remove()
@@ -40,7 +41,7 @@ const getTasksDueTodayOrUpcoming = async (user_id, showDueToday) => {
 
         const tasksArray = showDueToday ? tasksDueTodayArr : upcomingTasksArr
         const title = showDueToday ? 'Tasks Due Today' : 'Upcoming Tasks'
-        renderTasks(tasksArray, title)
+        renderTasks(tasksArray, title, undefined, user)
     } catch (err) {
         console.error(err)
     }

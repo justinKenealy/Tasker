@@ -59,12 +59,12 @@ const renderHeader = (user) => {
 
     const todaysLink = document.getElementById('sortListByToday')
     todaysLink.addEventListener('click', () => {
-        getTasksDueTodayOrUpcoming(user.id, true)
+        getTasksDueTodayOrUpcoming(user.id, true, user)
     })
 
     const upcomingLink = document.getElementById('sortListByUpcoming')
     upcomingLink.addEventListener('click', () => {
-        getTasksDueTodayOrUpcoming(user.id, false)
+        getTasksDueTodayOrUpcoming(user.id, false, user)
     })
 
     const logoutBtn = document.querySelector('.logout-btn')

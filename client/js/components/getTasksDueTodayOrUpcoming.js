@@ -1,5 +1,6 @@
 import renderTasks from "./renderTasks.js"
 const getTasksDueTodayOrUpcoming = async (user_id, showDueToday) => {
+    
     // showDueToday determines which tasks array to retrieve when rendering today or upcoming tasks
     const todayDate = new Date()
     const timeZoneOffset = todayDate.getTimezoneOffset() * 60000
@@ -25,7 +26,7 @@ const getTasksDueTodayOrUpcoming = async (user_id, showDueToday) => {
                         ...task,
                         projectName: project.name
                     })
-                } else if (taskDueDateFormatted > todayFormatted){
+                } else if (taskDueDateFormatted > todayFormatted) {
                     upcomingTasksArr.push({
                         ...task,
                         projectName: project.name

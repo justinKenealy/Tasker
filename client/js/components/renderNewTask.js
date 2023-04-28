@@ -1,6 +1,10 @@
 import renderTasks from "./renderTasks.js"
 
 const renderNewTaskForm = (tasksArray, projectTitle, projectID) => {
+    const oldDisplay = document.querySelector('.display')
+    if (oldDisplay) {
+        oldDisplay.remove()
+    }
     console.log(projectID)
     const display = document.createElement("div")
     display.classList.add('display')
@@ -8,7 +12,7 @@ const renderNewTaskForm = (tasksArray, projectTitle, projectID) => {
 
     const cancelIcon = document.createElement('i')
     cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
-    
+
     const todayDate = new Date()
     const timeZoneOffset = todayDate.getTimezoneOffset() * 60000
     const todayFormatted = new Date(todayDate - timeZoneOffset).toISOString().slice(0, 10)
@@ -40,15 +44,14 @@ const renderNewTaskForm = (tasksArray, projectTitle, projectID) => {
             <label for="priority-level">Priority Level</label></br>
             <select name="priority-level">
                 <option value="1">Low</option>
-                <option value="2">Medium</option>
-                <option value="3">High</option>
+                <option value="2">High</option>
             </select>
         </p>
         <p>
             <label for="status">Status</label></br>
             <select name="status">
-                <option value="1">Not Started</option>
-                <option value="2">In Progress</option>
+                <option value="1">To do</option>
+                <option value="2">In progress</option>
                 <option value="3">Completed</option>
             </select>
         </p>
@@ -62,7 +65,6 @@ const renderNewTaskForm = (tasksArray, projectTitle, projectID) => {
     document.getElementById("create-task-form").addEventListener("submit", (event) => {
         handleSubmitForm(event, tasksArray, projectTitle, projectID)
     })
-
 }
 
 const handleSubmitForm = (event, tasksArray, projectTitle, projectID) => {
@@ -93,4 +95,3 @@ const handleSubmitForm = (event, tasksArray, projectTitle, projectID) => {
 }
 
 export default renderNewTaskForm
-

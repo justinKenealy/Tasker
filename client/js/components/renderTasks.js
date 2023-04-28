@@ -1,4 +1,5 @@
 import renderNewTaskForm from "./renderNewTask.js"
+import renderDeleteTask from "./renderDeleteTask.js"
 const renderTasks = (tasksArray, projectTitle, projectID) => {
     console.log(tasksArray)
     const contentDiv = document.getElementById('main-content')
@@ -12,7 +13,7 @@ const renderTasks = (tasksArray, projectTitle, projectID) => {
     title.innerText = projectTitle
     tasksArrayDiv.appendChild(title)
 
-    if (projectID){
+    if (projectID) {
         const addTasks = document.createElement('i')
         addTasks.className = 'add-tasks-button'
         addTasks.classList.add('fa-solid', 'fa-plus-square')
@@ -20,8 +21,8 @@ const renderTasks = (tasksArray, projectTitle, projectID) => {
         addTasks.addEventListener('click', () => {
             renderNewTaskForm(tasksArray, projectTitle, projectID)
         })
-        
     }
+
     const taskList = document.createElement('ul')
     for (let task of tasksArray) {
         const taskListItem = document.createElement('li')
@@ -29,21 +30,58 @@ const renderTasks = (tasksArray, projectTitle, projectID) => {
         taskDiv.classList.add('task-div')
 
         const taskHeading = document.createElement('h6')
+        taskHeading.classList.add('task-name')
         taskHeading.innerText = task.name
         taskDiv.appendChild(taskHeading)
 
+        // const priority_level = document.createElement('i')
+        // priority_level.innerText = '⚠️'
+        // priority_level.className = 'priority-level'
+        // taskHeading.appendChild(priority_level)
+    
         const taskDueDate = document.createElement('p')
         taskDueDate.innerText = new Date(task.due_date).toLocaleDateString()
         taskDiv.appendChild(taskDueDate)
+
+        const statusSpan = document.createElement('span')
+        statusSpan.classList.add('task-status')
+        taskDiv.appendChild(statusSpan)
+
+        if (projectID) {
+            const deleteButton = document.createElement('i')
+            deleteButton.className = 'delete-task-button'
+            deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>'
+            taskDiv.appendChild(deleteButton)
+            deleteButton.addEventListener('click', () => {
+                renderDeleteTask(task.id, tasksArray, projectTitle, projectID)
+            })
+        }
 
         if (task.projectName) {
             const projectName = document.createElement('h6')
             projectName.innerText = task.projectName
             taskDiv.appendChild(projectName)
-
         }
-        // listens for clicks on a task to render the task details
-        taskDiv.addEventListener('click', () => {
+
+        switch (task.status) {
+            case 3:
+                // completed
+                statusSpan.innerHTML = '<i class="fa-solid fa-square-check"></i>'
+                // statusSpan.style.color = 'green'
+                break
+            case 2:
+                // in progress
+                statusSpan.innerHTML = '⏳'
+                // statusSpan.style.color = 'yellow'
+                break
+            default:
+                // to-do
+                statusSpan.innerText = '🚩'
+                // statusSpan.style.color = '#eb455f'
+                break
+        }
+
+        taskHeading.addEventListener('click', () => {
             renderTaskDetails(task, tasksArray, projectTitle, projectID)
         })
         taskListItem.appendChild(taskDiv)

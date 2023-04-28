@@ -18,20 +18,20 @@ const getCommentsByTaskId = (taskId) => {
         .then((result) => result.rows);
 };
 
-const createComment = (user_id, task_id, title, description, creation_date) => {
+const createComment = (user_id, user_name, task_id, description, creation_date) => {
     return db
         .query(
-            "INSERT INTO comments (user_id, task_id, title, description, creation_date) VALUES ($1, $2, $3, $4, $5) RETURNING *;", 
-            [user_id, task_id, title, description, creation_date]
+            "INSERT INTO comments (user_id, user_name, task_id, description, creation_date) VALUES ($1, $2, $3, $4, $5) RETURNING *;", 
+            [user_id, user_name, task_id, description, creation_date]
         )
         .then((result) => result.rows[0]);
 };
 
-const updateCommentById = (id, user_id, task_id, title, description, creation_date) => {
+const updateCommentById = (id, user_id, user_name, task_id, description, creation_date) => {
     return db
         .query(
-            "UPDATE comments SET user_id = $2, task_id = $3, title = $4, description = $5, creation_date = $6 WHERE id = $1 RETURNING *;",
-            [id, user_id, task_id, title, description, creation_date]
+            "UPDATE comments SET user_id = $2, task_id = $3, description = $4, creation_date = $5 WHERE id = $1 RETURNING *;",
+            [id, user_id, user_name, task_id, description, creation_date]
         )
         .then((result) => result.rows[0]);
 };

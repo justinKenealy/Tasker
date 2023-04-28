@@ -35,10 +35,10 @@ VALUES (1, 'Set up development environment', 'This task involves setting up the 
        (3, 'Review course material', 'write some notes', '2023-04-24', '2023-04-25', '16:00:00', 1, 1),
        (3, 'Complete all the Labs', 'tick off labs that have been completed', '2023-04-28', '2023-04-30', '18:00:00', 2, 0);
 
-INSERT INTO comments (user_id, user_name, task_id, title, description, creation_date) 
-VALUES (1, 'cookie_mons', 1, 'Great job!', 'This task was completed perfectly.', '2022-04-25'),
-       (1, 'cookie_mons', 1, 'Thanks!', 'I appreciate your help on this task.', '2022-04-26'),
-       (1, 'cookie_mons', 1, 'Need more information', 'Can you please provide more details about this task?', '2022-04-26');
+INSERT INTO comments (user_id, user_name, task_id, description, creation_date) 
+VALUES (1, 'cookie_mons', 1, 'This task was completed perfectly.', '2022-04-25'),
+       (1, 'cookie_mons', 1, 'I appreciate your help on this task.', '2022-04-26'),
+       (1, 'cookie_mons', 1, 'Can you please provide more details about this task?', '2022-04-26');
 
 
 INSERT INTO notes (user_id, title, description, creation_date)

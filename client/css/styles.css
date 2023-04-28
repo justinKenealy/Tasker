@@ -274,3 +274,18 @@ body{
     grid-template-columns: 6fr 1fr 1fr;
 }
 
+/* render comments */
+
+.comment-div {
+    position: relative;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: solid 1px #dee1cb;
+    background-color: #fbfded;
+}
+
+.creationDate-comment, .author-comment {
+    font-size: smaller !important;
+}

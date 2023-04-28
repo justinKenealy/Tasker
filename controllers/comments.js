@@ -18,18 +18,17 @@ router.get("/comments/:taskId", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.post("/comments/:taskId", (req, res, next) => {
-    const { user_id, title, description, creation_date } = req.body;
-    taskId = Number(req.params.taskId);
-    return createComment(user_id, taskId, title, description, creation_date)
+router.post("/comments", (req, res, next) => {
+    const { user_id, user_name, task_id, description, creation_date } = req.body;
+    return createComment(user_id, user_name, task_id, description, creation_date)
     .then((comment) => res.json(comment))
     .catch((err) => next(err))
 });
 
 router.put("/comments/:id", (req, res, next) => {
-    const { user_id, task_id, title, description, creation_date } = req.body;
+    const { user_id, user_name, task_id, description, creation_date } = req.body;
     const id = Number(req.params.id);
-    return updateCommentById(id, user_id, task_id, title, description, creation_date)
+    return updateCommentById(id, user_id, user_name, task_id, description, creation_date)
         .then((comment) => res.json(comment))
         .catch((err) => next(err))
 });

@@ -4,15 +4,62 @@
 
 body{
     background-color: #fcffe7;
+
 }
 
 #logo-img{
     width: 4rem;
 }
 
+/* full display */
+#body-content{
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content min-content 1fr;
+    overflow-x: hidden;
+    min-height: 100vh
+
+}
+
+
+#header-nav{
+    grid-area:1/1/2/3 ;   
+}
+
+#lower-nav{
+    grid-area: 2/2/3/3;
+}
+
+#main-content{
+    grid-area: 3/2/4/3;
+}
+
+#left-pane {
+    grid-area: 2/1/4/2;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    grid-template-rows: min-content min-content min-content;
+    background-color:  #BAD7E9;
+    width: 20rem;
+    min-width: 260px;
+    height:100%
+}
+
+#sortListByToday, #sortListByUpcoming, #renderNotesPage{
+    color: white;
+}
+
+
+.nav-holder{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+
 /*pop up display for userdetails*/
 .display{
-    background-color: rgba(55, 100, 130, 0.783);
+    background-color: #BAD7E9;
     position: fixed;
     padding:1rem;
     width: 25rem;
@@ -22,7 +69,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    /* color: white; */
     top: 50%;
     left: 50%;
     border-radius: 20px;
@@ -34,23 +81,12 @@ body{
     top: 2rem;
     right: 2rem;
     cursor: pointer;
+    color: red
 }
 
-#left-pane {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    background-color: #eb455f;
-    border-radius: 8px;
-    width: 25%;
-    min-width: 260px;
-    float: left;
-}
 
-#main-content {
-    float: right;
-    width: 75%;
-}
+
+
 
 .tasks li {
     border: 1px solid black;
@@ -204,7 +240,7 @@ body{
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
-    border: solid 1px #dee1cb;
+    border: solid 1px #F9D949;
     background-color: #fbfded;
 }
 
@@ -215,7 +251,11 @@ body{
     padding: 10px;
     margin-left: -17px;
     width: fit-content;
-    background-color:#F9D949;
+    background-color:#2B3467;
+}
+
+.note_title:hover{
+   background-color: #eb455f;
 }
 
 .description, .creationDate {
@@ -253,15 +293,19 @@ body{
     font-weight: 900;
     font-size: 18px;
     margin-left: 10px;
+    color: black
 }
+
 
 .project-name:hover{
     cursor: pointer;
-    color: white;
+    color: #EB455F;
+    
 }
 
 .project-name{
     font-size: 15px;
+    color: rgb(0, 0, 0);
 }
 
 .project-edit-button{
@@ -269,8 +313,18 @@ body{
     margin-right: 0px;
 }
 
+.project-edit-button:hover{
+    color: #EB455F;
+    cursor: pointer;
+}
+
 .project-list-item{
     display: grid;
     grid-template-columns: 6fr 1fr 1fr;
+    margin-bottom: 1rem;
+}
+
+.fa-square-plus:hover{
+    color: #EB455F;
 }
 

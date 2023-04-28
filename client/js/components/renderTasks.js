@@ -1,6 +1,6 @@
-import renderNewTaskForm from "./renderNewTask.js"
-import renderDeleteTask from "./renderDeleteTask.js"
-import renderComments from './renderComments.js';
+import renderNewTaskForm from './renderNewTask.js'
+import renderDeleteTask from './renderDeleteTask.js'
+import renderComments from './renderComments.js'
 
 const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     console.log(tasksArray)
@@ -11,7 +11,7 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     tasksArrayDiv.classList.add('tasks')
     // creates heading for the project
     const title = document.createElement('p')
-    title.classList.add("project-title")
+    title.classList.add('project-title')
     title.innerText = projectTitle
     tasksArrayDiv.appendChild(title)
     contentDiv.appendChild(tasksArrayDiv)
@@ -26,14 +26,18 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         })
     }
 
-    if (projectID){
+    if (projectID) {
         contentDiv.classList = 'kanban'
         const toDoDiv = document.createElement('div')
         const inProgressDiv = document.createElement('div')
         const completedTaskDiv = document.createElement('div')
         toDoDiv.id = 'to-do-div'
+        toDoDiv.classList='drag-zone'
         inProgressDiv.id = 'in-progress-div'
+        inProgressDiv.classList='drag-zone'
         completedTaskDiv.id = 'completed-task-div'
+        completedTaskDiv.classList='drag-zone'
+
 
         const toDoDivUl = document.createElement('ul')
         const inProgressDivUl = document.createElement('ul')
@@ -64,8 +68,10 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     const taskList = document.createElement('ul')
     for (let task of tasksArray) {
         const taskListItem = document.createElement('li')
+        taskListItem.classList='task-list-item'
         const taskDiv = document.createElement('div')
         taskDiv.classList.add('task-div')
+        taskDiv.draggable = true
 
         const taskHeading = document.createElement('h6')
         taskHeading.classList.add('task-name')
@@ -76,7 +82,7 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         // priority_level.innerText = '⚠️'
         // priority_level.className = 'priority-level'
         // taskHeading.appendChild(priority_level)
-    
+
         const taskDueDate = document.createElement('p')
         taskDueDate.innerText = new Date(task.due_date).toLocaleDateString()
         taskDiv.appendChild(taskDueDate)
@@ -100,50 +106,115 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
             projectName.innerText = task.projectName
             taskDiv.appendChild(projectName)
         }
-
         switch (task.status) {
             case 3:
                 // completed
-                statusSpan.innerHTML = '<i class="fa-solid fa-square-check"></i>'
+                statusSpan.innerHTML =
+                    '<i class="fa-solid fa-square-check"></i>'
+                    statusSpan.dataset.status = 3
                 // statusSpan.style.color = 'green'
                 break
             case 2:
                 // in progress
                 statusSpan.innerHTML = '⏳'
+                statusSpan.dataset.status = 2
                 // statusSpan.style.color = 'yellow'
                 break
             default:
                 // to-do
                 statusSpan.innerText = '🚩'
+                statusSpan.dataset.status = 1
                 // statusSpan.style.color = '#eb455f'
                 break
         }
+
+
+        //all the individual task item lists
+        let draggedItem = null
+        taskListItem.addEventListener('dragstart', ()=>{
+            draggedItem = taskListItem
+            setTimeout(()=>{
+                taskListItem.style.display = 'none'            
+            }, 0)
+            
+        })
+
+        taskListItem.addEventListener('dragend', ()=>{
+            setTimeout(()=>{
+                draggedItem.style.display = 'block' 
+                draggedItem = null           
+            }, 0)
+        })
+
+
+        //All the to-do, in-progress and completed task panels
+        const allSection = document.querySelectorAll('.drag-zone')
+        allSection.forEach((each)=>{
+            each.addEventListener('dragover', (e)=>{
+                e.preventDefault()
+            })
+            each.addEventListener('dragenter', (e)=>{
+                e.preventDefault()
+                e.target.style.backgroundColor = '#FCFFE7'
+            })
+            each.addEventListener('dragleave', (e)=>{
+                e.preventDefault()
+                e.target.style.backgroundColor = 'white'
+            })
+            each.addEventListener('drop', (e)=>{
+                console.log(e.target)
+                e.target.querySelector('ul').appendChild(draggedItem)
+                e.target.style.backgroundColor = 'white'
+                if (e.target.id==='to-do-div'){
+                    statusSpan.dataset.status =1
+                }else if(e.target.id==='in-progress-div'){
+                    statusSpan.dataset.status =2
+                }else{
+                    statusSpan.dataset.status =3
+                }
+                
+                
+                // console.log(e.target)
+
+            })
+        })
+
 
         taskHeading.addEventListener('click', () => {
             renderTaskDetails(task, tasksArray, projectTitle, projectID, user)
         })
         taskListItem.appendChild(taskDiv)
-        
-        if (projectID){
-                if (task.status === 0){
-                    const toDoDivUl = document.getElementById('to-do-div-ul')
-                    toDoDivUl.appendChild(taskListItem)
-                } else if (task.status === 1){
-                    const inProgressDivUl = document.getElementById('in-progress-div-ul')
-                    inProgressDivUl.appendChild(taskListItem)
-                } else {
-                    const completedTaskDivUl = document.getElementById('completed-tasks-div-ul')
-                    completedTaskDivUl.appendChild(taskListItem)
-                }
+
+        if (projectID) {
+            if (task.status === 0) {
+                const toDoDivUl = document.getElementById('to-do-div-ul')
+                toDoDivUl.appendChild(taskListItem)
+            } else if (task.status === 1) {
+                const inProgressDivUl =
+                    document.getElementById('in-progress-div-ul')
+                inProgressDivUl.appendChild(taskListItem)
+            } else {
+                const completedTaskDivUl = document.getElementById(
+                    'completed-tasks-div-ul'
+                )
+                completedTaskDivUl.appendChild(taskListItem)
+            }
         } else {
-        taskList.appendChild(taskListItem)}
+            taskList.appendChild(taskListItem)
+        }
     }
-    if (!projectID)
-        {tasksArrayDiv.appendChild(taskList)
+    if (!projectID) {
+        tasksArrayDiv.appendChild(taskList)
     }
 }
 
-const renderTaskDetails = async(task, tasksArray, projectTitle, projectID, user) => {
+const renderTaskDetails = async (
+    task,
+    tasksArray,
+    projectTitle,
+    projectID,
+    user
+) => {
     const contentDiv = document.getElementById('main-content')
     contentDiv.innerHTML = ''
     // this div contains details for a task
@@ -152,10 +223,12 @@ const renderTaskDetails = async(task, tasksArray, projectTitle, projectID, user)
     // formats the dates
     const dueDate = new Date(task.due_date).toLocaleDateString()
     const creationDate = new Date(task.creation_date).toLocaleDateString()
-    const dueTime = new Date(`1970-01-01T${task.due_time}:00Z`).toLocaleTimeString('en-US', {
+    const dueTime = new Date(
+        `1970-01-01T${task.due_time}:00Z`
+    ).toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: 'numeric',
-        hour12: true
+        hour12: true,
     })
 
     taskDetailsDiv.innerHTML = `
@@ -178,17 +251,24 @@ const renderTaskDetails = async(task, tasksArray, projectTitle, projectID, user)
     //////////////////////////////////////
     // Render comments inside taskDetailsDiv
     try {
-        const response = await axios.get(`/api/comments/${task.id}`);
+        const response = await axios.get(`/api/comments/${task.id}`)
         const commentsData = response.data.map((comment) => ({
             ...comment,
             user_name: user.user_name || 'Unknown',
-        }));
-        renderComments(commentsData, taskDetailsDiv, task, user, projectTitle, projectID, tasksArray);
+        }))
+        renderComments(
+            commentsData,
+            taskDetailsDiv,
+            task,
+            user,
+            projectTitle,
+            projectID,
+            tasksArray
+        )
     } catch (err) {
-        console.error(err);
+        console.error(err)
     }
     //////////////////////////////////////
 }
 
 export default renderTasks
-

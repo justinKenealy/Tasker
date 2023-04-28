@@ -84,14 +84,14 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         const statusSpan = document.createElement('span')
         statusSpan.classList.add('task-status')
         taskDiv.appendChild(statusSpan)
-
+        
         if (projectID) {
             const deleteButton = document.createElement('i')
             deleteButton.className = 'delete-task-button'
             deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>'
             taskDiv.appendChild(deleteButton)
             deleteButton.addEventListener('click', () => {
-                renderDeleteTask(task.id, tasksArray, projectTitle, projectID)
+                renderDeleteTask(task.id, projectTitle, projectID)
             })
         }
 
@@ -125,10 +125,10 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         taskListItem.appendChild(taskDiv)
         
         if (projectID){
-                if (task.status === 1){
+                if (task.status === 0){
                     const toDoDivUl = document.getElementById('to-do-div-ul')
                     toDoDivUl.appendChild(taskListItem)
-                } else if (task.status === 2){
+                } else if (task.status === 1){
                     const inProgressDivUl = document.getElementById('in-progress-div-ul')
                     inProgressDivUl.appendChild(taskListItem)
                 } else {
@@ -138,9 +138,8 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         } else {
         taskList.appendChild(taskListItem)}
     }
-    if (!projectID){
-        tasksArrayDiv.appendChild(taskList)
-        contentDiv.className = ''
+    if (!projectID)
+        {tasksArrayDiv.appendChild(taskList)
     }
 }
 

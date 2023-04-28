@@ -74,6 +74,11 @@ body{
     margin-bottom: 20px;
 }
 
+.add-tasks-button{
+    color: black;
+    margin-left: 4px;
+    cursor: pointer;
+}
 /*error message*/
 #errors{
    color:#ffffff;
@@ -97,10 +102,20 @@ body{
 }
 
 .tasks {
-    border: 1px solid black;
+    border: 1px solid #dee1cb;
+    background-color:#dee1cb;
     
 }
 
+.project-title{
+    text-align: center;
+}
+
+.task-details{
+    border: 1px solid #dee1cb;
+    background-color:#dee1cb;
+
+}
 .task-details p {
     font-size: 1.2rem;
     margin-bottom: 10px;

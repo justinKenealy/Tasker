@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { getAllTasks, getTaskById, createTask, deleteTaskById, editTaskById, getTaskByProjectId} = require('../models/task')
+const { getAllTasks, getTaskById, createTask, deleteTaskById, editTaskById, getTaskByProjectId, editTaskStatusById} = require('../models/task')
 
 const router = express.Router()
 
@@ -82,6 +82,20 @@ router.put('/tasks/:id', (req, res, next) => {
         .catch((err) => {
             res.status(500).json({ message: err.message })
         })
+})
+
+router.put('/tasks/:id/:status', (req,res,next) => {
+    const id = Number(req.params.id)
+    const status = Number(req.params.status)
+
+    return editTaskStatusById(id, status)
+        .then((taskRow) => {
+            res.sendStatus(taskRow === 0 ? 404 : 200)
+        })
+        .catch((err) => {
+            res.status(500).json({ message: err.message })
+        })
+
 })
 
 module.exports = router

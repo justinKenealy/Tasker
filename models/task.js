@@ -77,6 +77,12 @@ const editTaskById = (name, description, due_date, due_time, priority_level, sta
 
 }
 
+const editTaskStatusById = (id, status) =>{
+    const sql = 'UPDATE tasks set status = $1 WHERE id = $2'
+    return db.query(sql, [status, id])
+    .then(res => res.rowCount)
+}
+
 
 module.exports = {
     getAllTasks,
@@ -84,6 +90,7 @@ module.exports = {
     deleteTaskById,
     createTask,
     editTaskById,
-    getTaskByProjectId
+    getTaskByProjectId,
+    editTaskStatusById
     // getTasksByDueDate
 }

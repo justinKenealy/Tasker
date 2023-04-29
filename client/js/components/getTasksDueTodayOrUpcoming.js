@@ -1,4 +1,4 @@
-import renderTasks from "./renderTasks.js"
+import {renderTasks} from "./renderTasks.js"
 const getTasksDueTodayOrUpcoming = async (user_id, showDueToday, user) => {
     console.log('hello abcd')
     const oldDisplay = document.querySelector('.display')

@@ -1,5 +1,5 @@
 import renderLeftPane from "./renderLeftPane.js";
-import renderTasks from "./renderTasks.js";
+import {renderTasks} from "./renderTasks.js";
 
 const renderEditDeleteProjectForm = async (project, user, tasksArray) => {  
     const { collab } = project 

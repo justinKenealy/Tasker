@@ -1,8 +1,7 @@
 import renderNewTaskForm from './renderNewTask.js'
 import renderDeleteTask from './renderDeleteTask.js'
 import renderComments from './renderComments.js'
-import renderLeftPane from './renderLeftPane.js'
-
+import renderEditTask from './renderEditTaskForm.js'
 const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     console.log(tasksArray)
     const contentDiv = document.getElementById('main-content')
@@ -33,11 +32,12 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         const inProgressDiv = document.createElement('div')
         const completedTaskDiv = document.createElement('div')
         toDoDiv.id = 'to-do-div'
-        toDoDiv.classList = 'drag-zone'
+        toDoDiv.classList='drag-zone'
         inProgressDiv.id = 'in-progress-div'
-        inProgressDiv.classList = 'drag-zone'
+        inProgressDiv.classList='drag-zone'
         completedTaskDiv.id = 'completed-task-div'
-        completedTaskDiv.classList = 'drag-zone'
+        completedTaskDiv.classList='drag-zone'
+
 
         const toDoDivUl = document.createElement('ul')
         const inProgressDivUl = document.createElement('ul')
@@ -68,7 +68,7 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     const taskList = document.createElement('ul')
     for (let task of tasksArray) {
         const taskListItem = document.createElement('li')
-        taskListItem.classList = 'task-list-item'
+        taskListItem.classList='task-list-item'
         const taskDiv = document.createElement('div')
         taskDiv.classList.add('task-div')
         taskDiv.draggable = true
@@ -90,7 +90,7 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         const statusSpan = document.createElement('span')
         statusSpan.classList.add('task-status')
         taskDiv.appendChild(statusSpan)
-
+        
         if (projectID) {
             const deleteButton = document.createElement('i')
             deleteButton.className = 'delete-task-button'
@@ -111,7 +111,7 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
                 // completed
                 statusSpan.innerHTML =
                     '<i class="fa-solid fa-square-check"></i>'
-                statusSpan.dataset.status = 3
+                    statusSpan.dataset.status = 3
                 // statusSpan.style.color = 'green'
                 break
             case 2:
@@ -128,16 +128,68 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
                 break
         }
 
+
+        //all the individual task item lists
+        let draggedItem = null
+        taskListItem.addEventListener('dragstart', ()=>{
+            draggedItem = taskListItem
+            setTimeout(()=>{
+                taskListItem.style.display = 'none'            
+            }, 0)
+            
+        })
+
+        taskListItem.addEventListener('dragend', ()=>{
+            setTimeout(()=>{
+                draggedItem.style.display = 'block' 
+                draggedItem = null           
+            }, 0)
+        })
+
+
+        //All the to-do, in-progress and completed task panels
+        const allSection = document.querySelectorAll('.drag-zone')
+        allSection.forEach((each)=>{
+            each.addEventListener('dragover', (e)=>{
+                e.preventDefault()
+            })
+            each.addEventListener('dragenter', (e)=>{
+                e.preventDefault()
+                e.target.style.backgroundColor = '#FCFFE7'
+            })
+            each.addEventListener('dragleave', (e)=>{
+                e.preventDefault()
+                e.target.style.backgroundColor = 'white'
+            })
+            each.addEventListener('drop', (e)=>{
+                console.log(e.target)
+                e.target.querySelector('ul').appendChild(draggedItem)
+                e.target.style.backgroundColor = 'white'
+                if (e.target.id==='to-do-div'){
+                    statusSpan.dataset.status =1
+                }else if(e.target.id==='in-progress-div'){
+                    statusSpan.dataset.status =2
+                }else{
+                    statusSpan.dataset.status =3
+                }
+                
+                
+                // console.log(e.target)
+
+            })
+        })
+
+
         taskHeading.addEventListener('click', () => {
             renderTaskDetails(task, tasksArray, projectTitle, projectID, user)
         })
         taskListItem.appendChild(taskDiv)
 
         if (projectID) {
-            if (task.status === 1) {
+            if (task.status === 0) {
                 const toDoDivUl = document.getElementById('to-do-div-ul')
                 toDoDivUl.appendChild(taskListItem)
-            } else if (task.status === 2) {
+            } else if (task.status === 1) {
                 const inProgressDivUl =
                     document.getElementById('in-progress-div-ul')
                 inProgressDivUl.appendChild(taskListItem)
@@ -147,77 +199,12 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
                 )
                 completedTaskDivUl.appendChild(taskListItem)
             }
-        
-                //DRAG & DROP
-        //all the individual task item lists
-        let draggedItem = null
-        taskListItem.addEventListener('dragstart', () => {
-            draggedItem = taskListItem
-            setTimeout(() => {
-                taskListItem.style.display = 'none'
-            }, 0)
-        })
-
-        taskListItem.addEventListener('dragend', () => {
-            setTimeout(() => {
-                draggedItem.style.display = 'block'
-                draggedItem = null
-            }, 0)
-        })
-
-        //All the to-do, in-progress and completed task panels
-        const allSection = document.querySelectorAll('.drag-zone')
-        allSection.forEach((each) => {
-            each.addEventListener('dragover', (e) => {
-                e.preventDefault()
-            })
-            each.addEventListener('dragenter', (e) => {
-                e.preventDefault()
-                e.target.style.backgroundColor = '#FCFFE7'
-            })
-            each.addEventListener('dragleave', (e) => {
-                e.preventDefault()
-                e.target.style.backgroundColor = 'white'
-            })
-            each.addEventListener('drop', (e) => {
-                e.target.querySelector('ul').appendChild(draggedItem)
-                e.target.style.backgroundColor = 'white'
-                if (e.target.id === 'to-do-div') {
-                    statusSpan.dataset.status = 1
-                    return axios
-                        .put(`/api/tasks/${task.id}/1`)
-                        .then((res) => {
-                            renderLeftPane(user)
-                            // renderTasks(tasksArray, projectTitle, projectID, user)
-                        })
-                        .catch((err) => console.error(err))
-                } else if (e.target.id === 'in-progress-div') {
-                    statusSpan.dataset.status = 2
-                    return axios
-                        .put(`/api/tasks/${task.id}/2`)
-                        .then((res) => {
-                            renderLeftPane(user)
-                            // renderTasks(tasksArray, projectTitle, projectID, user)
-                        })
-                } else {
-                    statusSpan.dataset.status = 3
-                    return axios
-                        .put(`/api/tasks/${task.id}/3`)
-                        .then((res) => {
-                            renderLeftPane(user)
-                            // renderTasks(tasksArray, projectTitle, projectID, user)
-                        })
-                }
-            })
-        })
-////    
         } else {
             taskList.appendChild(taskListItem)
         }
     }
     if (!projectID) {
         tasksArrayDiv.appendChild(taskList)
-        contentDiv.classList = ''
     }
 }
 
@@ -237,14 +224,14 @@ const renderTaskDetails = async (
     // formats the dates
     const dueDate = new Date(task.due_date).toLocaleDateString()
     const creationDate = new Date(task.creation_date).toLocaleDateString()
-
-    // const dueTime = new Date(
+    
+   // const dueTime = new Date(
     //    `1970-01-01T${task.due_time}:00Z`
-    //  ).toLocaleTimeString('en-US', {
-    //     hour: 'numeric',
-    //     minute: 'numeric',
+  //  ).toLocaleTimeString('en-US', {
+   //     hour: 'numeric',
+   //     minute: 'numeric',
     //    hour12: true,
-    // })
+   // })
 
     // const dueTime = (`1970-01-01T${task.due_time}:00Z`).toLocaleTimeString('en-US', {
     //     hour: 'numeric',
@@ -252,17 +239,17 @@ const renderTaskDetails = async (
     //     hour12: true
     // })
 
-    let taskStatus
-    if (task.status === 1) {
+    let taskStatus 
+    if (task.status === 1){
         taskStatus = 'To Do'
-    } else if (task.status === 2) {
+    } else if (task.status === 2){
         taskStatus = 'In Progress'
     } else {
         taskStatus = 'Complete'
     }
 
     let important = ''
-    if (task.priority_level === 2) {
+    if (task.priority_level === 2){
         important = '<p>High importance</p>'
     }
 
@@ -273,12 +260,15 @@ const renderTaskDetails = async (
         <p>${task.description}</p>
     </div>
     <div>
-        <p>Due on ${dueDate} at ${task.due_time.slice(0, 5)}</p>
+        <p>Due on ${dueDate} at ${task.due_time.slice(0,5)}</p>
         ${important}
         <p>Status: ${taskStatus}</p>
         <p>Created on ${creationDate}</p>
     </div>
-    <div class="close-task-details"><button class="close-task-details-btn">close</button></div>
+    <div class="close-task-details">
+        <button class="close-task-details-btn">Close</button>
+        <button class="edit-task-details-btn">Edit</button>
+    </div>
     `
     contentDiv.appendChild(taskDetailsDiv)
 
@@ -287,11 +277,19 @@ const renderTaskDetails = async (
         renderTasks(tasksArray, projectTitle, projectID)
     })
 
+    const editButton = taskDetailsDiv.querySelector('.edit-task-details-btn')
+    editButton.addEventListener('click', () => {
+        renderEditTask(task, tasksArray)
+    })
+
     //////////////////////////////////////
     // Render comments inside taskDetailsDiv
     try {
         const response = await axios.get(`/api/comments/${task.id}`)
-        const commentsData = response.data
+        const commentsData = response.data.map((comment) => ({
+            ...comment,
+            user_name: user.user_name || 'Unknown',
+        }))
         renderComments(
             commentsData,
             taskDetailsDiv,

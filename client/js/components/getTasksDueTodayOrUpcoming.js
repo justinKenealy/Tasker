@@ -40,7 +40,7 @@ const getTasksDueTodayOrUpcoming = async (user_id, showDueToday, user) => {
         }
 
         const tasksArray = showDueToday ? tasksDueTodayArr : upcomingTasksArr
-        const title = showDueToday ? 'Tasks Due Today' : 'Upcoming Tasks'
+        const title = showDueToday ? '' : ''
         renderTasks(tasksArray, title, undefined, user)
     } catch (err) {
         console.error(err)

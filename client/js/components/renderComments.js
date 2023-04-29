@@ -5,7 +5,6 @@ const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, 
   const commentHeader = document.createElement('h3');
   commentHeader.innerText = 'Comments';
   commentParent.appendChild(commentHeader);
-  console.log(commentsData)
 
   if (commentsData.length === 0) {
     const noComment = document.createElement('p')

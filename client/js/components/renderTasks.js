@@ -205,6 +205,7 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     }
     if (!projectID) {
         tasksArrayDiv.appendChild(taskList)
+        contentDiv.classList = ''
     }
 }
 

@@ -174,7 +174,6 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
                 }
                 
                 
-                // console.log(e.target)
 
             })
         })

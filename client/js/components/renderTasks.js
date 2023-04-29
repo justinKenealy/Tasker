@@ -2,7 +2,7 @@ import renderNewTaskForm from './renderNewTask.js'
 import renderDeleteTask from './renderDeleteTask.js'
 import renderComments from './renderComments.js'
 import renderLeftPane from './renderLeftPane.js'
-
+import renderEditTask from './renderEditTaskForm.js'
 const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     console.log(tasksArray)
     const contentDiv = document.getElementById('main-content')
@@ -278,7 +278,10 @@ const renderTaskDetails = async (
         <p>Status: ${taskStatus}</p>
         <p>Created on ${creationDate}</p>
     </div>
-    <div class="close-task-details"><button class="close-task-details-btn">close</button></div>
+    <div class="close-task-details">
+        <button class="close-task-details-btn">Close</button>
+        <button class="edit-task-details-btn">Edit</button>
+    </div>
     `
     contentDiv.appendChild(taskDetailsDiv)
 
@@ -287,6 +290,10 @@ const renderTaskDetails = async (
         renderTasks(tasksArray, projectTitle, projectID)
     })
 
+    const editButton = taskDetailsDiv.querySelector('.edit-task-details-btn')
+    editButton.addEventListener('click', () => {
+        renderEditTask(task, tasksArray)
+    })
     //////////////////////////////////////
     // Render comments inside taskDetailsDiv
     try {

@@ -6,8 +6,6 @@ const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, 
   commentHeader.innerText = 'Comments';
   commentParent.appendChild(commentHeader);
 
-  console.log(user)
-
   if (commentsData.length === 0) {
     const noComment = document.createElement('p')
     noComment.classList.add('no_note')
@@ -36,10 +34,9 @@ const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, 
       const deleteCommentBtn = document.createElement('i')
       deleteCommentBtn.className = 'fa-solid fa-trash'
       deleteCommentBtn.addEventListener('click', () => {
-          deleteComment(user, commentsData, task, tasksArray, projectTitle, projectID, commentDiv)
+          deleteComment(user, comment.id, task, tasksArray, projectTitle, projectID, commentDiv)
       })
       commentDiv.appendChild(deleteCommentBtn)
-
       commentParent.appendChild(commentDiv);
     }
   }
@@ -90,8 +87,7 @@ const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, 
   taskDetailsDiv.appendChild(newCommentForm); 
 };
 
-const deleteComment = (user, commentsData, task, tasksArray, projectTitle, projectID, commentDiv) => {
-  const id = commentsData[0].id
+const deleteComment = (user, id, task, tasksArray, projectTitle, projectID, commentDiv) => {
   axios
       .delete(`/api/comments/${id}`)
       .then((res) => {

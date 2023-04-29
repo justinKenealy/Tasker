@@ -279,10 +279,7 @@ const renderTaskDetails = async (
     // Render comments inside taskDetailsDiv
     try {
         const response = await axios.get(`/api/comments/${task.id}`)
-        const commentsData = response.data.map((comment) => ({
-            ...comment,
-            user_name: user.user_name || 'Unknown',
-        }))
+        const commentsData = response.data
         renderComments(
             commentsData,
             taskDetailsDiv,

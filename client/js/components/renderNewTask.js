@@ -1,4 +1,4 @@
-import renderTasks from "./renderTasks.js"
+import {renderTasks} from "./renderTasks.js"
 
 const renderNewTaskForm = (tasksArray, projectTitle, projectID) => {
     const oldDisplay = document.querySelector('.display')

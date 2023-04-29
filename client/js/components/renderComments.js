@@ -1,4 +1,4 @@
-import {renderTaskDetails} from './renderTasks.js';
+import renderTaskDetails from "./renderTaskDetails.js";
 
 const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, projectID, tasksArray) => {
   const commentParent = document.createElement('div');

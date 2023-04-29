@@ -1,4 +1,4 @@
-import renderTasks from "./renderTasks.js"
+import { renderTasks } from "./renderTasks.js"
 import { renderNewProjectForm } from "./renderNewProjectForm.js"
 import { renderEditDeleteProjectForm } from "./renderEditDeleteProjectForm.js"
 

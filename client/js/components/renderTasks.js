@@ -1,8 +1,9 @@
 import renderNewTaskForm from './renderNewTask.js'
 import renderDeleteTask from './renderDeleteTask.js'
-import renderComments from './renderComments.js'
 import renderLeftPane from './renderLeftPane.js'
+import renderTaskDetails from './renderTaskDetails.js'
 import renderEditTask from './renderEditTaskForm.js'
+
 const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     console.log(tasksArray)
     const contentDiv = document.getElementById('main-content')
@@ -112,19 +113,16 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
                 statusSpan.innerHTML =
                     '<i class="fa-solid fa-square-check"></i>'
                 statusSpan.dataset.status = 3
-                // statusSpan.style.color = 'green'
                 break
             case 2:
                 // in progress
-                statusSpan.innerHTML = '⏳'
+                statusSpan.innerHTML = '<i class="fa-solid fa-bars-progress"></i>'
                 statusSpan.dataset.status = 2
-                // statusSpan.style.color = 'yellow'
                 break
             default:
                 // to-do
-                statusSpan.innerText = '🚩'
+                statusSpan.innerHTML = '<i class="fa-solid fa-list-check"></i>'
                 statusSpan.dataset.status = 1
-                // statusSpan.style.color = '#eb455f'
                 break
         }
 
@@ -180,32 +178,35 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
                 e.target.style.backgroundColor = 'white'
             })
             each.addEventListener('drop', (e) => {
+                // debugger
+                console.log(draggedItem, 'dropped')
                 e.target.querySelector('ul').appendChild(draggedItem)
                 e.target.style.backgroundColor = 'white'
                 if (e.target.id === 'to-do-div') {
                     statusSpan.dataset.status = 1
+                    statusSpan.innerHTML = '<i class="fa-solid fa-list-check"></i>'
                     return axios
                         .put(`/api/tasks/${task.id}/1`)
                         .then((res) => {
                             renderLeftPane(user)
-                            // renderTasks(tasksArray, projectTitle, projectID, user)
                         })
                         .catch((err) => console.error(err))
                 } else if (e.target.id === 'in-progress-div') {
                     statusSpan.dataset.status = 2
+                    statusSpan.innerHTML = '<i class="fa-solid fa-bars-progress"></i>'
                     return axios
                         .put(`/api/tasks/${task.id}/2`)
                         .then((res) => {
                             renderLeftPane(user)
-                            // renderTasks(tasksArray, projectTitle, projectID, user)
                         })
                 } else {
                     statusSpan.dataset.status = 3
+                    statusSpan.innerHTML =
+                    '<i class="fa-solid fa-square-check"></i>'
                     return axios
                         .put(`/api/tasks/${task.id}/3`)
                         .then((res) => {
                             renderLeftPane(user)
-                            // renderTasks(tasksArray, projectTitle, projectID, user)
                         })
                 }
             })
@@ -220,99 +221,6 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         contentDiv.classList = ''
     }
 }
+// renderTaskDetails(task,tasksArray,projectTitle,projectID,user)
 
-const renderTaskDetails = async (
-    task,
-    tasksArray,
-    projectTitle,
-    projectID,
-    user
-) => {
-    const contentDiv = document.getElementById('main-content')
-    contentDiv.innerHTML = ''
-    contentDiv.className = ''
-    // this div contains details for a task
-    const taskDetailsDiv = document.createElement('div')
-    taskDetailsDiv.classList.add('task-details')
-    // formats the dates
-    const dueDate = new Date(task.due_date).toLocaleDateString()
-    const creationDate = new Date(task.creation_date).toLocaleDateString()
-
-    // const dueTime = new Date(
-    //    `1970-01-01T${task.due_time}:00Z`
-    //  ).toLocaleTimeString('en-US', {
-    //     hour: 'numeric',
-    //     minute: 'numeric',
-    //    hour12: true,
-    // })
-
-    // const dueTime = (`1970-01-01T${task.due_time}:00Z`).toLocaleTimeString('en-US', {
-    //     hour: 'numeric',
-    //     minute: 'numeric',
-    //     hour12: true
-    // })
-
-    let taskStatus
-    if (task.status === 1) {
-        taskStatus = 'To Do'
-    } else if (task.status === 2) {
-        taskStatus = 'In Progress'
-    } else {
-        taskStatus = 'Complete'
-    }
-
-    let important = ''
-    if (task.priority_level === 2) {
-        important = '<p>High importance</p>'
-    }
-
-    taskDetailsDiv.innerHTML = `
-    <div>
-        <h2>${task.name}</h2>
-        <h5><strong>Description:</strong></h4>
-        <p>${task.description}</p>
-    </div>
-    <div>
-        <p>Due on ${dueDate} at ${task.due_time.slice(0, 5)}</p>
-        ${important}
-        <p>Status: ${taskStatus}</p>
-        <p>Created on ${creationDate}</p>
-    </div>
-    <div class="close-task-details">
-        <button class="close-task-details-btn">Close</button>
-        <button class="edit-task-details-btn">Edit</button>
-    </div>
-    `
-    contentDiv.appendChild(taskDetailsDiv)
-
-    const closeButton = taskDetailsDiv.querySelector('.close-task-details-btn')
-    closeButton.addEventListener('click', () => {
-        renderTasks(tasksArray, projectTitle, projectID)
-    })
-
-    const editButton = taskDetailsDiv.querySelector('.edit-task-details-btn')
-    editButton.addEventListener('click', () => {
-        renderEditTask(task, tasksArray)
-    })
-    //////////////////////////////////////
-    // Render comments inside taskDetailsDiv
-    try {
-        const response = await axios.get(`/api/comments/${task.id}`)
-        const commentsData = response.data
-        renderComments(
-            commentsData,
-            taskDetailsDiv,
-            task,
-            user,
-            projectTitle,
-            projectID,
-            tasksArray
-        )
-    } catch (err) {
-        console.error(err)
-    }
-    //////////////////////////////////////
-}
-
-export default renderTasks
-export { renderTasks, renderTaskDetails }
+export { renderTasks }

@@ -1,8 +1,8 @@
 import renderNewTaskForm from './renderNewTask.js'
 import renderDeleteTask from './renderDeleteTask.js'
-import renderComments from './renderComments.js'
 import renderLeftPane from './renderLeftPane.js'
 import renderTaskDetails from './renderTaskDetails.js'
+import renderEditTask from './renderEditTaskForm.js'
 
 const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     console.log(tasksArray)

@@ -254,7 +254,7 @@ body{
     position: relative;
     padding: 10px;
     margin: 10px;
-    height: auto;
+    height: 250px;
     min-height: 200px;
     width:90%;
     position:relative;
@@ -329,7 +329,9 @@ body{
     font-size: 14px;
     color: #2B3467;
     margin-bottom: 35px;
-    max-width: 85%;
+    max-width: 100%;
+    overflow: auto;
+    max-height: 100px;
 }
 
 .fa-trash {

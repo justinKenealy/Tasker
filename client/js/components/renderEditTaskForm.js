@@ -1,6 +1,8 @@
-import { renderTaskDetails } from "./renderTasks.js";
+import renderLeftPane from "./renderLeftPane.js";
+import renderTaskDetails from "./renderTaskDetails.js";
+import { renderTasks } from "./renderTasks.js";
 
-const renderEditTask = (task, tasksArray) => {
+const renderEditTask = (task, tasksArray, projectID, projectTitle, user) => {
     const oldDisplay = document.querySelector('.display')
     if (oldDisplay) {
         oldDisplay.remove()
@@ -49,7 +51,7 @@ const renderEditTask = (task, tasksArray) => {
                     <option value="2" ${priority_level === 2 ? "selected" : ""}>High</option>
                 </select>
             </p>
-            <button type="submit">Save</button>
+            <button type="submit" class='btn btn-danger mt-3 mb-3'>Save</button>
         </form>
     `
     display.appendChild(cancelIcon)
@@ -57,12 +59,12 @@ const renderEditTask = (task, tasksArray) => {
 
     cancelIcon.addEventListener("click", () => display.remove())
     document.getElementById("edit-task-form").addEventListener("submit", (event) => {
-        handleSubmitForm(event, task, tasksArray)
+        handleSubmitForm(event, task, tasksArray, projectID, projectTitle, user )
     })
     
 }
 
-const handleSubmitForm = (event, task, tasksArray) => {
+const handleSubmitForm = (event, task, tasksArray, projectID, projectTitle, user) => {
     event.preventDefault()
     document.querySelector('.display').remove()
     const formData = new FormData(event.target)
@@ -77,8 +79,20 @@ const handleSubmitForm = (event, task, tasksArray) => {
     }
 
     return axios.put(`/api/tasks/${taskId}`, data)
-    .then(res => {
-        renderTaskDetails(task, tasksArray)
+    .then(async (res) => {
+        async function renderNew(){
+            document.querySelector('#main-content').innerHTML = ''
+            const response = await axios.get(`/api/tasks/project/${projectID}`)
+            renderTasks(response.data, projectTitle, projectID, user)
+            const currentTask = response.data.find((task)=> task.id == taskId)
+            // debugger
+            renderTaskDetails(currentTask, response.data, projectTitle, projectID, user)
+            renderLeftPane(user)
+        }
+        await renderNew()
+        // renderTasks(tasksArray, projectTitle, projectID)
+
+
     })
     .catch(err => {
         console.error(err)

@@ -1,6 +1,7 @@
 import renderLeftPane from "./renderLeftPane.js"
 import renderComments from './renderComments.js'
 import { renderTasks } from "./renderTasks.js"
+import renderEditTask from "./renderEditTaskForm.js"
 
 
 const renderTaskDetails = async (
@@ -46,11 +47,17 @@ const renderTaskDetails = async (
         <p>Status: ${taskStatus}</p>
         <p>Created on ${creationDate}</p>
     </div>
-    <div class="close-task-details"><button class="close-task-details-btn">close</button></div>
+    <div class="close-task-details">
+    <button class="btn btn-outline-danger mt-3 mb-3 edit-task-details-btn">Edit</button>
+    <button class="btn btn-danger mt-3 mb-3 mx-2 close-task-details-btn">Close</button>
+        
+    </div>
     `
     contentDiv.appendChild(taskDetailsDiv)
 
     const closeButton = taskDetailsDiv.querySelector('.close-task-details-btn')
+
+
     closeButton.addEventListener('click', () => {
         renderLeftPane(user)
         async function renderNew(){
@@ -60,6 +67,11 @@ const renderTaskDetails = async (
         }
         renderNew()
         // renderTasks(tasksArray, projectTitle, projectID)
+    })
+
+    const editButton = taskDetailsDiv.querySelector('.edit-task-details-btn')
+    editButton.addEventListener('click', () => {
+        renderEditTask(task, tasksArray, projectID, projectTitle, user)
     })
 
     //////////////////////////////////////

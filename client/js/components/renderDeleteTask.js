@@ -18,7 +18,7 @@ const renderDeleteTask = async (taskId, projectTitle, projectID) => {
     async function renderNew(){
         document.querySelector('#main-content').innerHTML = ''
         const response = await axios.get(`/api/tasks/project/${projectID}`)
-        renderTasks(response.data, projectTitle, projectID)
+        renderTasks(response.data, projectTitle, projectID,user)
     }
 
     if (confirmed){

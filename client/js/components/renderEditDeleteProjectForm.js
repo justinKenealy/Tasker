@@ -86,7 +86,7 @@ const handleEditProjectFormSubmit = async (event, user, project_id, tasksArray) 
     return axios.put(`/api/projects/${project_id}`, body)
     .then(res => {
         renderLeftPane(user);
-        renderTasks(tasksArray, body.name, project_id)
+        renderTasks(tasksArray, body.name, project_id, user)
     })
     .catch(err => {
         console.error(err)

@@ -18,6 +18,7 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
     tasksArrayDiv.appendChild(title)
     contentDiv.appendChild(tasksArrayDiv)
 
+
     if (projectID) {
         const addTasks = document.createElement('i')
         addTasks.className = 'add-tasks-button'
@@ -26,10 +27,17 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         addTasks.addEventListener('click', () => {
             renderNewTaskForm(tasksArray, projectTitle, projectID, user)
         })
-    }
 
-    if (projectID) {
+        
         contentDiv.classList = 'kanban'
+        const kanbanContentHolder = document.createElement('div')
+        kanbanContentHolder.classList = 'kanban-holder'
+        const listWrapper1=document.createElement('div')
+        listWrapper1.classList='list-wrapper'
+        const listWrapper2=document.createElement('div')
+        listWrapper2.classList='list-wrapper'
+        const listWrapper3=document.createElement('div')
+        listWrapper3.classList='list-wrapper'
         const toDoDiv = document.createElement('div')
         const inProgressDiv = document.createElement('div')
         const completedTaskDiv = document.createElement('div')
@@ -39,7 +47,7 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         inProgressDiv.classList = 'drag-zone'
         completedTaskDiv.id = 'completed-task-div'
         completedTaskDiv.classList = 'drag-zone'
-
+        
         const toDoDivUl = document.createElement('ul')
         const inProgressDivUl = document.createElement('ul')
         const completedTaskDivUl = document.createElement('ul')
@@ -54,9 +62,14 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         inProgressDivH1.innerText = 'In Progress'
         completedTaskDivH1.innerText = 'Complete'
 
-        contentDiv.appendChild(toDoDiv)
-        contentDiv.appendChild(inProgressDiv)
-        contentDiv.appendChild(completedTaskDiv)
+        listWrapper1.appendChild(toDoDiv)
+        listWrapper2.appendChild(inProgressDiv)
+        listWrapper3.appendChild(completedTaskDiv)
+        kanbanContentHolder.appendChild(listWrapper1)
+        kanbanContentHolder.appendChild(listWrapper2)
+        kanbanContentHolder.appendChild(listWrapper3)
+
+        contentDiv.appendChild(kanbanContentHolder)
 
         toDoDiv.appendChild(toDoDivH1)
         inProgressDiv.appendChild(inProgressDivH1)
@@ -66,7 +79,11 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
         completedTaskDiv.appendChild(completedTaskDivUl)
     }
 
+    let draggedItem = null
+    let draggedId = null
+    const allSection = document.querySelectorAll('.drag-zone')
     const taskList = document.createElement('ul')
+    
     for (let task of tasksArray) {
         const taskListItem = document.createElement('li')
         taskListItem.classList = 'task-list-item'
@@ -100,38 +117,8 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
             deleteButton.addEventListener('click', () => {
                 renderDeleteTask(task.id, projectTitle, projectID)
             })
-        }
 
-        if (task.projectName) {
-            const projectName = document.createElement('h6')
-            projectName.innerText = task.projectName
-            taskDiv.appendChild(projectName)
-        }
-        switch (task.status) {
-            case 3:
-                // completed
-                statusSpan.innerHTML =
-                    '<i class="fa-solid fa-square-check"></i>'
-                statusSpan.dataset.status = 3
-                break
-            case 2:
-                // in progress
-                statusSpan.innerHTML = '<i class="fa-solid fa-bars-progress"></i>'
-                statusSpan.dataset.status = 2
-                break
-            default:
-                // to-do
-                statusSpan.innerHTML = '<i class="fa-solid fa-list-check"></i>'
-                statusSpan.dataset.status = 1
-                break
-        }
-
-        taskHeading.addEventListener('click', () => {
-            renderTaskDetails(task, tasksArray, projectTitle, projectID, user)
-        })
-        taskListItem.appendChild(taskDiv)
-
-        if (projectID) {
+            //arranges in kanban style
             if (task.status === 1) {
                 const toDoDivUl = document.getElementById('to-do-div-ul')
                 toDoDivUl.appendChild(taskListItem)
@@ -145,82 +132,107 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
                 )
                 completedTaskDivUl.appendChild(taskListItem)
             }
-        
-                //DRAG & DROP
-        //all the individual task item lists
-        let draggedItem = null
-        taskListItem.addEventListener('dragstart', () => {
-            draggedItem = taskListItem
-            setTimeout(() => {
-                taskListItem.style.display = 'none'
-            }, 0)
-        })
 
-        taskListItem.addEventListener('dragend', () => {
-            setTimeout(() => {
-                draggedItem.style.display = 'block'
-                draggedItem = null
-            }, 0)
-        })
+            //DRAG & DROP feature
+            //all the individual task items
+            taskListItem.addEventListener('dragstart', () => {
+                draggedItem = taskListItem
+                draggedId = task.id
+                setTimeout(() => {
+                    taskListItem.style.display = 'none'
+                }, 0)
+            })
 
-        //All the to-do, in-progress and completed task panels
-        const allSection = document.querySelectorAll('.drag-zone')
-        allSection.forEach((each) => {
-            each.addEventListener('dragover', (e) => {
-                e.preventDefault()
+            taskListItem.addEventListener('dragend', () => {
+                taskListItem.classList.remove('dragged-item')
+                setTimeout(() => {
+                    draggedItem.style.display = 'block'
+                    draggedItem = null
+                    draggedId = null
+                }, 0)
             })
-            each.addEventListener('dragenter', (e) => {
-                e.preventDefault()
-                e.target.style.backgroundColor = '#FCFFE7'
-            })
-            each.addEventListener('dragleave', (e) => {
-                e.preventDefault()
-                e.target.style.backgroundColor = 'white'
-            })
-            each.addEventListener('drop', (e) => {
-                // debugger
-                console.log(draggedItem, 'dropped')
-                e.target.querySelector('ul').appendChild(draggedItem)
-                e.target.style.backgroundColor = 'white'
-                if (e.target.id === 'to-do-div') {
-                    statusSpan.dataset.status = 1
-                    statusSpan.innerHTML = '<i class="fa-solid fa-list-check"></i>'
-                    return axios
-                        .put(`/api/tasks/${task.id}/1`)
-                        .then((res) => {
-                            renderLeftPane(user)
-                        })
-                        .catch((err) => console.error(err))
-                } else if (e.target.id === 'in-progress-div') {
-                    statusSpan.dataset.status = 2
-                    statusSpan.innerHTML = '<i class="fa-solid fa-bars-progress"></i>'
-                    return axios
-                        .put(`/api/tasks/${task.id}/2`)
-                        .then((res) => {
-                            renderLeftPane(user)
-                        })
-                } else {
-                    statusSpan.dataset.status = 3
-                    statusSpan.innerHTML =
-                    '<i class="fa-solid fa-square-check"></i>'
-                    return axios
-                        .put(`/api/tasks/${task.id}/3`)
-                        .then((res) => {
-                            renderLeftPane(user)
-                        })
-                }
-            })
-        })
-////    
         } else {
             taskList.appendChild(taskListItem)
         }
+
+        if (task.projectName) {
+            const projectName = document.createElement('h6')
+            projectName.innerText = task.projectName
+            taskDiv.appendChild(projectName)
+        }
+
+        switch (task.status) {
+            case 3:
+                // completed
+                statusSpan.innerHTML =
+                    '<i class="fa-solid fa-square-check"></i>'
+                break
+            case 2:
+                // in progress
+                statusSpan.innerHTML =
+                    '<i class="fa-solid fa-bars-progress"></i>'
+                break
+            default:
+                // to-do
+                statusSpan.innerHTML = '<i class="fa-solid fa-list-check"></i>'
+                break
+        }
+
+        taskHeading.addEventListener('click', () => {
+            renderTaskDetails(task, tasksArray, projectTitle, projectID, user)
+        })
+        taskListItem.appendChild(taskDiv)
     }
+
+    //All the to-do, in-progress and completed task panels for drag & drop
+    allSection.forEach((each) => {
+        each.addEventListener('dragover', (e) => {
+            e.preventDefault()
+        })
+        each.addEventListener('dragenter', (e) => {
+            e.preventDefault()
+            each.style.backgroundColor = '#FCFFE7'
+        })
+        each.addEventListener('dragleave', (e) => {
+            e.preventDefault()
+            each.style.backgroundColor = 'white'
+        })
+        each.addEventListener('drop', () => {
+            each.querySelector('ul').append(draggedItem)
+            each.style.backgroundColor = 'white'
+            if (each.id === 'to-do-div') {
+                draggedItem.querySelector('.task-status').innerHTML =
+                    '<i class="fa-solid fa-list-check"></i>'
+
+                return axios
+                    .put(`/api/tasks/${draggedId}/1`)
+                    .then((res) => {
+                        renderLeftPane(user)
+                    })
+                    .catch((err) => console.error(err))
+            } else if (each.id === 'in-progress-div') {
+                draggedItem.querySelector('.task-status').innerHTML =
+                    '<i class="fa-solid fa-bars-progress"></i>'
+
+                return axios.put(`/api/tasks/${draggedId}/2`).then((res) => {
+                    renderLeftPane(user)
+                })
+            } else {
+                draggedItem.querySelector('.task-status').innerHTML =
+                    '<i class="fa-solid fa-square-check"></i>'
+
+                return axios.put(`/api/tasks/${draggedId}/3`).then((res) => {
+                    renderLeftPane(user)
+                })
+            }
+        })
+    })
+    ////
+
     if (!projectID) {
         tasksArrayDiv.appendChild(taskList)
         contentDiv.classList = ''
     }
 }
-// renderTaskDetails(task,tasksArray,projectTitle,projectID,user)
 
 export { renderTasks }

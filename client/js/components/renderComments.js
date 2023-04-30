@@ -54,7 +54,7 @@ const renderComments = (commentsData, taskDetailsDiv, task, user, projectTitle, 
       <input type="hidden" name="creation_date" value="${creation_date}" />
 
       <br>
-      <button type="submit" id="createCommentBtn">Add comment</button>
+      <button type="submit" class="btn btn-outline-danger mt-3 mb-3" id="createCommentBtn">Add comment</button>
     </form>
   `;
   

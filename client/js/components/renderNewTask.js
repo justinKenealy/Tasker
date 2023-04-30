@@ -1,6 +1,6 @@
 import {renderTasks} from "./renderTasks.js"
 
-const renderNewTaskForm = (tasksArray, projectTitle, projectID) => {
+const renderNewTaskForm = (tasksArray, projectTitle, projectID, user) => {
     const oldDisplay = document.querySelector('.display')
     if (oldDisplay) {
         oldDisplay.remove()
@@ -63,11 +63,11 @@ const renderNewTaskForm = (tasksArray, projectTitle, projectID) => {
 
     cancelIcon.addEventListener("click", () => display.remove())
     document.getElementById("create-task-form").addEventListener("submit", (event) => {
-        handleSubmitForm(event, tasksArray, projectTitle, projectID)
+        handleSubmitForm(event, tasksArray, projectTitle, projectID, user)
     })
 }
 
-const handleSubmitForm = (event, tasksArray, projectTitle, projectID) => {
+const handleSubmitForm = (event, tasksArray, projectTitle, projectID, user) => {
     event.preventDefault()
     document.querySelector('.display').remove()
     const formData = new FormData(event.target)
@@ -88,7 +88,7 @@ const handleSubmitForm = (event, tasksArray, projectTitle, projectID) => {
             const createdTask = JSON.parse(res.config.data)
             tasksArray.push(createdTask)
             console.log(tasksArray)
-            renderTasks(tasksArray, projectTitle, projectID)
+            renderTasks(tasksArray, projectTitle, projectID, user)
         })
         .catch(err => {
             console.log(err)

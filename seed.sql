@@ -41,7 +41,7 @@ VALUES (1, 'cookie_mons', 1, 'This task was completed perfectly.', '2022-04-25')
        (1, 'cookie_mons', 1, 'Can you please provide more details about this task?', '2022-04-26');
 
 
-INSERT INTO notes (user_id, title, description, creation_date)
-VALUES (1, 'Meeting notes', 'Notes from our meeting on 4/25', '2023-04-25'),
-       (1, 'Ideas for app', 'Brainstorming ideas for new features', '2023-04-27'),
-       (1, 'Project review', 'Important topics to review for the project', '2023-04-30');
+INSERT INTO notes (user_id, title, description)
+VALUES (1, 'Meeting notes', 'Notes from our meeting on 4/25'),
+       (1, 'Ideas for app', 'Brainstorming ideas for new features'),
+       (1, 'Project review', 'Important topics to review for the project');

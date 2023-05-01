@@ -70,5 +70,5 @@ CREATE TABLE notes (
         ON DELETE CASCADE,
   title TEXT,
   description TEXT,
-  creation_date DATE
+  time TIMESTAMPTZ DEFAULT Now()
 );

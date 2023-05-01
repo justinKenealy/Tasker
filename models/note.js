@@ -1,45 +1,42 @@
-const db = require('./index');
+const db = require('./index')
 
 const getAllNotes = () => {
-    return db
-    .query("SELECT * FROM notes;")
-    .then((result) => result.rows)
+  return db.query('SELECT * FROM notes ORDER BY time DESC;').then((result) => result.rows)
 }
 
 const getNotesByUserId = (id) => {
-    return db
-    .query("SELECT * FROM notes where user_id= $1;", [id])
-    .then((result) => result.rows);
-  };
+  return db
+    .query('SELECT * FROM notes where user_id= $1 ORDER BY time DESC;', [id])
+    .then((result) => result.rows)
+}
 
-const createNote = ( user_id, title, description, creation_date) => {
-    return db
-    .query(
-        "INSERT INTO notes ( user_id, title, description, creation_date) VALUES($1, $2, $3, $4) RETURNING *;", 
-        [user_id, title, description, creation_date]
-        )
+const createNote = (user_id, title, description) => {
+  return db
+    .query('INSERT INTO notes ( user_id, title, description) VALUES($1, $2, $3) RETURNING *;', [
+      user_id,
+      title,
+      description,
+    ])
     .then((result) => result.rows[0])
-  };
+}
 
-const updateNoteById = (id, user_id, title, description, creation_date) => {
-    return db
+const updateNoteById = (id, title, description) => {
+  return db
     .query(
-        "UPDATE notes SET user_id = $2, title = $3, description = $4, creation_date = $5 WHERE id = $1 RETURNING *;",
-        [id, user_id, title, description, creation_date]
-        )
+      'UPDATE notes SET title = $2, description = $3, time = NOW() WHERE id = $1 RETURNING *;',
+      [id, title, description]
+    )
     .then((result) => result.rows[0])
-  };
+}
 
 const deletetNoteById = (id) => {
-    return db
-    .query("DELETE from notes WHERE id=$1", [id])
-    .then(() => {});
-  };
+  return db.query('DELETE from notes WHERE id=$1', [id]).then(() => {})
+}
 
 module.exports = {
-    getAllNotes,
-    getNotesByUserId,
-    createNote,
-    updateNoteById,
-    deletetNoteById
-};
+  getAllNotes,
+  getNotesByUserId,
+  createNote,
+  updateNoteById,
+  deletetNoteById,
+}

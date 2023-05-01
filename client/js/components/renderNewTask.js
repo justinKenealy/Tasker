@@ -1,26 +1,26 @@
-import {renderTasks} from "./renderTasks.js"
+import { renderTasks } from './renderTasks.js'
 
 const renderNewTaskForm = (tasksArray, projectTitle, projectID, user) => {
-    const oldDisplay = document.querySelector('.display-bg')
-    if (oldDisplay) {
-        oldDisplay.remove()
-    }
-    const displayBg = document.createElement('div')
-    displayBg.className = 'display-bg'
-    const display = document.createElement('div')
-    display.className = 'display'
-    displayBg.append(display)
-    document.body.prepend(displayBg)
+  const oldDisplay = document.querySelector('.display-bg')
+  if (oldDisplay) {
+    oldDisplay.remove()
+  }
+  const displayBg = document.createElement('div')
+  displayBg.className = 'display-bg'
+  const display = document.createElement('div')
+  display.className = 'display'
+  displayBg.append(display)
+  document.body.prepend(displayBg)
 
-    const cancelIcon = document.createElement('i')
-    cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
+  const cancelIcon = document.createElement('i')
+  cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
 
-    const todayDate = new Date()
-    const timeZoneOffset = todayDate.getTimezoneOffset() * 60000
-    const todayFormatted = new Date(todayDate - timeZoneOffset).toISOString().slice(0, 10)
+  const todayDate = new Date()
+  const timeZoneOffset = todayDate.getTimezoneOffset() * 60000
+  const todayFormatted = new Date(todayDate - timeZoneOffset).toISOString().slice(0, 10)
 
-    const newTaskForm = document.createElement("div")
-    newTaskForm.innerHTML = `
+  const newTaskForm = document.createElement('div')
+  newTaskForm.innerHTML = `
     <form id="create-task-form" class="row g-3">
         <div class="col-12">
             <input type="hidden" name="project-id" value="${projectID}"></input>
@@ -62,41 +62,42 @@ const renderNewTaskForm = (tasksArray, projectTitle, projectID, user) => {
         </div
     </form>
     `
-    display.appendChild(cancelIcon)
-    display.appendChild(newTaskForm)
+  display.appendChild(cancelIcon)
+  display.appendChild(newTaskForm)
 
-    cancelIcon.addEventListener("click", () => displayBg.remove())
-    document.getElementById("create-task-form").addEventListener("submit", (event) => {
-        handleSubmitForm(event, tasksArray, projectTitle, projectID, user)
-    })
+  cancelIcon.addEventListener('click', () => displayBg.remove())
+  document.getElementById('create-task-form').addEventListener('submit', (event) => {
+    handleSubmitForm(event, tasksArray, projectTitle, projectID, user)
+  })
 }
 
 const handleSubmitForm = (event, tasksArray, projectTitle, projectID, user) => {
-    event.preventDefault()
-    document.querySelector('.display-bg').remove()
-    const formData = new FormData(event.target)
+  event.preventDefault()
+  document.querySelector('.display-bg').remove()
+  const formData = new FormData(event.target)
 
-    const data = {
-        project_id: formData.get('project-id'),
-        name: formData.get('name'),
-        description: formData.get('description'),
-        creation_date: formData.get('creation-date'),
-        due_date: formData.get('due-date'),
-        due_time: formData.get('due-time'),
-        priority_level: formData.get('priority-level'),
-        status: Number(formData.get('status'))
-    }
+  const data = {
+    project_id: formData.get('project-id'),
+    name: formData.get('name'),
+    description: formData.get('description'),
+    creation_date: formData.get('creation-date'),
+    due_date: formData.get('due-date'),
+    due_time: formData.get('due-time'),
+    priority_level: formData.get('priority-level'),
+    status: Number(formData.get('status')),
+  }
 
-    return axios.post('/api/tasks', data)
-        .then(res => {
-            const createdTask = JSON.parse(res.config.data)
-            tasksArray.push(createdTask)
-            console.log(tasksArray)
-            renderTasks(tasksArray, projectTitle, projectID, user)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+  return axios
+    .post('/api/tasks', data)
+    .then((res) => {
+      const createdTask = JSON.parse(res.config.data)
+      tasksArray.push(createdTask)
+      console.log(tasksArray)
+      renderTasks(tasksArray, projectTitle, projectID, user)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 export default renderNewTaskForm

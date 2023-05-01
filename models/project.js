@@ -1,21 +1,25 @@
-const db = require("./index")
+const db = require('./index')
 
 const getProjectsByUser = (user_id) => {
-    return db.query(`
+  return db
+    .query(
+      `
         SELECT id, user_id, category, name, task_type, collab 
         FROM projects 
         WHERE user_id = ${user_id} OR ${user_id} = ANY(collab)
-        `)
-        .then(result => result.rows);
+        `
+    )
+    .then((result) => result.rows)
 }
 
 const createProject = (user_id, collab, category, name, task_type) => {
-    const sql = 'INSERT INTO projects (user_id, collab, category, name, task_type) VALUES($1, $2, $3, $4, $5) RETURNING id;';
-    return db.query(sql, [user_id, collab, category, name, task_type])
-}   
+  const sql =
+    'INSERT INTO projects (user_id, collab, category, name, task_type) VALUES($1, $2, $3, $4, $5) RETURNING id;'
+  return db.query(sql, [user_id, collab, category, name, task_type])
+}
 
 const deleteProject = (id) => {
-    return db.query('DELETE from projects WHERE id=$1', [id])
+  return db.query('DELETE from projects WHERE id=$1', [id])
 }
 
 // const updateProject = (collab, category, name, task_type, id) => {
@@ -24,13 +28,18 @@ const deleteProject = (id) => {
 // }
 
 const updateProject = (name, category, id) => {
-    const sql = `UPDATE projects SET name = $1, category = $2 WHERE id = $3;`
-    return db.query(sql, [name, category, id])
+  const sql = `UPDATE projects SET name = $1, category = $2 WHERE id = $3;`
+  return db.query(sql, [name, category, id])
 }
 
+const updateProjectCollab = (id) => {
+  const sql = `UPDATE projects SET collab = ARRAY_REMOVE(collab, $1)`
+  return db.query(sql, [id])
+}
 module.exports = {
-    getProjectsByUser,
-    createProject,
-    updateProject,
-    deleteProject
+  getProjectsByUser,
+  createProject,
+  updateProject,
+  deleteProject,
+  updateProjectCollab,
 }

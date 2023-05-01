@@ -1,8 +1,8 @@
-const { Pool } = require('pg');
+const { Pool } = require('pg')
 
 const db = new Pool({
-    database: 'tasker',
-	password: 'password',
-});
+  database: 'tasker',
+  password: 'password',
+})
 
-module.exports = db;
+module.exports = db

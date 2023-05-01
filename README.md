@@ -2,6 +2,7 @@
 
 Tasker is a task management web app built with Node.js, Express, JavaScript, HTML, Bootstrap, and CSS. The app allows users to create an account, add friends, and create individual or group projects for work, study, or personal use. Users can assign friends to their projects and create tasks within each project. Tasks can be moved from to-do to in-progress and completed sections using drag and drop in a kanban style.
 
+## Table of Contents
 <!-- toc -->
 - [Authors](#authors)
 - [Features](#features)
@@ -12,14 +13,14 @@ Tasker is a task management web app built with Node.js, Express, JavaScript, HTM
 
 <!-- tocstop -->
 
-## Authors 
+### Authors 
 
 - https://github.com/justinKenealy
 - https://github.com/Tania-Hss
 - https://github.com/Munsat 
 - https://github.com/poradaT
 
-## Features
+### Features
 
 - User authentication: Users can log in, create an account, and add friends who are also users of the app. We also use reCAPTCHA for added security during the account authentication process.
 

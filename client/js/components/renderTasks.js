@@ -236,4 +236,4 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
   }
 }
 
-export { renderTasks }
+export { renderTasks, renderTaskDetails }

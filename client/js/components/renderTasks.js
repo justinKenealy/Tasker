@@ -227,7 +227,7 @@ const renderTasks = (tasksArray, projectTitle, projectID, user) => {
       document.getElementById('main-content').classList -= 'kanban-notes'
       const notask = document.createElement('p')
       notask.classList.add('no-task')
-      notask.textContent = 'Relax! Nothing to do today.'
+      notask.textContent = 'No more tasks to complete.'
       tasksArrayDiv.appendChild(notask)
     } else {
       tasksArrayDiv.appendChild(taskList)

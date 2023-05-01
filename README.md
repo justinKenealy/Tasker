@@ -1,20 +1,17 @@
 # Tasker 
 
-Tasker is a task management web app built with Node.js, Express, JavaScript, HTML, Bootstrap, and CSS. The app allows users to create an account, add friends, and create individual or group projects for work, study, or personal use. Users can assign friends to their projects and create tasks within each project. Tasks can be moved from to-do to in-progress and completed sections using drag and drop in a kanban style.
+Tasker (TSKR) is a task management web app built with Node.js, Express, JavaScript, HTML, Bootstrap, and CSS. The app allows users to create an account, add friends, and create individual or group projects for work, study, or personal use. Users can assign friends to their projects and create tasks within each project. Tasks can be moved from to-do to in-progress and completed sections using drag and drop in a kanban style.
 
 ## Table of Contents
 <!-- toc -->
 - [Authors](#authors)
 - [Features](#features)
-* [Database Schema](#database-schema)
-* [How to Run the App](#how-to-run-the-app)
-+ [Terminal Commands](#terminal-commands)
-- [To format code with prettier:](#to-format-code-with-prettier)%   
+- [Database Schema](#database-schema)
+- [How to Run the App](#how-to-run-the-app)
 
 <!-- tocstop -->
 
 ### Authors 
-
 - https://github.com/justinKenealy
 - https://github.com/Tania-Hss
 - https://github.com/Munsat 
@@ -22,7 +19,7 @@ Tasker is a task management web app built with Node.js, Express, JavaScript, HTM
 
 ### Features
 
-- User authentication: Users can log in, create an account, and add friends who are also users of the app. We also use reCAPTCHA for added security during the account authentication process.
+- User authentication: Users can log in, create an account, and add friends who are also users of the app. The app uses reCAPTCHA for added security during the account authentication process.
 
 - Project creation: Users can create projects for work, study, or personal purposes and can choose whether the project is an individual or group project.
 
@@ -34,7 +31,7 @@ Tasker is a task management web app built with Node.js, Express, JavaScript, HTM
 
 - Middleware: The app uses middleware for HTTP logging and error handling.
 
-- Testing: The functionality of the app has been tested using the Jest testing framework.
+- Testing: Password management functionality has been tested using the Jest testing framework.
 
 ### Database Schema
 The app uses PostgreSQL for the database and has the following schema:
@@ -106,7 +103,7 @@ CREATE TABLE notes (
         ON DELETE CASCADE,
   title TEXT,
   description TEXT,
-  creation_date DATE
+  time TIMESTAMPTZ DEFAULT Now()
 );
 ```
 
@@ -116,27 +113,3 @@ CREATE TABLE notes (
 3. Set up PostgreSQL database and run the schema.
 4. Run npm start to start the server.
 5. Open your browser and go to http://localhost:3000 to access the app.
-
-#### Terminal Commands   
-- npm init -y
-- npm i express
-- npm install bcrypt
-- npm i dotenv
-- npm i express-session
-- npm i connect-pg-simple
-- npm i pg
-- npm install --save-dev nodemon
-- npm i --save-dev jest
-- npm install --save-dev --save-exact prettier
-- npm install -g markdown-toc
-- createdb tasker
-
-##### To format code with prettier:
-npx prettier --write . OR npx prettier --write app.js (or similar)
-for an individual file. 
-
-Or, from inside VSC:
-1. CMD + Shift + P -> Format Document
-- OR
-1. Select the text you want to Prettify
-2. CMD + Shift + P -> Format Selection

@@ -12,24 +12,23 @@ router.get("/notes/:id", (req, res, next) => {
     id = Number(req.params.id);
     return getNotesByUserId(id)
     .then((notes) => {
-    const sortedNotes = notes.sort((a, b) => b.creation_date - a.creation_date)
-    res.json(sortedNotes)
+    res.json(notes)
     })
     .catch((err) => next(err))
   });
 
 router.post("/notes", (req, res, next) => {
-    const { user_id, title, description, creation_date } = req.body
+    const { user_id, title, description } = req.body
     id = Number(req.params.id);
-    return createNote( user_id, title, description, creation_date)
+    return createNote( user_id, title, description)
     .then((note) => res.json(note))
     .catch((err) => next(err))
 })
 
 router.put("/notes/:id", (req, res, next) => {
-    const { user_id, title, description, creation_date } = req.body
+    const { title, description } = req.body
     id = Number(req.params.id);
-    return updateNoteById( id, user_id, title, description, creation_date)
+    return updateNoteById( id, title, description)
     .then((note) => res.json(note))
     .catch((err) => next(err))
 })

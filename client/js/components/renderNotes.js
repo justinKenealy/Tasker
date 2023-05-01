@@ -11,7 +11,6 @@ const renderNotes = (user_id) => {
         .get(`/api/notes/${user_id}`)
         .then((response) => {
             const notes = response.data
-
             if (notes.length === 0) {
                 const noNote = document.createElement('p')
                 noNote.classList.add('no_note')
@@ -27,18 +26,15 @@ const renderNotes = (user_id) => {
                 mainContent.appendChild(noNote)
                 noNote.appendChild(addButton)
             } else {
-                
-
                 notes.forEach((note, i) => {
                     const noteDiv = document.createElement('div')
                     noteDiv.classList.add('note')
                     noteDiv.id = note.id
 
                     const creationDate = document.createElement('p')
-                    const date = new Date(
-                        note.creation_date
-                    ).toLocaleDateString()
-                    creationDate.textContent = date
+                    const date = new Date(note.time).toLocaleDateString()
+                    const time = new Date(note.time).toLocaleTimeString('en-US')
+                    creationDate.textContent = `${date}, ${time}`
                     creationDate.classList.add('creationDate')
                     noteDiv.appendChild(creationDate)
 
@@ -98,31 +94,31 @@ const renderNotes = (user_id) => {
 }
 
 const showCreateNoteFormPopup = (user_id) => {
+    const displayBg = document.createElement('div')
+    displayBg.className = 'display-bg'
     const display = document.createElement('div')
     display.className = 'display'
-    document.body.prepend(display)
+    displayBg.append(display)
+    document.body.prepend(displayBg)
 
     const cancelIcon = document.createElement('i')
     cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
 
     const newNoteForm = document.createElement('div')
-    const creation_date = moment().format('YYYY-MM-DD')
     newNoteForm.innerHTML = `
-      <form id="create-note-form">
-        <div class="popup-content">
-          <p>
-            <label for="title">Note Title</label></br>
-            <input type="text" name="title"></input>
-          </p>
-          <p>
-            <label for="description">Description</label><br>
-            <textarea name="description"></textarea>
-          </p>
-          
-          <input type="hidden" name="creation_date" value="${creation_date}"></input>
-          <input type="hidden" name="user_id" value="${user_id}"></input>
-  
-          <button type="submit" id="createNoteBtn">Create Note</button>
+      <form id="create-note-form" class="row g-3">
+            <div class="col-12">
+                <label for="title" class="form-label">Note Title</label>
+                <input type="text" name="title" class='form-control' required></input>
+            </div>
+            <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" class='form-control' required></textarea>
+            </div>
+            <input type="hidden" name="user_id" value="${user_id}"></input>
+            <div class='d-grid gap-2 col-6 mx-auto'>
+                <button type="submit" id="createNoteBtn" class='btn btn-outline-light mt-3 mb-3'>Create Note</button>
+            </div>
         </div>
       </form>
     `
@@ -131,7 +127,7 @@ const showCreateNoteFormPopup = (user_id) => {
     display.appendChild(newNoteForm)
 
     cancelIcon.addEventListener('click', () => {
-        display.remove()
+        displayBg.remove()
     })
 
     const createNoteBtn = document.getElementById('createNoteBtn')
@@ -145,13 +141,12 @@ const showCreateNoteFormPopup = (user_id) => {
             user_id: formData.get('user_id'),
             title: formData.get('title'),
             description: formData.get('description'),
-            creation_date: formData.get('creation_date'),
         }
         axios
             .post(`/api/notes/`, body)
             .then((res) => {
                 console.log(res)
-                display.remove()
+                displayBg.remove()
                 renderNotes(user_id)
             })
             .catch((err) => {
@@ -161,30 +156,30 @@ const showCreateNoteFormPopup = (user_id) => {
 }
 
 const showEditNoteFormPopup = (user_id, note) => {
+    const displayBg = document.createElement('div')
+    displayBg.className = 'display-bg'
     const display = document.createElement('div')
     display.className = 'display'
-    document.body.prepend(display)
+    displayBg.append(display)
+    document.body.prepend(displayBg)
 
     const cancelIcon = document.createElement('i')
     cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
 
     const editNoteForm = document.createElement('div')
     editNoteForm.innerHTML = `
-      <form id="edit-note-form">
-        <div class="popup-content">
-          <p>
-            <label for="title">Note Title</label></br>
-            <input type="text" name="title" value="${note.title}"></input>
-          </p>
-          <p>
-            <label for="description">Description</label><br>
-            <textarea name="description">${note.description}</textarea>
-          </p>
-  
-          <input type="hidden" name="creation_date" value="${note.creation_date}"></input>
-          <input type="hidden" name="user_id" value="${user_id}"></input>
-  
-          <button type="submit" id="editNoteBtn">Update Note</button>
+      <form id="edit-note-form" class="row g-3">
+            <div class="col-12">
+                <label for="title" class="form-label">Note Title</label>
+                <input type="text" name="title" class='form-control' value="${note.title}"></input>
+            </div>
+            <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" class='form-control'>${note.description}</textarea>
+            </div>
+            <div class='d-grid gap-2 col-6 mx-auto'>
+                <button type="submit" id="editNoteBtn" class='btn btn-outline-light mt-3 mb-3'>Update Note</button>
+            </div>
         </div>
       </form>
     `
@@ -193,27 +188,21 @@ const showEditNoteFormPopup = (user_id, note) => {
     display.appendChild(editNoteForm)
 
     cancelIcon.addEventListener('click', () => {
-        display.remove()
+        displayBg.remove()
     })
-
-    const editNoteBtn = document.getElementById('editNoteBtn')
-    editNoteBtn.classList = 'btn btn-outline-light mt-3 mb-3'
 
     const form = editNoteForm.querySelector('#edit-note-form')
     form.addEventListener('submit', (event) => {
         event.preventDefault()
         const formData = new FormData(form)
         const body = {
-            user_id: formData.get('user_id'),
             title: formData.get('title'),
             description: formData.get('description'),
-            creation_date: formData.get('creation_date'),
         }
         axios
             .put(`/api/notes/${note.id}`, body)
             .then((res) => {
-                console.log(res)
-                display.remove()
+                displayBg.remove()
                 renderNotes(user_id)
             })
             .catch((err) => {

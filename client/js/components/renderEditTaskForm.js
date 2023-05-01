@@ -3,13 +3,16 @@ import renderTaskDetails from "./renderTaskDetails.js";
 import { renderTasks } from "./renderTasks.js";
 
 const renderEditTask = (task, tasksArray, projectID, projectTitle, user) => {
-    const oldDisplay = document.querySelector('.display')
+    const oldDisplay = document.querySelector('.display-bg')
     if (oldDisplay) {
         oldDisplay.remove()
     } 
-    const display = document.createElement("div");
-    display.className = "display";
-    document.body.prepend(display);
+    const displayBg = document.createElement('div')
+    displayBg.className = 'display-bg'
+    const display = document.createElement('div')
+    display.className = 'display'
+    displayBg.append(display)
+    document.body.prepend(displayBg)
 
     const cancelIcon = document.createElement('i')
     cancelIcon.className = 'fa-solid fa-xmark cancel-icon'
@@ -57,7 +60,7 @@ const renderEditTask = (task, tasksArray, projectID, projectTitle, user) => {
     display.appendChild(cancelIcon)
     display.appendChild(editTaskForm)
 
-    cancelIcon.addEventListener("click", () => display.remove())
+    cancelIcon.addEventListener("click", () => displayBg.remove())
     document.getElementById("edit-task-form").addEventListener("submit", (event) => {
         handleSubmitForm(event, task, tasksArray, projectID, projectTitle, user )
     })
@@ -66,7 +69,7 @@ const renderEditTask = (task, tasksArray, projectID, projectTitle, user) => {
 
 const handleSubmitForm = (event, task, tasksArray, projectID, projectTitle, user) => {
     event.preventDefault()
-    document.querySelector('.display').remove()
+    document.querySelector('.display-bg').remove()
     const formData = new FormData(event.target)
     const taskId = formData.get('task-id')
 

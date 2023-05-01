@@ -1,7 +1,7 @@
 import renderLeftPane from "./renderLeftPane.js"
 
 const renderFriendProfile = (user) => {
-    const oldDisplay = document.querySelector('.display')
+    const oldDisplay = document.querySelector('.display-bg')
     if (oldDisplay) {
         oldDisplay.remove()
     }
@@ -27,9 +27,12 @@ const renderFriendProfile = (user) => {
             }
         })
     })
+    const displayBg = document.createElement('div')
+    displayBg.className = 'display-bg'
     const display = document.createElement('div')
     display.className = 'display'
-    document.body.prepend(display)
+    displayBg.append(display)
+    document.body.prepend(displayBg)
 
     const error = document.createElement('section')
     error.id = 'errors'
@@ -94,7 +97,7 @@ const renderFriendProfile = (user) => {
     display.appendChild(buttonHolder)
     display.appendChild(form)
 
-    cancelIcon.addEventListener('click', () => display.remove())
+    cancelIcon.addEventListener('click', () => displayBg.remove())
     addBtn.addEventListener('click', () => {
         if (form.style.display === 'none') {
             form.style.display = 'block'

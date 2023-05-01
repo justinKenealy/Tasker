@@ -35,6 +35,7 @@ body{
 
 #main-content{
     grid-area: 3/2/4/3;
+    overflow-y: auto;
 }
 
 #left-pane {
@@ -63,8 +64,8 @@ body{
 .display{
     background-color: #BAD7E9;
     position: fixed;
-    padding:1rem;
-    width: 25rem;
+    padding:3rem;
+    width: 30rem;
     aspect-ratio: 1;
     z-index: 1000;
     display: flex;
@@ -76,6 +77,15 @@ body{
     left: 50%;
     border-radius: 20px;
     transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+.display-bg{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(136, 136, 136, 0.183);
+    z-index: 100;
 }
 
 .cancel-icon{

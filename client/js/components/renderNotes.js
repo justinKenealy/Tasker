@@ -1,5 +1,5 @@
 const renderNotes = (user_id) => {
-    const display = document.querySelector('.display')
+    const display = document.querySelector('.display-bg')
     if (display) {
         display.remove()
     }

@@ -7,7 +7,7 @@ const renderHeader = (user) => {
     const header1 = document.getElementById('header-nav')
     const header2 = document.getElementById('lower-nav')
 
-    const display = document.querySelector('.display')
+    const display = document.querySelector('.display-bg')
     if (display) {
         display.remove()
     }

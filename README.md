@@ -5,6 +5,7 @@ Tasker (TSKR) is a task management web app built with Node.js, Express, JavaScri
 ## Table of Contents
 <!-- toc -->
 - [Authors](#authors)
+- [Screenshots](#screenshots)
 - [Features](#features)
 - [Database Schema](#database-schema)
 - [How to Run the App](#how-to-run-the-app)
@@ -16,6 +17,16 @@ Tasker (TSKR) is a task management web app built with Node.js, Express, JavaScri
 - https://github.com/Tania-Hss
 - https://github.com/Munsat 
 - https://github.com/poradaT
+
+### Screenshots
+<div>
+  <img src="./screenshots/tasker1.png" alt="tasker entry page" width="49%" style="display: inline-block;">
+  <img src="./screenshots/tasker2.png" alt="tasker screenshot" width="49%" style="display: inline-block;">
+  <img src="./screenshots/tasker3.png" alt="tasker screenshot" width="49%" style="display: inline-block;">
+  <img src="./screenshots/tasker4.png" alt="tasker screenshot" width="49%" style="display: inline-block;">
+  <img src="./screenshots/tasker5.png" alt="tasker screenshot" width="49%" style="display: inline-block;">
+  <img src="./screenshots/tasker6.png" alt="tasker screenshot" width="49%" style="display: inline-block;">
+</div>
 
 ### Features
 
@@ -113,3 +124,12 @@ CREATE TABLE notes (
 3. Set up PostgreSQL database and run the schema.
 4. Run npm start to start the server.
 5. Open your browser and go to http://localhost:3000 to access the app.
+
+### Testing
+
+This project includes a suite of tests to ensure its functionality. The tests are written using the jest framework and can be executed as follows:
+
+1. Ensure all project dependencies are installed: `npm install` in the root directory
+2. Run the testing command `npm test`
+
+Each test file contains multiple test cases, which are written using the 'descriobe', 'expect', and 'it' syntaxes. Within each test case, assertions are made using various testing methods to verify the expected behavior of the code.
